@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		54461B744FBC051E051DADA6 /* Pods_Swift_API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74FFB27ACEFD67D09EE3D469 /* Pods_Swift_API.framework */; };
 		5812FBB3DD48E3EB668FCC6F /* Pods_Swift_APITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B69FFDABF255D6D8254A21 /* Pods_Swift_APITests.framework */; };
+		EA0C192A1E0020FA00340E2E /* SwiftAPIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C19291E0020FA00340E2E /* SwiftAPIDelegate.swift */; };
 		EAF213A31DFFF97F009D7861 /* Swift-API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF213991DFFF97E009D7861 /* Swift-API.framework */; };
 		EAF213A81DFFF97F009D7861 /* Swift_APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF213A71DFFF97F009D7861 /* Swift_APITests.swift */; };
 		EAF213AA1DFFF97F009D7861 /* Swift-API.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF2139C1DFFF97E009D7861 /* Swift-API.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +30,7 @@
 		508FF6AD47C663D9CB321E93 /* Pods-Swift-APITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift-APITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swift-APITests/Pods-Swift-APITests.release.xcconfig"; sourceTree = "<group>"; };
 		6DB9C15B965FBA0F2F084EFF /* Pods-Swift-APITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift-APITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Swift-APITests/Pods-Swift-APITests.debug.xcconfig"; sourceTree = "<group>"; };
 		74FFB27ACEFD67D09EE3D469 /* Pods_Swift_API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swift_API.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA0C19291E0020FA00340E2E /* SwiftAPIDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAPIDelegate.swift; path = Protocols/SwiftAPIDelegate.swift; sourceTree = "<group>"; };
 		EAF213991DFFF97E009D7861 /* Swift-API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Swift-API.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF2139C1DFFF97E009D7861 /* Swift-API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swift-API.h"; sourceTree = "<group>"; };
 		EAF2139D1DFFF97E009D7861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		EA0C19271E00115900340E2E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				EA0C19291E0020FA00340E2E /* SwiftAPIDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 					EAF213981DFFF97E009D7861 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = MHNNR8L946;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					EAF213A11DFFF97F009D7861 = {
@@ -329,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA0C192A1E0020FA00340E2E /* SwiftAPIDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7E38D8157F70BDF3C8840AB /* Pods-Swift-API.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
@@ -466,6 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.xsolve.Swift-API";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -474,6 +481,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ECE491DA2F464DF654B0A2E5 /* Pods-Swift-API.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
@@ -494,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DB9C15B965FBA0F2F084EFF /* Pods-Swift-APITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
 				INFOPLIST_FILE = "Swift-APITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -507,6 +516,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 508FF6AD47C663D9CB321E93 /* Pods-Swift-APITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
 				INFOPLIST_FILE = "Swift-APITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
