@@ -65,7 +65,7 @@ else
     exit 1
 fi
 
-echo "${yellow}Deleting last tag...${endColor}"
+echo "${yellow}Deleting tag ${last_tag}...${endColor}"
 #Remove last tag locally
 if [ -n "$verbosed" ]; then
     git tag -d $last_tag
@@ -79,7 +79,7 @@ else
     git push origin :refs/tags/$last_tag &> /dev/null
 fi
 
-echo "${yellow}Adding tag to last commit...${endColor}"
+echo "${yellow}Adding tag $last_tag to last commit...${endColor}"
 #Add last tag to last commit
 if [ -n "$verbosed" ]; then
     git tag -a $last_tag $last_commit -m "Moved tag to newest commit"
