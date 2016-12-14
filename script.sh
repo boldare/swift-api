@@ -103,12 +103,12 @@ fi
 words=($(echo "$validation" | tail -1))
 if [ "${words[1]}" = "passed" ]; then
     echo "${yellow}Pushing pod repo...${endColor}"
-    pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries | tail -1)
+    pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries)
     if [ -n "$verbosed" ]; then
         echo "$pushing"
     fi
 
-    words=($pushing)
+    words=($(echo "$pushing" | tail -1))
     if [ "${words[0]}" = "error:" ]; then
         echo "${yellow}Pushing ${spec_branch_name} manually...${endColor}"
         start_path=$(pwd)
