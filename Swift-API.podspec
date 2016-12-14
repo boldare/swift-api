@@ -59,6 +59,8 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
+  s.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :tag => "#{s.version}" }
+  
   s.subspec 'Release' do |r|
     r.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "master", :tag => "#{s.version}" }
   end
