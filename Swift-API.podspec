@@ -1,7 +1,4 @@
 #
-#  Be sure to run `pod spec lint Swift-API.podspec' to ensure this is a
-#  valid spec and to remove all comments including this before submitting the spec.
-#
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
 #  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
 #
@@ -18,16 +15,8 @@ Pod::Spec.new do |s|
   s.name         = "Swift-API"
   s.version      = "0.0.1"
   s.summary      = "Swift-API XSolve module."
-
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = "Swift-API - internal XSolve library for API, written in Swift 3."
-
   s.homepage     = "https://github.com/xsolve-pl/"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -37,7 +26,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.license = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -50,10 +39,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Marek Kojder" => "marek.kojder@xsolve.pl" }
-  # Or just: s.author    = "Marek Kojder"
-  # s.authors            = { "Marek Kojder" => "marek.kojder@xsolve.pl" }
-  # s.social_media_url   = "http://twitter.com/Marek Kojder"
+  s.authors = { "Marek Kojder" => "marek.kojder@xsolve.pl",
+                "Sławomir Zagórski" => "slawomir.zagorski@xsolve.pl",
+                "Radosław Budzik" => "radoslaw.budzik@xsolve.pl"}
+ 
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -61,14 +50,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios
-  s.platform     = :ios, "8.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
+  s.platform = :ios, "8.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -77,7 +59,15 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "git@github.com:xsolve-pl/swift-api.git", :tag => "#{s.version}" }
+  s.subspec 'Release' do |r|
+    r.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "master", :tag => "#{s.version}" }
+  end
+
+  s.subspec 'Beta' do |b|
+    b.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "develop", :tag => "beta" }
+  end
+
+  s.default_subspec = 'Release'
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,8 +81,6 @@ Pod::Spec.new do |s|
   s.source_files = "Swift-API/**/*.{h,swift}"
   #s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
-
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -104,7 +92,6 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
@@ -114,11 +101,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  s.framework  = "Foundation"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
-
-  # s.library   = "iconv"
-  # s.libraries = "iconv", "xml2"
+  s.frameworks = "Foundation"
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -128,8 +111,6 @@ Pod::Spec.new do |s|
   #  you can include multiple dependencies to ensure it works.
 
   s.requires_arc = true
-
-  # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
 
 end
