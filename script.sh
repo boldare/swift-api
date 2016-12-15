@@ -51,13 +51,23 @@ while test $# -gt 0; do
         esac
 done
 
-last_commit=$(git log --pretty=format:"%H" -1)
-last_tag=$(git tag -l | tail -1)
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-spec_file=$(ls | grep '\.podspec$' | sed -n 1p)
+last_commit=$(git log --pretty=format:"%H" -1)
+last_tag=""
+spec_file=""
 
+if [ "$current_branch" = "master" ]; then
+    last_tag=$(git tag -l | tail -1)
+    spec_file=$(ls | grep '\.podspec$' | sed -n 1p)
+elif [ "$current_branch" = "develop" ]; then
+    last_tag=$(git tag -l | sed -e '/beta/!d' | tail -1)
+    spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/!d' | sed -n 1p)
+else
+    echo "${red}${current_branch} does not match to any of release branches! Checkout to master or develop.${endColor}"
+    exit 1
+fi
 
-echo "${yellow}Deleting last tag...${endColor}"
+echo "${yellow}Deleting tag ${last_tag}...${endColor}"
 #Remove last tag locally
 if [ -n "$verbosed" ]; then
     git tag -d $last_tag
@@ -71,7 +81,7 @@ else
     git push origin :refs/tags/$last_tag &> /dev/null
 fi
 
-echo "${yellow}Adding tag to last commit...${endColor}"
+echo "${yellow}Adding tag $last_tag to last commit...${endColor}"
 #Add last tag to last commit
 if [ -n "$verbosed" ]; then
     git tag -a $last_tag $last_commit -m "Moved tag to newest commit"
@@ -95,12 +105,12 @@ fi
 words=($(echo "$validation" | tail -1))
 if [ "${words[1]}" = "passed" ]; then
     echo "${yellow}Pushing pod repo...${endColor}"
-    pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries | tail -1)
+    pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries)
     if [ -n "$verbosed" ]; then
         echo "$pushing"
     fi
 
-    words=($pushing)
+    words=($(echo "$pushing" | tail -1))
     if [ "${words[0]}" = "error:" ]; then
         echo "${yellow}Pushing ${spec_branch_name} manually...${endColor}"
         start_path=$(pwd)
