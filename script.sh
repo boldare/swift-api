@@ -51,15 +51,17 @@ while test $# -gt 0; do
         esac
 done
 
-spec_file=$(ls | grep '\.podspec$' | sed -n 1p)
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 last_commit=$(git log --pretty=format:"%H" -1)
 last_tag=""
+spec_file=""
 
 if [ "$current_branch" = "master" ]; then
     last_tag=$(git tag -l | tail -1)
+    spec_file=$(ls | grep '\.podspec$' | sed -n 1p)
 elif [ "$current_branch" = "develop" ]; then
-    last_tag=$(git tag -l |sed -e '/beta/!d' | tail -1)
+    last_tag=$(git tag -l | sed -e '/beta/!d' | tail -1)
+    spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/!d' | sed -n 1p)
 else
     echo "${red}${current_branch} does not match to any of release branches! Checkout to master or develop.${endColor}"
     exit 1
