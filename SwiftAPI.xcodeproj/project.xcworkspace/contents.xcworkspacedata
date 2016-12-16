@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Swift-API.xcodeproj">
+      location = "self:SwiftAPI.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,15 +1,15 @@
 //
-//  Swift_APITests.swift
-//  Swift-APITests
+//  SwiftAPITests.swift
+//  SwiftAPITests
 //
-//  Created by Marek Kojder on 13.12.2016.
+//  Created by Marek Kojder on 16.12.2016.
 //  Copyright © 2016 XSolve. All rights reserved.
 //
 
 import XCTest
-@testable import Swift_API
+@testable import SwiftAPI
 
-class Swift_APITests: XCTestCase {
+class SwiftAPITests: XCTestCase {
     
     override func setUp() {
         super.setUp()

@@ -1,10 +1,10 @@
 platform :ios, '8.0'
 
-target 'Swift-API' do
+target 'SwiftAPI' do
   use_frameworks!
-  # Pods for Swift-API
+  # Pods for SwiftAPI
 
-  target 'Swift-APITests' do
+  target 'SwiftAPITests' do
     inherit! :search_paths
     # Pods for testing
 

@@ -12,10 +12,10 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "Swift-API"
+  s.name         = "SwiftAPI"
   s.version      = "0.0.1"
-  s.summary      = "Swift-API XSolve module."
-  s.description  = "Swift-API - internal XSolve library for API, written in Swift 3."
+  s.summary      = "SwiftAPI XSolve module."
+  s.description  = "SwiftAPI - internal XSolve library for API, written in Swift 3."
   s.homepage     = "https://github.com/xsolve-pl/"
 
 
@@ -59,7 +59,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "master", :tag => "#{s.version}" }
+  s.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "develop", :tag => s.version.to_s + "-beta" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files = "Swift-API/**/*.{h,swift}"
+  s.source_files = "SwiftAPI/**/*.{h,swift}"
   #s.exclude_files = "Classes/Exclude"
 
 
