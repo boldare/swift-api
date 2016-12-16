@@ -12,6 +12,7 @@ enum HttpMethod<Body> {
     case get
     case post(Body)
     case put(Body)
+    case patch(Body)
     case delete
 }
 
@@ -26,6 +27,9 @@ extension HttpMethod {
 
         case .put:
             return "PUT"
+
+        case .patch:
+            return "PATCH"
 
         case .delete:
             return "DELETE"
@@ -42,6 +46,9 @@ extension HttpMethod {
 
         case .put(let body):
             return .put(f(body))
+
+        case .patch(let body):
+            return .patch(f(body))
 
         case .delete:
             return .delete

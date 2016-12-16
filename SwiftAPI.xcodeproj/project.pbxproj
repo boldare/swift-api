@@ -110,8 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				EA06583A1E03EDF600B46CEA /* Implementation */,
-				EA0658141E03EBF000B46CEA /* SwiftAPI.h */,
-				EA0658151E03EBF000B46CEA /* Info.plist */,
+				EA06583B1E04051F00B46CEA /* SupportingFiles */,
 			);
 			path = SwiftAPI;
 			sourceTree = "<group>";
@@ -133,6 +132,15 @@
 				EA0658361E03EDF000B46CEA /* Webservice.swift */,
 			);
 			name = Implementation;
+			sourceTree = "<group>";
+		};
+		EA06583B1E04051F00B46CEA /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				EA0658141E03EBF000B46CEA /* SwiftAPI.h */,
+				EA0658151E03EBF000B46CEA /* Info.plist */,
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
