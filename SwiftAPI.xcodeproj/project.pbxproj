@@ -12,9 +12,6 @@
 		EA06581B1E03EBF000B46CEA /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0658111E03EBF000B46CEA /* SwiftAPI.framework */; };
 		EA0658201E03EBF000B46CEA /* SwiftAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06581F1E03EBF000B46CEA /* SwiftAPITests.swift */; };
 		EA0658221E03EBF000B46CEA /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA0658141E03EBF000B46CEA /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA0658371E03EDF000B46CEA /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0658341E03EDF000B46CEA /* HttpMethod.swift */; };
-		EA0658381E03EDF000B46CEA /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0658351E03EDF000B46CEA /* Resource.swift */; };
-		EA0658391E03EDF000B46CEA /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0658361E03EDF000B46CEA /* Webservice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,9 +36,6 @@
 		EA06581A1E03EBF000B46CEA /* SwiftAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA06581F1E03EBF000B46CEA /* SwiftAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAPITests.swift; sourceTree = "<group>"; };
 		EA0658211E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA0658341E03EDF000B46CEA /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpMethod.swift; path = Implementation/HttpMethod.swift; sourceTree = "<group>"; };
-		EA0658351E03EDF000B46CEA /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Resource.swift; path = Implementation/Resource.swift; sourceTree = "<group>"; };
-		EA0658361E03EDF000B46CEA /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Webservice.swift; path = Implementation/Webservice.swift; sourceTree = "<group>"; };
 		FBAA4505EBDB06395103B642 /* Pods-SwiftAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,9 +121,6 @@
 		EA06583A1E03EDF600B46CEA /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
-				EA0658341E03EDF000B46CEA /* HttpMethod.swift */,
-				EA0658351E03EDF000B46CEA /* Resource.swift */,
-				EA0658361E03EDF000B46CEA /* Webservice.swift */,
 			);
 			name = Implementation;
 			sourceTree = "<group>";
@@ -339,9 +330,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA0658371E03EDF000B46CEA /* HttpMethod.swift in Sources */,
-				EA0658381E03EDF000B46CEA /* Resource.swift in Sources */,
-				EA0658391E03EDF000B46CEA /* Webservice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +498,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17F31C7E5B0185FA7DC540E1 /* Pods-SwiftAPITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
 				INFOPLIST_FILE = SwiftAPITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -524,7 +511,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91F758214662673A40D981E2 /* Pods-SwiftAPITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = MHNNR8L946;
 				INFOPLIST_FILE = SwiftAPITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
