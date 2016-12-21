@@ -12,6 +12,12 @@
 		EA06581B1E03EBF000B46CEA /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0658111E03EBF000B46CEA /* SwiftAPI.framework */; };
 		EA0658201E03EBF000B46CEA /* SwiftAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06581F1E03EBF000B46CEA /* SwiftAPITests.swift */; };
 		EA0658221E03EBF000B46CEA /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA0658141E03EBF000B46CEA /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA4C806E1E092B04004D0659 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C806D1E092B04004D0659 /* HttpRequest.swift */; };
+		EA4C80721E0947A3004D0659 /* UsageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C80711E0947A3004D0659 /* UsageExample.swift */; };
+		EAFA77F31E07EA6900D1ACE4 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA77F01E07EA6900D1ACE4 /* HttpMethod.swift */; };
+		EAFA77F41E07EA6900D1ACE4 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA77F11E07EA6900D1ACE4 /* Webservice.swift */; };
+		EAFD72F61E0A6E53006D97E2 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFD72F51E0A6E53006D97E2 /* HttpResponse.swift */; };
+		EAFD72F81E0A6E73006D97E2 /* ResponseAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFD72F71E0A6E73006D97E2 /* ResponseAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,12 @@
 		EA06581A1E03EBF000B46CEA /* SwiftAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA06581F1E03EBF000B46CEA /* SwiftAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAPITests.swift; sourceTree = "<group>"; };
 		EA0658211E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA4C806D1E092B04004D0659 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequest.swift; path = HTTPLayer/HttpRequest.swift; sourceTree = "<group>"; };
+		EA4C80711E0947A3004D0659 /* UsageExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageExample.swift; sourceTree = "<group>"; };
+		EAFA77F01E07EA6900D1ACE4 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpMethod.swift; path = HTTPLayer/HttpMethod.swift; sourceTree = "<group>"; };
+		EAFA77F11E07EA6900D1ACE4 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Webservice.swift; path = HTTPLayer/Webservice.swift; sourceTree = "<group>"; };
+		EAFD72F51E0A6E53006D97E2 /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpResponse.swift; path = HTTPLayer/HttpResponse.swift; sourceTree = "<group>"; };
+		EAFD72F71E0A6E73006D97E2 /* ResponseAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseAction.swift; path = HTTPLayer/ResponseAction.swift; sourceTree = "<group>"; };
 		FBAA4505EBDB06395103B642 /* Pods-SwiftAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +115,8 @@
 		EA0658131E03EBF000B46CEA /* SwiftAPI */ = {
 			isa = PBXGroup;
 			children = (
-				EA06583A1E03EDF600B46CEA /* Implementation */,
+				EA4C80711E0947A3004D0659 /* UsageExample.swift */,
+				EA06583A1E03EDF600B46CEA /* HTTPLayer */,
 				EA06583B1E04051F00B46CEA /* SupportingFiles */,
 			);
 			path = SwiftAPI;
@@ -118,11 +131,16 @@
 			path = SwiftAPITests;
 			sourceTree = "<group>";
 		};
-		EA06583A1E03EDF600B46CEA /* Implementation */ = {
+		EA06583A1E03EDF600B46CEA /* HTTPLayer */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA77F01E07EA6900D1ACE4 /* HttpMethod.swift */,
+				EA4C806D1E092B04004D0659 /* HttpRequest.swift */,
+				EAFD72F51E0A6E53006D97E2 /* HttpResponse.swift */,
+				EAFD72F71E0A6E73006D97E2 /* ResponseAction.swift */,
+				EAFA77F11E07EA6900D1ACE4 /* Webservice.swift */,
 			);
-			name = Implementation;
+			name = HTTPLayer;
 			sourceTree = "<group>";
 		};
 		EA06583B1E04051F00B46CEA /* SupportingFiles */ = {
@@ -330,6 +348,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAFD72F61E0A6E53006D97E2 /* HttpResponse.swift in Sources */,
+				EAFA77F41E07EA6900D1ACE4 /* Webservice.swift in Sources */,
+				EAFD72F81E0A6E73006D97E2 /* ResponseAction.swift in Sources */,
+				EAFA77F31E07EA6900D1ACE4 /* HttpMethod.swift in Sources */,
+				EA4C806E1E092B04004D0659 /* HttpRequest.swift in Sources */,
+				EA4C80721E0947A3004D0659 /* UsageExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
