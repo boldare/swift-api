@@ -40,19 +40,19 @@ final class Webservice: NSObject {
         task.resume()
     }
 
-    func cancel(request: HttpRequest) {
+    func cancel(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.cancel()
         }
     }
 
-    func suspend(request: HttpRequest) {
+    func suspend(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.suspend()
         }
     }
 
-    func resume(request: HttpRequest) {
+    func resume(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.resume()
         }
