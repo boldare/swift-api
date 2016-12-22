@@ -15,6 +15,7 @@ enum ResponseAction {
 }
 
 extension ResponseAction {
+
     func perform(with error: Error) {
         switch self {
         case .failure(let action):
@@ -33,12 +34,28 @@ extension ResponseAction {
         }
     }
 
-    func perform(with bytesSent: Int64, and bytesToSend: Int64) {
+    func perform(with totalBytesSent: Int64, and totalBytesToSend: Int64) {
         switch self {
         case .progress(let action):
-            action(bytesSent, bytesToSend)
+            action(totalBytesSent, totalBytesToSend)
         default:
             break
+        }
+    }
+
+    func hasEqualType(with action: ResponseAction) -> Bool {
+        switch (self, action) {
+        case (.success(_), .success(_)):
+            return true
+
+        case (.failure(_), .failure(_)):
+            return true
+
+        case (.progress(_), .progress(_)):
+            return true
+
+        default:
+            return false
         }
     }
 }
