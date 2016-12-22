@@ -10,19 +10,17 @@ import Foundation
 
 struct HttpRequest {
 
-    let baseUrl: URL
-    let httpMethod: HttpMethod
+    let url: URL
+    let method: HttpMethod
 
-    var path: String?
-    var httpBody: Data?
+    let body: Data?
 
     var task: URLSessionTask?
     
-    init(baseUrl: URL, path: String? = nil, httpMethod: HttpMethod, httpBody: Data? = nil) {
-        self.baseUrl = baseUrl
-        self.path = path
-        self.httpMethod = httpMethod
-        self.httpBody = httpBody
+    init(url: URL, method: HttpMethod, body: Data? = nil) {
+        self.url = url
+        self.method = method
+        self.body = body
     }
 
     func cancel() {
@@ -41,11 +39,8 @@ struct HttpRequest {
 extension HttpRequest: Hashable {
     var hashValue: Int {
         get {
-            var string = "\(baseUrl.hashValue),\(httpMethod.method.hashValue)"
-            if let path = path {
-                string.append(",\(path.hashValue)")
-            }
-            if let body = httpBody {
+            var string = "\(url.hashValue),\(method.rawValue.hashValue)"
+            if let body = body {
                 string.append(",\(body.hashValue)")
             }
             return string.hashValue
@@ -53,23 +48,18 @@ extension HttpRequest: Hashable {
     }
 
     public static func ==(lhs: HttpRequest, rhs: HttpRequest) -> Bool {
-        return lhs.baseUrl == rhs.baseUrl &&
-               lhs.path == rhs.path &&
-               lhs.httpMethod.method == rhs.httpMethod.method &&
-               lhs.httpBody == rhs.httpBody
+        return lhs.url == rhs.url &&
+               lhs.method.rawValue == rhs.method.rawValue &&
+               lhs.body == rhs.body
     }
 }
 
 extension HttpRequest {
 
     var urlRequest: URLRequest {
-        var url = baseUrl
-        if let path = path {
-            url.appendPathComponent(path)
-        }
         var request = URLRequest(url: url)
-        request.httpMethod = httpMethod.method
-        request.httpBody = httpBody
+        request.httpMethod = method.rawValue
+        request.httpBody = body
         return request
     }
 }
