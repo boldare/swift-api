@@ -14,14 +14,14 @@ class UsageExample {
 
     func get() {
         if let url = URL(string: "https://www.google.pl") {
-            let request = HttpRequest(baseUrl: url, httpMethod: .get)
-            let success = ResponseAction.success({ (data: Data, response: HttpResponse?) in
+            var request = HttpRequest(url: url, method: .get)
+            request.onSuccess = .success({ (data: Data, response: HttpResponse?) in
                 print("Success: \(data)")
             })
-            let failure = ResponseAction.failure({ (error: Error) in
+            request.onFailure = .failure({ (error: Error) in
                 print("Failure: \(error.localizedDescription)")
             })
-            webservice.sendHTTPRequest(request, actions: [success, failure])
+            webservice.sendHTTPRequest(request)
         }
     }
 }

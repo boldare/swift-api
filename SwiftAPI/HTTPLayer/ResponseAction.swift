@@ -42,20 +42,23 @@ extension ResponseAction {
             break
         }
     }
-
-    func hasEqualType(with action: ResponseAction) -> Bool {
-        switch (self, action) {
-        case (.success(_), .success(_)):
-            return true
-
-        case (.failure(_), .failure(_)):
-            return true
-
-        case (.progress(_), .progress(_)):
-            return true
-
-        default:
-            return false
-        }
-    }
 }
+
+//extension ResponseAction: Equatable {
+//
+//    public static func ==(lhs: ResponseAction, rhs: ResponseAction) -> Bool {
+//        switch (lhs, rhs) {
+//        case (.success(let a), .success(let b)) where a == b:
+//            return true
+//
+//        case (.failure(let a), .failure(let b)) where a == b:
+//            return true
+//
+//        case (.progress(let a), .progress(let b)) where a == b:
+//            return true
+//
+//        default:
+//            return false
+//        }
+//    }
+//}

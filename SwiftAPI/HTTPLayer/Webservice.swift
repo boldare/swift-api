@@ -15,39 +15,47 @@ final class Webservice: NSObject {
         return URLSession(configuration: config)
     }
 
-    private var currentRequests = [HttpRequest : [ResponseAction]]()
-
-    fileprivate func currentRequest(with task: URLSessionTask) -> (HttpRequest, [ResponseAction])? {
-        for (request, actions) in currentRequests {
-            if request.task == task {
-                return (request, actions)
-            }
-        }
-        return nil
+    private var backgroundSession: URLSession {
+        let config = URLSessionConfiguration.background(withIdentifier: "temp")
+        return URLSession(configuration: config)
     }
 
-    fileprivate func removeCurrentRequest(_ request: HttpRequest) {
-        currentRequests.removeValue(forKey: request)
+    private var currentTasks = [URLSessionTask: HttpRequest]()
+
+    fileprivate func currentRequest(for task: URLSessionTask) -> HttpRequest? {
+        return currentTasks[task]
     }
 
-    fileprivate func getActions(ofType type: ResponseAction, from actions: [ResponseAction]) -> [ResponseAction] {
-        var specificActions = [ResponseAction]()
-        for action in actions {
-            if action.hasEqualType(with: type) {
-                specificActions.append(action)
-            }
-        }
-        return specificActions
+    fileprivate func currentTasks(for request: HttpRequest) -> [URLSessionTask] {
+        return currentTasks.filter{ return $0.1 == request }.flatMap({ return $0.0 })
     }
 
-    func sendHTTPRequest(_ httpRequest: HttpRequest, actions: [ResponseAction]? = nil) {
+    fileprivate func removeCurrentTask(_ task: URLSessionTask) {
+        currentTasks.removeValue(forKey: task)
+    }
+
+    func sendHTTPRequest(_ httpRequest: HttpRequest) {
         let task = defaultSession.dataTask(with: httpRequest.urlRequest)
-        if let actions = actions {
-            var request = httpRequest
-            request.task = task
-            currentRequests[request] = actions
-        }
+        currentTasks[task] = httpRequest
         task.resume()
+    }
+
+    func cancel(request: HttpRequest) {
+        for task in currentTasks(for: request) {
+            task.cancel()
+        }
+    }
+
+    func suspend(request: HttpRequest) {
+        for task in currentTasks(for: request) {
+            task.suspend()
+        }
+    }
+
+    func resume(request: HttpRequest) {
+        for task in currentTasks(for: request) {
+            task.resume()
+        }
     }
 }
 
@@ -64,25 +72,23 @@ extension Webservice: URLSessionDelegate {
 extension Webservice: URLSessionTaskDelegate {
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-        guard let (_, actions) = currentRequest(with: task)  else {
+        guard let request = currentRequest(for: task) else {
             return
         }
-        for progress in getActions(ofType: .progress({_, _ in}), from: actions) {
+        if let progress = request.onProgress {
             progress.perform(with: totalBytesSent, and: totalBytesExpectedToSend)
         }
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let (request, actions) = currentRequest(with: task)  else {
+        guard let request = currentRequest(for: task) else {
             return
         }
-        if let error = error {
-            for failure in getActions(ofType: .failure({_ in}), from: actions) {
-                failure.perform(with: error)
-            }
+        if let error = error, let failure = request.onFailure {
+            failure.perform(with: error)
         }
         //Czy na pewno nic później się nie wywołuje?
-        removeCurrentRequest(request)
+        removeCurrentTask(task)
     }
 }
 

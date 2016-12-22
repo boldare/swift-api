@@ -14,25 +14,15 @@ struct HttpRequest {
     let method: HttpMethod
 
     let body: Data?
-
-    var task: URLSessionTask?
     
+    var onSuccess: ResponseAction?
+    var onFailure: ResponseAction?
+    var onProgress: ResponseAction?
+
     init(url: URL, method: HttpMethod, body: Data? = nil) {
         self.url = url
         self.method = method
         self.body = body
-    }
-
-    func cancel() {
-        task?.cancel()
-    }
-
-    func suspend() {
-        task?.suspend()
-    }
-
-    func resume() {
-        task?.resume()
     }
 }
 
