@@ -10,18 +10,20 @@ import Foundation
 
 class UsageExample {
 
-    let webservice = Webservice()
+    let service = RequestService()
 
     func get() {
         if let url = URL(string: "https://www.google.pl") {
-            var request = HttpRequest(url: url, method: .get)
-            request.onSuccess = .success({ (data: Data, response: HttpResponse?) in
+
+            let successAction = ResponseAction.success({ (data: Data, response: HttpResponse?) in
                 print("Success: \(data)")
             })
-            request.onFailure = .failure({ (error: Error) in
+            let failureAction = ResponseAction.failure({ (error: Error) in
                 print("Failure: \(error.localizedDescription)")
             })
-            webservice.sendHTTPRequest(request)
+            let request = HttpDataRequest(url: url, method: .get, onSuccess: successAction, onFailure: failureAction)
+
+            service.sendHTTPRequest(request)
         }
     }
 }

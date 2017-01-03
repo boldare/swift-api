@@ -36,7 +36,6 @@ struct HttpResponse {
      */
     let statusCode: Int?
 
-
     /**
      A dictionary containing all the HTTP header fields of the receiver.
      */
