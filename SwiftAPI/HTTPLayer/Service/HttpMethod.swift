@@ -8,6 +8,15 @@
 
 import Foundation
 
+/**
+ HTTP methods for RESTful services.
+
+ - get: use it to read data but not change it,
+ - post: use it to create new resource,
+ - put: use it to update/replace data at known resource URI
+ - patch: use it to update data, but request only needs to contain the changes to the resource, not the complete resource.
+ - delete: to delete a resource identified by a URI.
+ */
 enum HttpMethod: String {
     case get = "GET"
     case post = "POST"

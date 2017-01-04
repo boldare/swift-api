@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ Available session using while sending requests.
+
+ - foreground: indicates sending request only when app is running.
+ - background: indicates sending request also when app is not running or when is terminated by system.
+ */
 enum RequestServiceSession {
     case foreground
     case background
@@ -15,7 +21,8 @@ enum RequestServiceSession {
 
 extension RequestServiceSession {
 
-    var session: URLSession {
+    ///URLSession object for current session
+    var urlSession: URLSession {
         var config: URLSessionConfiguration
         switch self {
         case .foreground:

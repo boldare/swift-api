@@ -10,6 +10,8 @@ import Foundation
 
 final class RequestService: NSObject {
 
+    //MARK: - Handling multiple tasks
+
     private var currentTasks = [URLSessionTask: HttpRequest]()
 
     fileprivate func currentRequest(for task: URLSessionTask) -> HttpRequest? {
@@ -24,24 +26,52 @@ final class RequestService: NSObject {
         currentTasks.removeValue(forKey: task)
     }
 
+    //MARK: - Managing requests
+
+    /**
+     Sends given HTTP request.
+
+     - Parameters:
+       - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
+       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+     */
     func sendHTTPRequest(_ request: HttpDataRequest, in session: RequestServiceSession = .foreground) {
-        let task = session.session.dataTask(with: request.urlRequest)
+        let task = session.urlSession.dataTask(with: request.urlRequest)
         currentTasks[task] = request
         task.resume()
     }
 
+    /**
+     Sends given HTTP request.
+
+     - Parameters:
+       - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
+       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+     */
     func sendHTTPRequest(_ request: HttpUploadRequest, in session: RequestServiceSession = .background) {
-        let task = session.session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
+        let task = session.urlSession.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
         currentTasks[task] = request
         task.resume()
     }
 
+    /**
+     Sends given HTTP request.
+
+     - Parameters:
+       - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
+       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+     */
     func sendHTTPRequest(_ request: HttpDownloadRequest, in session: RequestServiceSession = .background) {
-        let task = session.session.downloadTask(with: request.urlRequest)
+        let task = session.urlSession.downloadTask(with: request.urlRequest)
         currentTasks[task] = request
         task.resume()
     }
 
+    /**
+     Cancels given HTTP request.
+
+     - Parameter request: An HttpUploadRequest to cancel.
+     */
     func cancel(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.cancel()
@@ -49,6 +79,11 @@ final class RequestService: NSObject {
         request.progress?.cancel()
     }
 
+    /**
+     Temporarily suspends given HTTP request.
+
+     - Parameter request: An HttpUploadRequest to suspend.
+     */
     func suspend(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.suspend()
@@ -56,6 +91,11 @@ final class RequestService: NSObject {
         request.progress?.pause()
     }
 
+    /**
+     Resumes given HTTP request, if it is suspended.
+
+     - Parameter request: An HttpUploadRequest to resume.
+     */
     func resume(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.resume()
