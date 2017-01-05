@@ -22,7 +22,6 @@ class HttpResponse {
     ///The name of the text encoding provided by the response’s originating source.
     private(set) var textEncodingName: String?
 
-
     ///The HTTP status code of the receiver.
     private(set) var statusCode: Int?
 
