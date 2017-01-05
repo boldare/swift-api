@@ -27,30 +27,31 @@ class RequestServiceTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testHttpGetRequest() {
-//
-//        var responseData: Data?
-//        var responseError: Error?
-//
-//        let url = rootURL.appendingPathComponent("posts/1")
-//        let responseExpectation = expectation(description: "responseResponseAction")
-//        let success = ResponseAction.success { (data, response) in
-//            responseData = data
-//            responseExpectation.fulfill()
-//        }
-//        let failure = ResponseAction.failure { (error) in
-//            responseError = error
-//            responseExpectation.fulfill()
-//        }
-//
-//        let request = HttpDataRequest(url: url, method: .get, onSuccess: success, onFailure: failure)
-//
-//        requestService.sendHTTPRequest(request)
-//
-//        self.waitForExpectations(timeout: 15) { error in
-//            XCTAssertNil(error, "Something went wrong: \(error!.localizedDescription)")
-//            XCTAssertNil(responseError, "Request failed: \(responseError!.localizedDescription)")
-//            XCTAssertNotNil(responseData, "Server is not responding!")
-//        }
-//    }
+    func testHttpGetRequest() {
+        let url = rootURL.appendingPathComponent("posts/1")
+        let responseExpectation = expectation(description: "responseResponseAction")
+
+        var performedSuccess = false
+        let success = ResponseAction.success {(_) in
+            performedSuccess = true
+            responseExpectation.fulfill()
+        }
+
+        var performedFailure = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {(error) in
+            performedFailure = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+
+        let request = HttpDataRequest(url: url, method: .get, onSuccess: success, onFailure: failure)
+        requestService.sendHTTPRequest(request)
+
+        self.waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "Something went wrong: \(error!.localizedDescription)")
+            XCTAssertFalse(performedFailure, "Request finished with error? \(responseError?.localizedDescription)")
+            XCTAssertTrue(performedSuccess)
+        }
+    }
 }

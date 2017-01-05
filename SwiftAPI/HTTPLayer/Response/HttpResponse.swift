@@ -8,39 +8,38 @@
 
 import Foundation
 
-struct HttpResponse {
+class HttpResponse {
 
     ///The URL for the response.
-    let url: URL?
+    private(set) var url: URL?
 
     ///The expected length of the response’s content.
-    let expectedContentLength: Int64
+    private(set) var expectedContentLength: Int64
 
     ///The MIME type of the response.
-    let mimeType: String?
+    private(set) var mimeType: String?
 
     ///The name of the text encoding provided by the response’s originating source.
-    let textEncodingName: String?
+    private(set) var textEncodingName: String?
 
 
     ///The HTTP status code of the receiver.
-    let statusCode: Int?
+    private(set) var statusCode: Int?
 
     ///A dictionary containing all the HTTP header fields of the receiver.
-    let allHeaderFields: [AnyHashable : Any]?
+    private(set) var allHeaderFields: [AnyHashable : Any]?
+
+    ///Data object for collecting multipart response body.
+    private(set) var body: Data?
 
     /**
-     Optional constructor.
+     Creates object by initating values with given URLResponse object values.
 
      - Parameter urlResponse: URLResponse object returned by URLSession.
 
      - Returns: When urlResponse is not nil, creates and initiates HttpResponse instance, otherwise nil.
      */
-    init?(urlResponse: URLResponse?) {
-        guard let urlResponse = urlResponse else {
-            return nil
-        }
-        
+    init(urlResponse: URLResponse) {
         self.url = urlResponse.url
         self.expectedContentLength = urlResponse.expectedContentLength
         self.mimeType = urlResponse.mimeType
@@ -51,6 +50,38 @@ struct HttpResponse {
         } else {
             self.statusCode = nil
             self.allHeaderFields = nil
+        }
+    }
+
+    /**
+     Updates properties with properties of given URLResponse object.
+
+     - Parameter urlResponse: URLResponse object returned by URLSession.
+     */
+    func update(with urlResponse: URLResponse) {
+        url = urlResponse.url
+        expectedContentLength = urlResponse.expectedContentLength
+        mimeType = urlResponse.mimeType
+        textEncodingName = urlResponse.textEncodingName
+        if let response = urlResponse as? HTTPURLResponse {
+            statusCode = response.statusCode
+            allHeaderFields = response.allHeaderFields
+        } else {
+            statusCode = nil
+            allHeaderFields = nil
+        }
+    }
+
+    /**
+     Appends the content of Data object to response body.
+
+     - Parameter data: data to append.
+     */
+    func appendBody(_ data: Data) {
+        if body != nil {
+            body?.append(data)
+        } else {
+            body = Data(data)
         }
     }
 }

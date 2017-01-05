@@ -24,7 +24,7 @@ class ResponseActionTests: XCTestCase {
     func testPerformSuccessAction() {
 
         var performedSuccess = false
-        let success = ResponseAction.success { (_, _) in
+        let success = ResponseAction.success {(_) in
             performedSuccess = true
         }
 
@@ -34,19 +34,19 @@ class ResponseActionTests: XCTestCase {
         XCTAssertFalse(performedSuccess)
 
         //Perforem succes with success parameters
-        success.perform(with: Data(), and: nil)
+        success.perform(with: nil)
         XCTAssertTrue(performedSuccess)
     }
 
     func testPerformFailureAction() {
 
         var performedFailure = false
-        let failure = ResponseAction.failure { (_) in
+        let failure = ResponseAction.failure {(_) in
             performedFailure = true
         }
 
         //Perforem failure with success parameters
-        failure.perform(with: Data(), and: nil)
+        failure.perform(with: nil)
         XCTAssertFalse(performedFailure)
 
         //Perforem failure with error parameter
@@ -56,16 +56,16 @@ class ResponseActionTests: XCTestCase {
     }
     
     func testIsEqualByType() {
-        let success1 = ResponseAction.success { (_, _) in
+        let success1 = ResponseAction.success {(_) in
             print("Success 1")
         }
-        let success2 = ResponseAction.success { (_, _) in
+        let success2 = ResponseAction.success {(_) in
             print("Success 2")
         }
-        let failure1 = ResponseAction.failure { (_) in
+        let failure1 = ResponseAction.failure {(_) in
             print("Failure 1")
         }
-        let failure2 = ResponseAction.failure { (_) in
+        let failure2 = ResponseAction.failure {(_) in
             print("Failure 2")
         }
 

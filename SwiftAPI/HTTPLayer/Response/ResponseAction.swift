@@ -15,7 +15,7 @@ import Foundation
  - failure: called when request has failed.
  */
 enum ResponseAction {
-    case success((Data, HttpResponse?) -> Void)
+    case success((HttpResponse?) -> Void)
     case failure((Error) -> Void)
 }
 
@@ -46,10 +46,10 @@ extension ResponseAction {
 
      This method runs only success action and ignores other ones.
      */
-    func perform(with data: Data, and response: HttpResponse?) {
+    func perform(with response: HttpResponse?) {
         switch self {
         case .success(let action):
-            action(data, response)
+            action(response)
         default:
             break
         }

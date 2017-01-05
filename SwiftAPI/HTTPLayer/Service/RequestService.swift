@@ -11,25 +11,75 @@ import Foundation
 final class RequestService: NSObject {
 
     //MARK: - Handling multiple tasks
+    private var currentTasks = [URLSessionTask: (HttpRequest, HttpResponse?)]()
 
-    private var currentTasks = [URLSessionTask: HttpRequest]()
+    ///Sets request for current task
+    func setCurrent(_ request: HttpRequest, for task: URLSessionTask) {
+        currentTasks[task] = (request, nil)
+    }
 
+    ///Sets response for current task but only when request already exists
+    fileprivate func setCurrent(_ response: HttpResponse, for task: URLSessionTask) -> Bool {
+        guard var request = currentTasks[task] else {
+            print("Cannod add response when there is no request!")
+            return false
+        }
+        request.1 = response
+        currentTasks[task] = request
+        return true
+    }
+
+    ///Returns request for currently running task if exists.
     fileprivate func currentRequest(for task: URLSessionTask) -> HttpRequest? {
+        return currentTasks[task]?.0
+    }
+
+    ///Returns response for currently running task if exists.
+    fileprivate func currentResponse(for task: URLSessionTask) -> HttpResponse? {
+        return currentTasks[task]?.1
+    }
+
+    ///Returns request and response for currently running task if exists.
+    fileprivate func currentRequestAndResponse(for task: URLSessionTask) -> (HttpRequest, HttpResponse?)? {
         return currentTasks[task]
     }
 
+    ///Returns all currently running task with given request.
     fileprivate func currentTasks(for request: HttpRequest) -> [URLSessionTask] {
-        return currentTasks.filter{ return $0.1 == request }.flatMap({ return $0.0 })
+        return currentTasks.filter{ return $0.1.0 == request }.flatMap({ return $0.0 })
     }
 
-    fileprivate func removeCurrentTask(_ task: URLSessionTask) {
+    ///Removes given task from queue.
+    fileprivate func removeCurrent(_ task: URLSessionTask) {
         currentTasks.removeValue(forKey: task)
+
+        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
+        if currentTasks.isEmpty {
+            for (_, session) in currentSessions {
+                session.finishTasksAndInvalidate()
+            }
+            //After invalidation, session objects cannot be reused, so we can remove all sessions.
+            currentSessions.removeAll()
+        }
     }
+
+    ///Removes all tasks from queue.
+    fileprivate func removeAllTasks() {
+        currentTasks.removeAll()
+
+        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
+        for (_, session) in currentSessions {
+            session.invalidateAndCancel()
+        }
+        //After invalidation, session objects cannot be reused, so we can remove all sessions.
+        currentSessions.removeAll()
+    }
+
 
     //MARK: - Handling multiple sessions
-
     private var currentSessions = [RequestServiceConfiguration : URLSession]()
 
+    ///Returns URLSession for given configuration. If session does not exist, it creates one.
     fileprivate func currentSession(for configuration: RequestServiceConfiguration) -> URLSession {
         if let session = currentSessions[configuration] {
             return session
@@ -38,9 +88,10 @@ final class RequestService: NSObject {
         currentSessions[configuration] = session
         return session
     }
+}
 
-    //MARK: - Managing requests
-
+//MARK: - Managing requests
+extension RequestService {
     /**
      Sends given HTTP request.
 
@@ -51,7 +102,7 @@ final class RequestService: NSObject {
     func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
         let session = currentSession(for: configuration)
         let task = session.dataTask(with: request.urlRequest)
-        currentTasks[task] = request
+        setCurrent(request, for: task)
         task.resume()
     }
 
@@ -65,7 +116,7 @@ final class RequestService: NSObject {
     func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
-        currentTasks[task] = request
+        setCurrent(request, for: task)
         task.resume()
     }
 
@@ -79,20 +130,8 @@ final class RequestService: NSObject {
     func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.downloadTask(with: request.urlRequest)
-        currentTasks[task] = request
+        setCurrent(request, for: task)
         task.resume()
-    }
-
-    /**
-     Cancels given HTTP request.
-
-     - Parameter request: An HttpUploadRequest to cancel.
-     */
-    func cancel(_ request: HttpRequest) {
-        for task in currentTasks(for: request) {
-            task.cancel()
-        }
-        request.progress?.cancel()
     }
 
     /**
@@ -119,14 +158,32 @@ final class RequestService: NSObject {
         if #available(iOS 9.0, *) {
             request.progress?.resume()
         } else {
-            // Fallback on earlier versions
+            //TODO: Fallback on earlier versions
         }
+    }
+
+    /**
+     Cancels given HTTP request.
+
+     - Parameter request: An HttpUploadRequest to cancel.
+     */
+    func cancel(_ request: HttpRequest) {
+        for task in currentTasks(for: request) {
+            task.cancel()
+        }
+        request.progress?.cancel()
+    }
+
+    ///Cancels all currently running HTTP requests.
+    func cancelAllRequests() {
+        removeAllTasks()
     }
 }
 
 extension RequestService: URLSessionDelegate {
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        //Informs that finishTasksAndInvalidate() or invalidateAndCancel() method was call on session object.
     }
 
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
@@ -145,26 +202,47 @@ extension RequestService: URLSessionTaskDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let request = currentRequest(for: task) else {
+        guard let (request, response) = currentRequestAndResponse(for: task) else {
             return
         }
-        if let error = error, let failure = request.failureAction {
-            failure.perform(with: error)
+        if let error = error {
+            //Action is running other thread to not block delegate.
+            DispatchQueue.global(qos: .background).async {
+                request.failureAction?.perform(with: error)
+            }
+        } else {
+            //Action is running other thread to not block delegate.
+            DispatchQueue.global(qos: .background).async {
+                request.successAction?.perform(with: response)
+            }
         }
-        //Jeśli nie ma błędu zakońćzył sie sukcesem
-        removeCurrentTask(task)
+        removeCurrent(task)
     }
 }
 
 extension RequestService: URLSessionDataDelegate {
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        var httpResponse: HttpResponse
+        if let resp = currentResponse(for: dataTask) {
+            httpResponse = resp
+            httpResponse.update(with: response)
+        } else {
+            httpResponse = HttpResponse(urlResponse: response)
+        }
 
-        //Tutaj trzeba by zapisać jakoś nagłówki.
-        completionHandler(.allow)
+        if setCurrent(httpResponse, for: dataTask) {
+            completionHandler(.allow)
+        } else {
+            completionHandler(.cancel)
+        }
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        guard let response = currentResponse(for: dataTask) else {
+            return
+        }
+        response.appendBody(data)
     }
 }
 

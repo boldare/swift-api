@@ -40,7 +40,7 @@ class HttpRequestTests: XCTestCase {
     func testFullConstructorWithoutProgress() {
         let url = rootURL.appendingPathComponent("posts/1")
         let method = HttpMethod.get
-        let success = ResponseAction.success {_, _ in}
+        let success = ResponseAction.success {_ in}
         let failure = ResponseAction.failure {_ in}
         let request = HttpRequest(url: url, method: method, onSuccess: success, onFailure: failure, useProgress: false)
 
@@ -54,7 +54,7 @@ class HttpRequestTests: XCTestCase {
     func testFullConstructorWithProgress() {
         let url = rootURL.appendingPathComponent("posts/1")
         let method = HttpMethod.get
-        let success = ResponseAction.success {_, _ in}
+        let success = ResponseAction.success {_ in}
         let failure = ResponseAction.failure {_ in}
         let request = HttpRequest(url: url, method: method, onSuccess: success, onFailure: failure, useProgress: true)
 
