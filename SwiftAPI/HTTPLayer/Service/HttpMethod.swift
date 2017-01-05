@@ -24,3 +24,10 @@ enum HttpMethod: String {
     case patch = "PATCH"
     case delete = "DELETE"
 }
+
+extension HttpMethod: Equatable {
+    
+    public static func ==(lhs: HttpMethod, rhs: HttpMethod) -> Bool {
+        return lhs.rawValue == rhs.rawValue
+    }
+}

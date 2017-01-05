@@ -26,6 +26,19 @@ final class RequestService: NSObject {
         currentTasks.removeValue(forKey: task)
     }
 
+    //MARK: - Handling multiple sessions
+
+    private var currentSessions = [RequestServiceConfiguration : URLSession]()
+
+    fileprivate func currentSession(for configuration: RequestServiceConfiguration) -> URLSession {
+        if let session = currentSessions[configuration] {
+            return session
+        }
+        let session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: self, delegateQueue: nil)
+        currentSessions[configuration] = session
+        return session
+    }
+
     //MARK: - Managing requests
 
     /**
@@ -33,10 +46,11 @@ final class RequestService: NSObject {
 
      - Parameters:
        - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
-       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpDataRequest, in session: RequestServiceSession = .foreground) {
-        let task = session.urlSession.dataTask(with: request.urlRequest)
+    func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
+        let session = currentSession(for: configuration)
+        let task = session.dataTask(with: request.urlRequest)
         currentTasks[task] = request
         task.resume()
     }
@@ -46,10 +60,11 @@ final class RequestService: NSObject {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
-       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpUploadRequest, in session: RequestServiceSession = .background) {
-        let task = session.urlSession.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
+    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
+        let session = currentSession(for: configuration)
+        let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
         currentTasks[task] = request
         task.resume()
     }
@@ -59,10 +74,11 @@ final class RequestService: NSObject {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
-       - session: RequestServiceSession indicates if request should be sent in foreground or background.
+       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpDownloadRequest, in session: RequestServiceSession = .background) {
-        let task = session.urlSession.downloadTask(with: request.urlRequest)
+    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
+        let session = currentSession(for: configuration)
+        let task = session.downloadTask(with: request.urlRequest)
         currentTasks[task] = request
         task.resume()
     }
@@ -100,7 +116,11 @@ final class RequestService: NSObject {
         for task in currentTasks(for: request) {
             task.resume()
         }
-        request.progress?.resume()
+        if #available(iOS 9.0, *) {
+            request.progress?.resume()
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
@@ -131,7 +151,7 @@ extension RequestService: URLSessionTaskDelegate {
         if let error = error, let failure = request.failureAction {
             failure.perform(with: error)
         }
-        //Czy na pewno nic później się nie wywołuje?
+        //Jeśli nie ma błędu zakońćzył sie sukcesem
         removeCurrentTask(task)
     }
 }
@@ -139,6 +159,9 @@ extension RequestService: URLSessionTaskDelegate {
 extension RequestService: URLSessionDataDelegate {
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+
+        //Tutaj trzeba by zapisać jakoś nagłówki.
+        completionHandler(.allow)
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {

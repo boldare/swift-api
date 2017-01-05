@@ -9,24 +9,23 @@
 import Foundation
 
 /**
- Available session using while sending requests.
+ Available session configurations using while sending requests.
 
  - foreground: indicates sending request only when app is running.
  - background: indicates sending request also when app is not running or when is terminated by system.
  */
-enum RequestServiceSession {
+enum RequestServiceConfiguration {
     case foreground
     case background
 }
 
-extension RequestServiceSession {
+extension RequestServiceConfiguration {
 
-    ///URLSession object for current session
-    var urlSession: URLSession {
-        var config: URLSessionConfiguration
+    ///URLSessionConfiguration object for current session
+    var urlSessionConfiguration: URLSessionConfiguration {
         switch self {
         case .foreground:
-            config = URLSessionConfiguration.default
+            return URLSessionConfiguration.default
         case .background:
             var identifier: String
             if let name = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String,
@@ -35,8 +34,7 @@ extension RequestServiceSession {
             } else {
                 identifier = "SwiftAPIBackgroundSession"
             }
-            config = URLSessionConfiguration.background(withIdentifier: identifier)
+            return URLSessionConfiguration.background(withIdentifier: identifier)
         }
-        return URLSession(configuration: config)
     }
 }
