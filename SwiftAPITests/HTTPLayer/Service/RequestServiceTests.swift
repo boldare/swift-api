@@ -77,8 +77,8 @@ extension RequestServiceTests {
     }
 
     ///Perform test of request with given parameters
-    func performTestDataRequest(url: URL, method: HttpMethod, body: Data? = nil) {
-        let responseExpectation = expectation(description: "ExpectatResponseAction")
+    func performTestDataRequest(url: URL, method: HttpMethod, body: Data? = nil, file: StaticString = #file, line: UInt = #line) {
+        let responseExpectation = expectation(description: "Expect response from \(url)")
 
         var successPerformed = false
         let success = ResponseAction.success {response in
@@ -103,9 +103,9 @@ extension RequestServiceTests {
         requestService.sendHTTPRequest(request)
 
         self.waitForExpectations(timeout: 30) { error in
-            XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)")
-            XCTAssertFalse(failurePerformed, "\(method.rawValue) request finished with failure: \(responseError?.localizedDescription)")
-            XCTAssertTrue(successPerformed)
+            XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)", file: file, line: line)
+            XCTAssertFalse(failurePerformed, "\(method.rawValue) request finished with failure: \(responseError?.localizedDescription)", file: file, line: line)
+            XCTAssertTrue(successPerformed, file: file, line: line)
         }
     }
 }

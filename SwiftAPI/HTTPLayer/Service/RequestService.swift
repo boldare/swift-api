@@ -11,7 +11,7 @@ import Foundation
 final class RequestService: NSObject {
 
     //MARK: - Handling multiple tasks
-    private var currentTasks = [URLSessionTask: (HttpRequest, HttpResponse?)]()
+    private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
 
     ///Sets request for current task
     func setCurrent(_ request: HttpRequest, for task: URLSessionTask) {
@@ -20,33 +20,33 @@ final class RequestService: NSObject {
 
     ///Sets response for current task but only when request already exists
     fileprivate func setCurrent(_ response: HttpResponse, for task: URLSessionTask) -> Bool {
-        guard var request = currentTasks[task] else {
+        guard var httpFunctions = currentTasks[task] else {
             print("Cannod add response when there is no request!")
             return false
         }
-        request.1 = response
-        currentTasks[task] = request
+        httpFunctions.response = response
+        currentTasks[task] = httpFunctions
         return true
     }
 
     ///Returns request for currently running task if exists.
     fileprivate func currentRequest(for task: URLSessionTask) -> HttpRequest? {
-        return currentTasks[task]?.0
+        return currentTasks[task]?.request
     }
 
     ///Returns response for currently running task if exists.
     fileprivate func currentResponse(for task: URLSessionTask) -> HttpResponse? {
-        return currentTasks[task]?.1
+        return currentTasks[task]?.response
     }
 
     ///Returns request and response for currently running task if exists.
-    fileprivate func currentRequestAndResponse(for task: URLSessionTask) -> (HttpRequest, HttpResponse?)? {
+    fileprivate func currentHttpFunctions(for task: URLSessionTask) -> (request: HttpRequest, response: HttpResponse?)? {
         return currentTasks[task]
     }
 
     ///Returns all currently running task with given request.
     fileprivate func currentTasks(for request: HttpRequest) -> [URLSessionTask] {
-        return currentTasks.filter{ return $0.1.0 == request }.flatMap({ return $0.0 })
+        return currentTasks.filter{ return $0.value.request == request }.flatMap({ return $0.key })
     }
 
     ///Removes given task from queue.
@@ -202,7 +202,7 @@ extension RequestService: URLSessionTaskDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let (request, response) = currentRequestAndResponse(for: task) else {
+        guard let (request, response) = currentHttpFunctions(for: task) else {
             return
         }
         if let error = error {

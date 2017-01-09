@@ -22,39 +22,37 @@ class ResponseActionTests: XCTestCase {
     }
 
     func testPerformSuccessAction() {
-
-        var performedSuccess = false
+        let actionExpectation = expectation(description: "SuccessAction")
         let success = ResponseAction.success {(_) in
-            performedSuccess = true
+            actionExpectation.fulfill()
         }
 
-        //Perforem succes with error parameter
+        //Perforem succes with error parameter. Action should not be called.
         let error = NSError()
         success.perform(with: error)
-        XCTAssertFalse(performedSuccess)
 
-        //Perforem succes with success parameters
+        //Perforem succes with success parameters. Action should be called.
         success.perform(with: nil)
-        XCTAssertTrue(performedSuccess)
+
+        self.waitForExpectations(timeout: 2)
     }
 
     func testPerformFailureAction() {
-
-        var performedFailure = false
+        let actionExpectation = expectation(description: "FailureAction")
         let failure = ResponseAction.failure {(_) in
-            performedFailure = true
+            actionExpectation.fulfill()
         }
 
-        //Perforem failure with success parameters
+        //Perforem failure with success parameters. Action should not be called.
         failure.perform(with: nil)
-        XCTAssertFalse(performedFailure)
 
-        //Perforem failure with error parameter
+        //Perforem failure with error parameter. Action should be called.
         let error = NSError()
         failure.perform(with: error)
-        XCTAssertTrue(performedFailure)
+
+        self.waitForExpectations(timeout: 2)
     }
-    
+
     func testIsEqualByType() {
         let success1 = ResponseAction.success {(_) in
             print("Success 1")
