@@ -97,10 +97,11 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
-       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
+     
+     HttpDataRequest may run only with foreground configuration.
      */
-    func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
-        let session = currentSession(for: configuration)
+    func sendHTTPRequest(_ request: HttpDataRequest) {
+        let session = currentSession(for: .foreground)
         let task = session.dataTask(with: request.urlRequest)
         setCurrent(request, for: task)
         task.resume()
@@ -206,12 +207,12 @@ extension RequestService: URLSessionTaskDelegate {
             return
         }
         if let error = error {
-            //Action is running other thread to not block delegate.
+            //Action should run on other thread to not block delegate.
             DispatchQueue.global(qos: .background).async {
                 request.failureAction?.perform(with: error)
             }
         } else {
-            //Action is running other thread to not block delegate.
+            //Action should run on other thread to not block delegate.
             DispatchQueue.global(qos: .background).async {
                 request.successAction?.perform(with: response)
             }
