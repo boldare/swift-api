@@ -88,6 +88,10 @@ final class RequestService: NSObject {
         currentSessions[configuration] = session
         return session
     }
+
+    //MARK: - Handling multiple sessions
+    ///Keeps completion handler for background sessions.
+    fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
 }
 
 //MARK: - Managing requests
@@ -179,6 +183,11 @@ extension RequestService {
     func cancelAllRequests() {
         removeAllTasks()
     }
+
+    //MARK: - Handling background sessions
+    func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
+        backgroundSessionCompletionHandler[identifier] = completionHandler
+    }
 }
 
 extension RequestService: URLSessionDelegate {
@@ -188,6 +197,9 @@ extension RequestService: URLSessionDelegate {
     }
 
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+        for (_, completionHandler) in backgroundSessionCompletionHandler {
+            completionHandler()
+        }
     }
 }
 
@@ -212,6 +224,9 @@ extension RequestService: URLSessionTaskDelegate {
                 request.failureAction?.perform(with: error)
             }
         } else {
+            if let taskResponse = task.response {
+                response?.update(with: taskResponse)
+            }
             //Action should run on other thread to not block delegate.
             DispatchQueue.global(qos: .background).async {
                 request.successAction?.perform(with: response)
@@ -240,10 +255,12 @@ extension RequestService: URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        guard let response = currentResponse(for: dataTask) else {
-            return
+        if let response = currentResponse(for: dataTask) {
+            response.appendBody(data)
+        } else {
+            let response = HttpResponse(body: data)
+            _ = setCurrent(response, for: dataTask)
         }
-        response.appendBody(data)
     }
 }
 

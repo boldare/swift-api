@@ -32,11 +32,19 @@ class HttpResponse {
     private(set) var body: Data?
 
     /**
+     Creates object and sets its body data.
+
+     - Parameter body: body Data object.
+     */
+    init(body: Data) {
+        self.expectedContentLength = -1
+        self.body = body
+    }
+
+    /**
      Creates object by initating values with given URLResponse object values.
 
      - Parameter urlResponse: URLResponse object returned by URLSession.
-
-     - Returns: When urlResponse is not nil, creates and initiates HttpResponse instance, otherwise nil.
      */
     init(urlResponse: URLResponse) {
         self.url = urlResponse.url
