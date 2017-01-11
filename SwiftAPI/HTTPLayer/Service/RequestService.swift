@@ -89,7 +89,7 @@ final class RequestService: NSObject {
         return session
     }
 
-    //MARK: - Handling multiple sessions
+    //MARK: - Handling background sessions
     ///Keeps completion handler for background sessions.
     fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
 }
@@ -185,6 +185,15 @@ extension RequestService {
     }
 
     //MARK: - Handling background sessions
+    /**
+     Handle events for background session with identifier.
+
+     - Parameters:
+       - identifier: The identifier of the URL session requiring attention.
+       - completionHandler: The completion handler to call when you finish processing the events.
+     
+     This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
+     */
     func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
         backgroundSessionCompletionHandler[identifier] = completionHandler
     }
