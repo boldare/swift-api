@@ -92,6 +92,20 @@ final class RequestService: NSObject {
     //MARK: - Handling background sessions
     ///Keeps completion handler for background sessions.
     fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
+
+    ///Copies the file at the specified URL to a new location synchronously. If file exists at destination URL, method will replace it.
+    fileprivate func copyFile(from source: URL, to destination: URL ) -> Error? {
+        let manager = FileManager.default
+        do {
+            if manager.fileExists(atPath: destination.path) {
+                try manager.removeItem(at: destination)
+            }
+            try manager.copyItem(at: source, to: destination)
+        } catch {
+            return error
+        }
+        return nil
+    }
 }
 
 //MARK: - Managing requests
@@ -227,7 +241,7 @@ extension RequestService: URLSessionTaskDelegate {
         guard let (request, response) = currentHttpFunctions(for: task) else {
             return
         }
-        if let error = error {
+        if let error = error ?? (response as? HttpFailureResponse)?.error {
             //Action should run on other thread to not block delegate.
             DispatchQueue.global(qos: .background).async {
                 request.failureAction?.perform(with: error)
@@ -276,6 +290,21 @@ extension RequestService: URLSessionDataDelegate {
 extension RequestService: URLSessionDownloadDelegate {
 
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        guard let (httpRequest, httpResponse) = currentHttpFunctions(for: downloadTask), let request = httpRequest as? HttpDownloadRequest else {
+            return
+        }
+
+        var response: HttpResponse
+        if let resp = httpResponse {
+            response = resp
+        }
+        if let error = copyFile(from: location, to: request.destinationUrl) {
+            response = HttpFailureResponse(url: request.url, error: error)
+            (response as! HttpFailureResponse).mimeType
+        } else {
+            response = HttpResponse(resourceUrl: request.destinationUrl)
+        }
+        _ = setCurrent(response, for: downloadTask)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

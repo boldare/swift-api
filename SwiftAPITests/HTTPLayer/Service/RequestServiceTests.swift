@@ -13,6 +13,7 @@ class RequestServiceTests: XCTestCase {
     
     var rootURL: URL!
     var requestService: RequestService!
+    var fileToDownload: URL!
 
 
     override func setUp() {
@@ -20,6 +21,7 @@ class RequestServiceTests: XCTestCase {
 
         rootURL = URL(string: "https://httpbin.org")!
         requestService = RequestService()
+        fileToDownload = URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg")!
     }
 
     override func tearDown() {
@@ -83,6 +85,40 @@ class RequestServiceTests: XCTestCase {
         let resourceUrl = imageURL
 
         performTestUploadRequest(url: url, method: .patch, resourceUrl: resourceUrl)
+    }
+
+    //MARK: DownloadRequest tests
+    func testHttpDownloadRequest() {
+        let url = fileToDownload
+        let responseExpectation = expectation(description: "Expect response from \(url)")
+
+        var successPerformed = false
+        let success = ResponseAction.success {response in
+            if let code = response?.statusCode {
+                print("--------------------")
+                print("Downloading from URL \(url) finished with status code \(code).")
+                print("--------------------")
+            }
+            successPerformed = true
+            responseExpectation.fulfill()
+        }
+
+        var failurePerformed = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {error in
+            failurePerformed = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+
+//        let request = HttpDownloadRequest(failure
+//            requestService.sendHTTPRequest(request)
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)")
+            XCTAssertFalse(failurePerformed, "\(method.rawValue) request finished with failure: \(responseError!.localizedDescription)")
+            XCTAssertTrue(successPerformed)
+        }
     }
 }
 
