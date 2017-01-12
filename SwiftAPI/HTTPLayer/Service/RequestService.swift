@@ -132,7 +132,7 @@ extension RequestService {
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
        - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpUploadRequest, in configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
         setCurrent(request, for: task)
@@ -146,7 +146,7 @@ extension RequestService {
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
        - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpDownloadRequest, in configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.downloadTask(with: request.urlRequest)
         setCurrent(request, for: task)
@@ -300,7 +300,6 @@ extension RequestService: URLSessionDownloadDelegate {
         }
         if let error = copyFile(from: location, to: request.destinationUrl) {
             response = HttpFailureResponse(url: request.url, error: error)
-            (response as! HttpFailureResponse).mimeType
         } else {
             response = HttpResponse(resourceUrl: request.destinationUrl)
         }
