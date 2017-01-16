@@ -10,6 +10,8 @@ import Foundation
 
 final class RequestService: NSObject {
 
+    fileprivate var fileManager: FileManagerProtocol
+
     //MARK: - Handling multiple tasks
     private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
 
@@ -93,18 +95,10 @@ final class RequestService: NSObject {
     ///Keeps completion handler for background sessions.
     fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
 
-    ///Copies the file at the specified URL to a new location synchronously. If file exists at destination URL, method will replace it.
-    fileprivate func copyFile(from source: URL, to destination: URL ) -> Error? {
-        let manager = FileManager.default
-        do {
-            if manager.fileExists(atPath: destination.path) {
-                try manager.removeItem(at: destination)
-            }
-            try manager.copyItem(at: source, to: destination)
-        } catch {
-            return error
-        }
-        return nil
+    //MARK: Initialization
+    ///Initializes service with given file manager.
+    init(fileManager: FileManagerProtocol) {
+        self.fileManager = fileManager
     }
 }
 
@@ -295,11 +289,10 @@ extension RequestService: URLSessionDownloadDelegate {
         }
 
         var response: HttpResponse
-        if let resp = httpResponse {
-            response = resp
-        }
-        if let error = copyFile(from: location, to: request.destinationUrl) {
+        if let error = fileManager.copyFile(from: location, to: request.destinationUrl) {
             response = HttpFailureResponse(url: request.url, error: error)
+        } else if let resp = httpResponse {
+            response = resp
         } else {
             response = HttpResponse(resourceUrl: request.destinationUrl)
         }
