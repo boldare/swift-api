@@ -10,8 +10,18 @@ import UIKit
 
 class HttpDownloadRequest: HttpRequest {
 
-    ///Destination URL for downloading resource.
+    /**
+     Destination URL for downloading resource.
+
+     - Important: If any file exists at *destinationUrl* it will be overridden by downloaded file.
+     */
     let destinationUrl: URL
+
+    ///Method not allowed to use in current class.
+    private override init(url: URL, method: HttpMethod, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
+        self.destinationUrl = URL(fileURLWithPath: "")
+        super.init(url: url, method: method, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
+    }
 
     /**
      Creates and initializes a HttpDownloadRequest with the given parameters.
@@ -26,9 +36,9 @@ class HttpDownloadRequest: HttpRequest {
 
      - Returns: An initialized a HttpDownloadRequest object.
      */
-    init(url: URL, method: HttpMethod, destinationUrl: URL, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
+    init(url: URL, destinationUrl: URL, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
         self.destinationUrl = destinationUrl
-        super.init(url: url, method: method, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
+        super.init(url: url, method: .get, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
     }
 
     //MARK: Hashable Protocol

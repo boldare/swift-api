@@ -31,6 +31,9 @@ class HttpResponse {
     ///Data object for collecting multipart response body.
     private(set) var body: Data?
 
+    ///File URL on disc of downloaded resource. In most cases is equal to *destinationUrl* of *HttpDownloadRequest* object related to HTTP response.
+    private(set) var resourceUrl: URL?
+
     /**
      Creates object and sets its body data.
 
@@ -39,6 +42,16 @@ class HttpResponse {
     init(body: Data) {
         self.expectedContentLength = -1
         self.body = body
+    }
+
+    /**
+     Creates object and sets its downloaded resource URL.
+
+     - Parameter resourceUrl: URP of downloaded resource.
+     */
+    init(resourceUrl: URL) {
+        self.expectedContentLength = -1
+        self.resourceUrl = resourceUrl
     }
 
     /**

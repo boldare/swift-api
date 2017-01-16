@@ -10,6 +10,8 @@ import Foundation
 
 final class RequestService: NSObject {
 
+    fileprivate var fileManager: FileManagerProtocol
+
     //MARK: - Handling multiple tasks
     private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
 
@@ -92,6 +94,12 @@ final class RequestService: NSObject {
     //MARK: - Handling background sessions
     ///Keeps completion handler for background sessions.
     fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
+
+    //MARK: Initialization
+    ///Initializes service with given file manager.
+    init(fileManager: FileManagerProtocol) {
+        self.fileManager = fileManager
+    }
 }
 
 //MARK: - Managing requests
@@ -118,7 +126,7 @@ extension RequestService {
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
        - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpUploadRequest, in configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
         setCurrent(request, for: task)
@@ -132,7 +140,7 @@ extension RequestService {
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
        - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
      */
-    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpDownloadRequest, in configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.downloadTask(with: request.urlRequest)
         setCurrent(request, for: task)
@@ -227,7 +235,7 @@ extension RequestService: URLSessionTaskDelegate {
         guard let (request, response) = currentHttpFunctions(for: task) else {
             return
         }
-        if let error = error {
+        if let error = error ?? (response as? HttpFailureResponse)?.error {
             //Action should run on other thread to not block delegate.
             DispatchQueue.global(qos: .background).async {
                 request.failureAction?.perform(with: error)
@@ -276,6 +284,19 @@ extension RequestService: URLSessionDataDelegate {
 extension RequestService: URLSessionDownloadDelegate {
 
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        guard let (httpRequest, httpResponse) = currentHttpFunctions(for: downloadTask), let request = httpRequest as? HttpDownloadRequest else {
+            return
+        }
+
+        var response: HttpResponse
+        if let error = fileManager.copyFile(from: location, to: request.destinationUrl) {
+            response = HttpFailureResponse(url: request.url, error: error)
+        } else if let resp = httpResponse {
+            response = resp
+        } else {
+            response = HttpResponse(resourceUrl: request.destinationUrl)
+        }
+        _ = setCurrent(response, for: downloadTask)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

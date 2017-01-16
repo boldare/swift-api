@@ -13,6 +13,7 @@ class RequestServiceTests: XCTestCase {
     
     var rootURL: URL!
     var requestService: RequestService!
+    var fileToDownload: URL!
 
 
     override func setUp() {
@@ -20,11 +21,13 @@ class RequestServiceTests: XCTestCase {
 
         rootURL = URL(string: "https://httpbin.org")!
         requestService = RequestService()
+        fileToDownload = URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
     }
 
     override func tearDown() {
         rootURL = nil
         requestService = nil
+        fileToDownload = nil
         super.tearDown()
     }
 
@@ -84,6 +87,41 @@ class RequestServiceTests: XCTestCase {
 
         performTestUploadRequest(url: url, method: .patch, resourceUrl: resourceUrl)
     }
+
+    //MARK: DownloadRequest tests
+    func testHttpDownloadRequest() {
+        let url = fileToDownload!
+        let responseExpectation = expectation(description: "Expect response from \(url)")
+        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+
+        var successPerformed = false
+        let success = ResponseAction.success {response in
+            if let code = response?.statusCode {
+                print("--------------------")
+                print("Downloading from URL \(url) finished with status code \(code).")
+                print("--------------------")
+            }
+            successPerformed = true
+            responseExpectation.fulfill()
+        }
+
+        var failurePerformed = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {error in
+            failurePerformed = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+
+        let request = HttpDownloadRequest(url: url, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
+        requestService.sendHTTPRequest(request, in: .foreground)
+
+        waitForExpectations(timeout: 300) { error in
+            XCTAssertNil(error, "Download request test failed with error: \(error!.localizedDescription)")
+            XCTAssertFalse(failurePerformed, "Download request finished with failure: \(responseError!.localizedDescription)")
+            XCTAssertTrue(successPerformed)
+        }
+    }
 }
 
 
@@ -106,6 +144,10 @@ extension RequestServiceTests {
             XCTFail("Resource for tests not available")
             return URL(fileURLWithPath: "")
         }
+    }
+
+    fileprivate var documentsUrl: URL {
+        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
     }
 
     ///Perform test of data request with given parameters
@@ -165,7 +207,7 @@ extension RequestServiceTests {
         }
 
         let request = HttpUploadRequest(url: url, method: method, resourceUrl: resourceUrl, onSuccess: success, onFailure: failure, useProgress: false)
-        requestService.sendHTTPRequest(request, with: .foreground)
+        requestService.sendHTTPRequest(request, in: .foreground)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)", file: file, line: line)
