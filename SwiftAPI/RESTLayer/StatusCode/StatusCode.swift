@@ -35,6 +35,42 @@ extension StatusCode {
     }
 }
 
+extension StatusCode {
+
+    private static let internalErrorCode = 99999
+
+    static var internalErrorStatusCode: StatusCode {
+        return .unknown(UnknownStatusCodeType(internalErrorCode))
+    }
+
+    var isInternalErrorStatusCode: Bool {
+        switch self {
+        case .unknown(let code) where code.value == type(of: self).internalErrorCode:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isSuccessStatusCode: Bool {
+        switch self {
+        case .info(_), .success(_), .redirection(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isErrorStatusCode: Bool {
+        switch self {
+        case .clientError(_), .serverError(_):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 extension StatusCode: Equatable {
 
     public static func ==(lhs: StatusCode, rhs: StatusCode) -> Bool {
