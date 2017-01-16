@@ -31,12 +31,33 @@ class HttpResponse {
     ///Data object for collecting multipart response body.
     private(set) var body: Data?
 
+    ///File URL on disc of downloaded resource. In most cases is equal to *destinationUrl* of *HttpDownloadRequest* object related to HTTP response.
+    private(set) var resourceUrl: URL?
+
+    /**
+     Creates object and sets its body data.
+
+     - Parameter body: body Data object.
+     */
+    init(body: Data) {
+        self.expectedContentLength = -1
+        self.body = body
+    }
+
+    /**
+     Creates object and sets its downloaded resource URL.
+
+     - Parameter resourceUrl: URP of downloaded resource.
+     */
+    init(resourceUrl: URL) {
+        self.expectedContentLength = -1
+        self.resourceUrl = resourceUrl
+    }
+
     /**
      Creates object by initating values with given URLResponse object values.
 
      - Parameter urlResponse: URLResponse object returned by URLSession.
-
-     - Returns: When urlResponse is not nil, creates and initiates HttpResponse instance, otherwise nil.
      */
     init(urlResponse: URLResponse) {
         self.url = urlResponse.url
