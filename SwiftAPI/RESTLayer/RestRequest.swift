@@ -13,10 +13,12 @@ struct RestRequest {
     private let request: HttpRequest
     private let requestService: RequestService
 
+    ///Progress object which allows to follow request progress.
     var progress: Progress? {
         return request.progress
     }
 
+    ///Creates request based on HttpRequest and RequestService.
     init(httpRequest: HttpRequest, httpRequestService: RequestService) {
         self.request = httpRequest
         self.requestService = httpRequestService
