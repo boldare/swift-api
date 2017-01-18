@@ -45,7 +45,7 @@ struct RestResponse {
         }
         self.url = response.url
         if let code = response.statusCode {
-            self.statusCode = StatusCode(value: code)
+            self.statusCode = StatusCode(code)
         } else {
             self.statusCode = StatusCode.internalErrorStatusCode
         }

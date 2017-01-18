@@ -73,7 +73,9 @@ class HttpRequest: Hashable {
     func equalTo(_ rhs: HttpRequest) -> Bool {
         return type(of: self) == type(of: rhs) &&
                url == rhs.url &&
-               method.rawValue == rhs.method.rawValue &&
-               progress == rhs.progress
+               method == rhs.method &&
+               ((progress == nil && rhs.progress == nil) || (progress != nil && rhs.progress != nil)) &&
+               ((successAction == nil && rhs.successAction == nil) || (successAction != nil && rhs.successAction != nil)) &&
+               ((failureAction == nil && rhs.failureAction == nil) || (failureAction != nil && rhs.failureAction != nil))
     }
 }

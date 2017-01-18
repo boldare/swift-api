@@ -16,7 +16,7 @@ import Foundation
  - redirection: stores status codes from 300 to 399,
  - clientError: stores status codes from 400 to 499,
  - serverError: stores status codes from 500 to 599,
- - unknown: stores every  other status codes, it may be used for internal library errors.
+ - unknown: stores every  other status codes, it should be used for internal library errors.
  */
 enum StatusCode {
     case info(InfoStatusCodeType)
@@ -34,7 +34,7 @@ extension StatusCode {
 
      - Parameter value: HTTP status code value.
      */
-    init(value: Int) {
+    init(_ value: Int) {
         if let code = InfoStatusCodeType(value) {
             self = .info(code)
         } else if let code = SuccessStatusCodeType(value) {
@@ -47,6 +47,24 @@ extension StatusCode {
             self = .serverError(code)
         } else {
             self = .unknown(UnknownStatusCodeType(value))
+        }
+    }
+
+    ///Returns raw value of status code.
+    var rawValue: Int {
+        switch self {
+        case .info(let type):
+            return type.value
+        case .success(let type):
+            return type.value
+        case .redirection(let type):
+            return type.value
+        case .clientError(let type):
+            return type.value
+        case .serverError(let type):
+            return type.value
+        case .unknown(let type):
+            return type.value
         }
     }
 }
@@ -73,7 +91,27 @@ extension StatusCode {
     ///Allows to check if StatusCode is status of success response.
     var isSuccessStatusCode: Bool {
         switch self {
-        case .info(_), .success(_), .redirection(_):
+        case .success(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    ///Allows to check if StatusCode is status of redirection response.
+    var isRedirectionStatusCode: Bool {
+        switch self {
+        case .redirection(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    ///Allows to check if StatusCode is status of informational response.
+    var isInfoStatusCode: Bool {
+        switch self {
+        case .info(_):
             return true
         default:
             return false
