@@ -10,18 +10,18 @@ import Foundation
 
 class HttpDataRequest: HttpRequest {
 
-    ///This data is sent as the message body of the request
+    ///This data is sent as the message body of the request.
     let body: Data?
 
     /**
      Creates and initializes a HttpDataRequest with the given parameters.
 
      - Parameters:
-       - url: URL of the receiver,
-       - method: HTTP request method of the receiver,
-       - body: Data object which supposed to be a body of the request,
-       - onSuccess: action which needs to be performed when response was received from server,
-       - onFailure: action which needs to be performed, when request has failed,
+       - url: URL of the receiver.
+       - method: HTTP request method of the receiver.
+       - body: Data object which supposed to be a body of the request.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
        - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpDataRequest object.

@@ -107,8 +107,7 @@ extension RequestService {
     /**
      Sends given HTTP request.
 
-     - Parameters:
-       - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
+     - Parameter request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
      
      HttpDataRequest may run only with foreground configuration.
      */

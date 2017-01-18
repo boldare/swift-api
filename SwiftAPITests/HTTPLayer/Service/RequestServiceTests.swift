@@ -20,7 +20,7 @@ class RequestServiceTests: XCTestCase {
         super.setUp()
 
         rootURL = URL(string: "https://httpbin.org")!
-        requestService = RequestService()
+        requestService = RequestService(fileManager: FileCommander())
         fileToDownload = URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
     }
 

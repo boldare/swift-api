@@ -29,10 +29,10 @@ class HttpRequest: Hashable {
      Creates and initializes a HttpRequest with the given parameters.
 
      - Parameters:
-       - url: URL of the receiver,
-       - method: HTTP request method of the receiver,
-       - onSuccess: action which needs to be performed when response was received from server,
-       - onFailure: action which needs to be performed, when request has failed,
+       - url: URL of the receiver.
+       - method: HTTP request method of the receiver.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
        - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpRequest object.

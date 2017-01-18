@@ -27,12 +27,11 @@ class HttpDownloadRequest: HttpRequest {
      Creates and initializes a HttpDownloadRequest with the given parameters.
 
      - Parameters:
-     - url: URL of the receiver,
-     - method: HTTP request method of the receiver,
-     - destinationUrl: destination URL for downloading resource,
-     - onSuccess: action which needs to be performed when response was received from server,
-     - onFailure: action which needs to be performed, when request has failed,
-     - useProgress: flag indicates if Progress object should be created.
+       - url: URL of the receiver.
+       - destinationUrl: destination URL for downloading resource.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
+       - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpDownloadRequest object.
      */

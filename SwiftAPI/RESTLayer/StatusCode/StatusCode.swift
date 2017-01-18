@@ -8,6 +8,16 @@
 
 import Foundation
 
+/**
+ Enum stores status code of HTTP response
+
+ - info: stores status codes from 100 to 199,
+ - success: stores status codes from 200 to 299,
+ - redirection: stores status codes from 300 to 399,
+ - clientError: stores status codes from 400 to 499,
+ - serverError: stores status codes from 500 to 599,
+ - unknown: stores every  other status codes, it may be used for internal library errors.
+ */
 enum StatusCode {
     case info(InfoStatusCodeType)
     case success(SuccessStatusCodeType)
@@ -18,6 +28,12 @@ enum StatusCode {
 }
 
 extension StatusCode {
+
+    /**
+     Creates suitable status code based on given HTTP status code value.
+
+     - Parameter value: HTTP status code value.
+     */
     init(value: Int) {
         if let code = InfoStatusCodeType(value) {
             self = .info(code)
@@ -39,10 +55,12 @@ extension StatusCode {
 
     private static let internalErrorCode = 99999
 
+    ///Returns StatusCode for library internal error.
     static var internalErrorStatusCode: StatusCode {
         return .unknown(UnknownStatusCodeType(internalErrorCode))
     }
 
+    ///Allows to check if StatusCode is status of library internal error.
     var isInternalErrorStatusCode: Bool {
         switch self {
         case .unknown(let code) where code.value == type(of: self).internalErrorCode:
@@ -52,6 +70,7 @@ extension StatusCode {
         }
     }
 
+    ///Allows to check if StatusCode is status of success response.
     var isSuccessStatusCode: Bool {
         switch self {
         case .info(_), .success(_), .redirection(_):
@@ -61,9 +80,10 @@ extension StatusCode {
         }
     }
 
+    ///Allows to check if StatusCode is status of error response.
     var isErrorStatusCode: Bool {
         switch self {
-        case .clientError(_), .serverError(_):
+        case .clientError(_), .serverError(_), .unknown(_):
             return true
         default:
             return false
@@ -92,6 +112,11 @@ extension StatusCode: Equatable {
         }
     }
 
+    /**
+     Returns a Boolean value indicating whether given StatusCodes belongs to the same familly.
+
+     - Parameter code: StatusCode to compare with.
+     */
     func isEqualByType(with code: StatusCode) -> Bool {
         switch (self, code) {
         case (.info(_), .info(_)):
