@@ -23,6 +23,14 @@ class RequestServiceTests: XCTestCase {
         return URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg")!
     }
 
+    fileprivate var localImageURL: URL {
+        return Bundle(for: type(of: self)).url(forResource: "testImage", withExtension: "png")!
+    }
+
+    fileprivate var documentsUrl: URL {
+        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
+    }
+
     var requestService: RequestService!
 
     override func setUp() {
@@ -74,21 +82,21 @@ class RequestServiceTests: XCTestCase {
     //MARK: UploadRequest tests
     func testHttpPostUploadRequest() {
         let url = rootURL.appendingPathComponent("post")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .post, resourceUrl: resourceUrl)
     }
 
     func testHttpPutUploadRequest() {
         let url = rootURL.appendingPathComponent("put")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .put, resourceUrl: resourceUrl)
     }
 
     func testHttpPatchUploadRequest() {
         let url = rootURL.appendingPathComponent("patch")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .patch, resourceUrl: resourceUrl)
     }
@@ -160,7 +168,6 @@ class RequestServiceTests: XCTestCase {
         }
     }
 
-    //MARK: Request managing tests
     func testHttpRequestCancelAll() {
         let fileUrl1 = smallFileUrl
         let fileUrl2 = bigFileUrl
@@ -237,20 +244,7 @@ extension RequestServiceTests {
 
     ///Prepare JSON Data object
     fileprivate func jsonData(with dictionary: [String : Any]) -> Data {
-        do {
-            return try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
-        } catch {
-            XCTAssertNil(error, "Parsing to JSON failed: \(error.localizedDescription)")
-            return Data()
-        }
-    }
-
-    fileprivate var imageURL: URL {
-        return Bundle(for: type(of: self)).url(forResource: "testImage", withExtension: "png")!
-    }
-
-    fileprivate var documentsUrl: URL {
-        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
+        return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
     }
 
     ///Perform test of data request with given parameters

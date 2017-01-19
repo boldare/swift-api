@@ -35,6 +35,10 @@
 		EA96B8431E28C98900172AE5 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA96B8421E28C98900172AE5 /* RestService.swift */; };
 		EA96B8451E28DECC00172AE5 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA96B8441E28DECC00172AE5 /* RestRequest.swift */; };
 		EA96B8471E28FBF100172AE5 /* RestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA96B8461E28FBF100172AE5 /* RestResponse.swift */; };
+		EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */; };
+		EAA8BB8B1E30A1F700C60238 /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */; };
+		EAA8BB8D1E30A7EA00C60238 /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB8C1E30A7EA00C60238 /* RestServiceTests.swift */; };
+		EAA8BB8F1E30B85100C60238 /* RestErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB8E1E30B85100C60238 /* RestErrorTests.swift */; };
 		EAAA3CD41E23BC5D00CA4A84 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAA3CD31E23BC5D00CA4A84 /* testImage.png */; };
 		EAB93F981E27943400ADFCA9 /* HttpFailureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB93F971E27943400ADFCA9 /* HttpFailureResponse.swift */; };
 		EADB795C1E1D120F00C7C801 /* HttpRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADB795B1E1D120F00C7C801 /* HttpRequestTests.swift */; };
@@ -98,6 +102,10 @@
 		EA96B8421E28C98900172AE5 /* RestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestService.swift; path = RESTLayer/RestService.swift; sourceTree = "<group>"; };
 		EA96B8441E28DECC00172AE5 /* RestRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestRequest.swift; path = RESTLayer/RestRequest.swift; sourceTree = "<group>"; };
 		EA96B8461E28FBF100172AE5 /* RestResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestResponse.swift; path = RESTLayer/RestResponse.swift; sourceTree = "<group>"; };
+		EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCommanderTests.swift; path = Dependencies/FileManager/FileCommanderTests.swift; sourceTree = "<group>"; };
+		EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestServiceConfigurationTests.swift; path = HTTPLayer/Service/RequestServiceConfigurationTests.swift; sourceTree = "<group>"; };
+		EAA8BB8C1E30A7EA00C60238 /* RestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestServiceTests.swift; path = RESTLayer/RestServiceTests.swift; sourceTree = "<group>"; };
+		EAA8BB8E1E30B85100C60238 /* RestErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestErrorTests.swift; path = RESTLayer/RestErrorTests.swift; sourceTree = "<group>"; };
 		EAAA3CD31E23BC5D00CA4A84 /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
 		EAB93F971E27943400ADFCA9 /* HttpFailureResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpFailureResponse.swift; path = HTTPLayer/Response/HttpFailureResponse.swift; sourceTree = "<group>"; };
 		EADB795B1E1D120F00C7C801 /* HttpRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequestTests.swift; path = HTTPLayer/Request/HttpRequestTests.swift; sourceTree = "<group>"; };
@@ -194,8 +202,9 @@
 			children = (
 				EAE038D91E2F5FA400ACD01B /* RESTLayer */,
 				EADB79571E1D112700C7C801 /* HTTPLayer */,
-				EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */,
+				EAA8BB881E309EE700C60238 /* Dependencies */,
 				EA0658211E03EBF000B46CEA /* Info.plist */,
+				EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */,
 			);
 			path = SwiftAPITests;
 			sourceTree = "<group>";
@@ -263,6 +272,22 @@
 			name = RESTLayer;
 			sourceTree = "<group>";
 		};
+		EAA8BB881E309EE700C60238 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				EAA8BB891E309F1300C60238 /* FileManager */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		EAA8BB891E309F1300C60238 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */,
+			);
+			name = FileManager;
+			sourceTree = "<group>";
+		};
 		EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				EADB795D1E1D1FF500C7C801 /* RequestServiceTests.swift */,
+				EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -345,6 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				EAE038DA1E2F5FB900ACD01B /* StatusCode */,
+				EAA8BB8C1E30A7EA00C60238 /* RestServiceTests.swift */,
+				EAA8BB8E1E30B85100C60238 /* RestErrorTests.swift */,
 			);
 			name = RESTLayer;
 			sourceTree = "<group>";
@@ -592,6 +620,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAE038E51E2F64CD00ACD01B /* SuccessStatusCodeTypeTests.swift in Sources */,
+				EAA8BB8D1E30A7EA00C60238 /* RestServiceTests.swift in Sources */,
 				EAE038D81E2F5F9F00ACD01B /* InfoStatusCodeTypeTests.swift in Sources */,
 				EA8AD2F21E1E303F001BA522 /* ResponseActionTests.swift in Sources */,
 				EAE038E41E2F64CD00ACD01B /* StatusCodeTests.swift in Sources */,
@@ -603,9 +632,12 @@
 				EAE038E31E2F64CD00ACD01B /* ServerErrorStatusCodeTypeTests.swift in Sources */,
 				EADB795C1E1D120F00C7C801 /* HttpRequestTests.swift in Sources */,
 				EAE038E61E2F64CD00ACD01B /* UnknownStatusCodeTypeTests.swift in Sources */,
+				EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */,
 				EAE038EB1E2F968B00ACD01B /* HttpDownloadRequestTests.swift in Sources */,
 				EADB795E1E1D1FF500C7C801 /* RequestServiceTests.swift in Sources */,
+				EAA8BB8F1E30B85100C60238 /* RestErrorTests.swift in Sources */,
 				EAE038EA1E2F968B00ACD01B /* HttpDataRequestTests.swift in Sources */,
+				EAA8BB8B1E30A1F700C60238 /* RequestServiceConfigurationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

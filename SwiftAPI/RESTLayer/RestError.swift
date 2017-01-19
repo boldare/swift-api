@@ -14,6 +14,6 @@ struct RestError {
 
     ///Error called when service not receive response.
     static var noResponse: Error {
-        return NSError(domain: restDomain, code: 600, userInfo: ["description" : "Rest service did not receive response."])
+        return NSError(domain: restDomain, code: -10, userInfo: [NSLocalizedDescriptionKey : "Rest service did not receive response."])
     }
 }
