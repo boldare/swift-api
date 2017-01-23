@@ -1,5 +1,5 @@
 //
-//  RestResponse.swift
+//  WebResponse.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 13.01.2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RestResponse {
+struct WebResponse {
 
     ///The URL for the response.
     let url: URL?

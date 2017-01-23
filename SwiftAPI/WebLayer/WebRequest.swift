@@ -1,5 +1,5 @@
 //
-//  RestRequest.swift
+//  WebRequest.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 13.01.2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RestRequest {
+struct WebRequest {
 
     private let request: HttpRequest
     private let requestService: RequestService

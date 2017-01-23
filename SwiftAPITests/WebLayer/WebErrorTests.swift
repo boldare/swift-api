@@ -9,10 +9,10 @@
 import XCTest
 @testable import SwiftAPI
 
-class RestErrorTests: XCTestCase {
+class WebErrorTests: XCTestCase {
     
     func testNoResponse() {
-        let error = RestError.noResponse
+        let error = WebError.noResponse
 
         XCTAssertFalse(error.localizedDescription.isEmpty)
         XCTAssertNotNil(error.localizedDescription.lowercased().range(of: "response"))
