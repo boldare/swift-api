@@ -73,7 +73,6 @@ class HttpResponseTests: XCTestCase {
         XCTAssertNil(response.body)
     }
 
-
     func testUpdate() {
         let url1 = exampleUrl
         let mimeType1 = "TestMimeType"
@@ -112,6 +111,5 @@ class HttpResponseTests: XCTestCase {
         XCTAssertNotEqual(response.body, body1)
         XCTAssertNotEqual(response.body, body2)
         XCTAssertEqual(response.body, comboBody)
-
     }
 }

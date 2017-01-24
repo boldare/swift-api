@@ -25,8 +25,8 @@ final class RestService {
      - Parameters:
        - baseUrl: URL object containing base URL of API server.
        - apiPath: String containing path of API on server.
-       - fileManager: Object of class implementing *FileManagerProtocol*.
        - headers: Array of all aditional HTTP header fields.
+       - fileManager: Object of class implementing *FileManagerProtocol*.
      
      - Important: Remember that *baseUrl* should not end with / sign, and *apiPath* should start with / sign.
      */
@@ -168,7 +168,7 @@ extension RestService {
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func postFile(from localFileUrl:URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+    func postFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
         return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .post, useProgress: useProgress, completionHandler: completionHandler)
     }
 
@@ -184,7 +184,7 @@ extension RestService {
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func putFile(from localFileUrl:URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+    func putFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
         return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .put, useProgress: useProgress, completionHandler: completionHandler)
     }
 
@@ -200,7 +200,7 @@ extension RestService {
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func patchFile(from localFileUrl:URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+    func patchFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
         return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .patch, useProgress: useProgress, completionHandler: completionHandler)
     }
 }
@@ -221,7 +221,7 @@ extension RestService {
      
      - Important: If any file exists at *localUrl* it will be overridden by downloaded file.
      */
-    func download(resource resourceName: String, to localUrl:URL, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+    func download(resource resourceName: String, to localUrl: URL, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
         return downloadFileResource(named: resourceName, to: localUrl, inBackground: inBackground, useProgress: useProgress, completionHandler: completionHandler)
     }
 }
