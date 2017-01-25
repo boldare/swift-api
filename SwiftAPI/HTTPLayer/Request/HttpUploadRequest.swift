@@ -6,7 +6,7 @@
 //  Copyright © 2017 XSolve. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class HttpUploadRequest: HttpRequest {
 
@@ -17,18 +17,18 @@ class HttpUploadRequest: HttpRequest {
      Creates and initializes a HttpUploadRequest with the given parameters.
 
      - Parameters:
-       - url: URL of the receiver,
-       - method: HTTP request method of the receiver,
-       - resourceUrl: URL of the resource to upload,
-       - onSuccess: action which needs to be performed when response was received from server,
-       - onFailure: action which needs to be performed, when request has failed,
+       - url: URL of the receiver.
+       - method: HTTP request method of the receiver.
+       - resourceUrl: URL of the resource to upload.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
        - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpUploadRequest object.
      */
-    init(url: URL, method: HttpMethod, resourceUrl: URL, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
+    init(url: URL, method: HttpMethod, resourceUrl: URL, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
         self.resourceUrl = resourceUrl
-        super.init(url: url, method: method, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
+        super.init(url: url, method: method, headers: headers, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
     }
 
     //MARK: Hashable Protocol

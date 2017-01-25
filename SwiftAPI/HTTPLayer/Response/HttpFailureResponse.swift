@@ -17,7 +17,7 @@ class HttpFailureResponse: HttpResponse {
      Creates object and sets its url and error.
 
      - Parameters:
-       - url: URL for the response..
+       - url: URL for the response.
        - error: Error object related to failure response.
      */
     init(url: URL, error: Error) {

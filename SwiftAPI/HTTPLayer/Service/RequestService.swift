@@ -51,6 +51,11 @@ final class RequestService: NSObject {
         return currentTasks.filter{ return $0.value.request == request }.flatMap({ return $0.key })
     }
 
+    ///Returns all currently running task with given request.
+    fileprivate var allCurrentTasks: [URLSessionTask] {
+        return currentTasks.flatMap({ return $0.key })
+    }
+
     ///Removes given task from queue.
     fileprivate func removeCurrent(_ task: URLSessionTask) {
         currentTasks.removeValue(forKey: task)
@@ -66,8 +71,10 @@ final class RequestService: NSObject {
     }
 
     ///Removes all tasks from queue.
-    fileprivate func removeAllTasks() {
-        currentTasks.removeAll()
+    fileprivate func cancelAllTasks() {
+        for task in allCurrentTasks {
+            task.cancel()
+        }
 
         //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
         for (_, session) in currentSessions {
@@ -76,7 +83,6 @@ final class RequestService: NSObject {
         //After invalidation, session objects cannot be reused, so we can remove all sessions.
         currentSessions.removeAll()
     }
-
 
     //MARK: - Handling multiple sessions
     private var currentSessions = [RequestServiceConfiguration : URLSession]()
@@ -107,8 +113,7 @@ extension RequestService {
     /**
      Sends given HTTP request.
 
-     - Parameters:
-       - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
+     - Parameter request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
      
      HttpDataRequest may run only with foreground configuration.
      */
@@ -189,7 +194,7 @@ extension RequestService {
 
     ///Cancels all currently running HTTP requests.
     func cancelAllRequests() {
-        removeAllTasks()
+        cancelAllTasks()
     }
 
     //MARK: - Handling background sessions

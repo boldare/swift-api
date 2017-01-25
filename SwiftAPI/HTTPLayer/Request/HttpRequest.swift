@@ -16,6 +16,9 @@ class HttpRequest: Hashable {
     ///The HTTP request method of the receiver.
     let method: HttpMethod
 
+    ///Array of HTTP header fields
+    let headerFields: [HttpHeader]?
+
     ///Action which needs to be performed when response was received from server.
     let successAction: ResponseAction?
 
@@ -29,17 +32,18 @@ class HttpRequest: Hashable {
      Creates and initializes a HttpRequest with the given parameters.
 
      - Parameters:
-       - url: URL of the receiver,
-       - method: HTTP request method of the receiver,
-       - onSuccess: action which needs to be performed when response was received from server,
-       - onFailure: action which needs to be performed, when request has failed,
+       - url: URL of the receiver.
+       - method: HTTP request method of the receiver.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
        - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpRequest object.
      */
-    init(url: URL, method: HttpMethod, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
+    init(url: URL, method: HttpMethod, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
         self.url = url
         self.method = method
+        self.headerFields = headers
         self.successAction = onSuccess
         self.failureAction = onFailure
         if useProgress {
@@ -51,6 +55,11 @@ class HttpRequest: Hashable {
     var urlRequest: URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        if let headers = headerFields {
+            for header in headers {
+                request.addValue(header.value, forHTTPHeaderField: header.name)
+            }
+        }
         return request
     }
 
@@ -73,7 +82,9 @@ class HttpRequest: Hashable {
     func equalTo(_ rhs: HttpRequest) -> Bool {
         return type(of: self) == type(of: rhs) &&
                url == rhs.url &&
-               method.rawValue == rhs.method.rawValue &&
-               progress == rhs.progress
+               method == rhs.method &&
+               ((progress == nil && rhs.progress == nil) || (progress != nil && rhs.progress != nil)) &&
+               ((successAction == nil && rhs.successAction == nil) || (successAction != nil && rhs.successAction != nil)) &&
+               ((failureAction == nil && rhs.failureAction == nil) || (failureAction != nil && rhs.failureAction != nil))
     }
 }

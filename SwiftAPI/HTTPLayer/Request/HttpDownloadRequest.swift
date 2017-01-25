@@ -6,7 +6,7 @@
 //  Copyright © 2017 XSolve. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class HttpDownloadRequest: HttpRequest {
 
@@ -18,7 +18,7 @@ class HttpDownloadRequest: HttpRequest {
     let destinationUrl: URL
 
     ///Method not allowed to use in current class.
-    private override init(url: URL, method: HttpMethod, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
+    private override init(url: URL, method: HttpMethod, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
         self.destinationUrl = URL(fileURLWithPath: "")
         super.init(url: url, method: method, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
     }
@@ -27,18 +27,17 @@ class HttpDownloadRequest: HttpRequest {
      Creates and initializes a HttpDownloadRequest with the given parameters.
 
      - Parameters:
-     - url: URL of the receiver,
-     - method: HTTP request method of the receiver,
-     - destinationUrl: destination URL for downloading resource,
-     - onSuccess: action which needs to be performed when response was received from server,
-     - onFailure: action which needs to be performed, when request has failed,
-     - useProgress: flag indicates if Progress object should be created.
+       - url: URL of the receiver.
+       - destinationUrl: destination URL for downloading resource.
+       - onSuccess: action which needs to be performed when response was received from server.
+       - onFailure: action which needs to be performed, when request has failed.
+       - useProgress: flag indicates if Progress object should be created.
 
      - Returns: An initialized a HttpDownloadRequest object.
      */
-    init(url: URL, destinationUrl: URL, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
+    init(url: URL, destinationUrl: URL, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = true) {
         self.destinationUrl = destinationUrl
-        super.init(url: url, method: .get, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
+        super.init(url: url, method: .get, headers: headers, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)
     }
 
     //MARK: Hashable Protocol

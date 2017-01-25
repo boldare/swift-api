@@ -10,24 +10,37 @@ import XCTest
 @testable import SwiftAPI
 
 class RequestServiceTests: XCTestCase {
-    
-    var rootURL: URL!
-    var requestService: RequestService!
-    var fileToDownload: URL!
 
+    fileprivate var rootURL: URL {
+        return URL(string: "https://httpbin.org")!
+    }
+
+    fileprivate var smallFileUrl: URL {
+        return URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
+    }
+
+    fileprivate var bigFileUrl: URL {
+        return URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg")!
+    }
+
+    fileprivate var localImageURL: URL {
+        return Bundle(for: type(of: self)).url(forResource: "testImage", withExtension: "png")!
+    }
+
+    fileprivate var documentsUrl: URL {
+        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
+    }
+
+    var requestService: RequestService!
 
     override func setUp() {
         super.setUp()
 
-        rootURL = URL(string: "https://httpbin.org")!
-        requestService = RequestService()
-        fileToDownload = URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
+        requestService = RequestService(fileManager: FileCommander())
     }
 
     override func tearDown() {
-        rootURL = nil
         requestService = nil
-        fileToDownload = nil
         super.tearDown()
     }
 
@@ -69,36 +82,36 @@ class RequestServiceTests: XCTestCase {
     //MARK: UploadRequest tests
     func testHttpPostUploadRequest() {
         let url = rootURL.appendingPathComponent("post")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .post, resourceUrl: resourceUrl)
     }
 
     func testHttpPutUploadRequest() {
         let url = rootURL.appendingPathComponent("put")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .put, resourceUrl: resourceUrl)
     }
 
     func testHttpPatchUploadRequest() {
         let url = rootURL.appendingPathComponent("patch")
-        let resourceUrl = imageURL
+        let resourceUrl = localImageURL
 
         performTestUploadRequest(url: url, method: .patch, resourceUrl: resourceUrl)
     }
 
     //MARK: DownloadRequest tests
     func testHttpDownloadRequest() {
-        let url = fileToDownload!
-        let responseExpectation = expectation(description: "Expect response from \(url)")
+        let fileUrl = smallFileUrl
         let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let responseExpectation = expectation(description: "Expect response from \(fileUrl)")
 
         var successPerformed = false
         let success = ResponseAction.success {response in
             if let code = response?.statusCode {
                 print("--------------------")
-                print("Downloading from URL \(url) finished with status code \(code).")
+                print("Downloading from URL \(fileUrl) finished with status code \(code).")
                 print("--------------------")
             }
             successPerformed = true
@@ -113,12 +126,114 @@ class RequestServiceTests: XCTestCase {
             responseExpectation.fulfill()
         }
 
-        let request = HttpDownloadRequest(url: url, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
+        let request = HttpDownloadRequest(url: fileUrl, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
         requestService.sendHTTPRequest(request, in: .foreground)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Download request test failed with error: \(error!.localizedDescription)")
             XCTAssertFalse(failurePerformed, "Download request finished with failure: \(responseError!.localizedDescription)")
+            XCTAssertTrue(successPerformed)
+        }
+    }
+
+    //MARK: Request managing tests
+    func testHttpRequestCancel() {
+        let fileUrl = smallFileUrl
+        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let responseExpectation = expectation(description: "Expect response from \(fileUrl)")
+
+        var successPerformed = false
+        let success = ResponseAction.success {response in
+            successPerformed = true
+            responseExpectation.fulfill()
+        }
+
+        var failurePerformed = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {error in
+            failurePerformed = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+
+        let request = HttpDownloadRequest(url: fileUrl, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
+        requestService.sendHTTPRequest(request, in: .foreground)
+        requestService.cancel(request)
+
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "Download request test failed with error: \(error!.localizedDescription)")
+            XCTAssertTrue(failurePerformed)
+            XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
+            XCTAssertFalse(successPerformed)
+        }
+    }
+
+    func testHttpRequestCancelAll() {
+        let fileUrl1 = smallFileUrl
+        let fileUrl2 = bigFileUrl
+        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let responseExpectation = expectation(description: "Expect file")
+
+        var successPerformed = false
+        let success = ResponseAction.success {response in
+            successPerformed = true
+            responseExpectation.fulfill()
+        }
+
+        var failurePerformed = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {error in
+            failurePerformed = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+        let request1 = HttpDownloadRequest(url: fileUrl1, destinationUrl: destinationUrl, useProgress: false)
+        let request2 = HttpDownloadRequest(url: fileUrl2, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
+
+        requestService.sendHTTPRequest(request1, in: .foreground)
+        requestService.sendHTTPRequest(request2, in: .foreground)
+        requestService.cancelAllRequests()
+
+        waitForExpectations(timeout: 10) { error in
+            XCTAssertNil(error, "Download request test failed with error: \(error!.localizedDescription)")
+            XCTAssertTrue(failurePerformed)
+            XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
+            XCTAssertFalse(successPerformed)
+        }
+    }
+
+    func testSuspendAndResume() {
+        let url = rootURL.appendingPathComponent("get")
+        let method = HttpMethod.get
+        let responseExpectation = expectation(description: "Expect response from \(url)")
+
+        var successPerformed = false
+        let success = ResponseAction.success {response in
+            if let code = response?.statusCode {
+                print("--------------------")
+                print("\(method.rawValue) request to URL \(url) finished with status code \(code).")
+                print("--------------------")
+            }
+            successPerformed = true
+            responseExpectation.fulfill()
+        }
+
+        var failurePerformed = false
+        var responseError: Error?
+        let failure = ResponseAction.failure {error in
+            failurePerformed = true
+            responseError = error
+            responseExpectation.fulfill()
+        }
+
+        let request = HttpDataRequest(url: url, method: method, onSuccess: success, onFailure: failure)
+        requestService.sendHTTPRequest(request)
+        requestService.suspend(request)
+        requestService.resume(request)
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)")
+            XCTAssertFalse(failurePerformed, "\(method.rawValue) request finished with failure: \(responseError!.localizedDescription)")
             XCTAssertTrue(successPerformed)
         }
     }
@@ -129,25 +244,7 @@ extension RequestServiceTests {
 
     ///Prepare JSON Data object
     fileprivate func jsonData(with dictionary: [String : Any]) -> Data {
-        do {
-            return try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
-        } catch {
-            XCTAssertNil(error, "Parsing to JSON failed: \(error.localizedDescription)")
-            return Data()
-        }
-    }
-
-    fileprivate var imageURL: URL {
-        if let assetUrl = Bundle(for: type(of: self)).url(forResource: "testImage", withExtension: "png") {
-            return assetUrl
-        } else {
-            XCTFail("Resource for tests not available")
-            return URL(fileURLWithPath: "")
-        }
-    }
-
-    fileprivate var documentsUrl: URL {
-        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
+        return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
     }
 
     ///Perform test of data request with given parameters
