@@ -18,7 +18,7 @@ class RequestServiceConfigurationTests: XCTestCase {
         XCTAssertNil(sessionConfig.identifier)
     }
     
-    func testBackgroundCOnfiguration() {
+    func testBackgroundConfiguration() {
         let config = RequestServiceConfiguration.background
         let sessionConfig = config.urlSessionConfiguration
 

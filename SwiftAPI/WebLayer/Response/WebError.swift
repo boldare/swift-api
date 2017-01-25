@@ -1,5 +1,5 @@
 //
-//  RestError.swift
+//  WebError.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 17.01.2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct RestError {
+struct WebError {
 
     private static let restDomain = "RestServiceErrorDomain"
 
