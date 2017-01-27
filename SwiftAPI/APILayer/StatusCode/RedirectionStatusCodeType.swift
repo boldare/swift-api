@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RedirectionStatusCodeType: StatusCodeType {
+public struct RedirectionStatusCodeType: StatusCodeType {
 
     let value: Int
 

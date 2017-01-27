@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ServerErrorStatusCodeType: StatusCodeType {
+public struct ServerErrorStatusCodeType: StatusCodeType {
 
     let value: Int
 

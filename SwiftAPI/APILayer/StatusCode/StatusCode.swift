@@ -18,7 +18,7 @@ import Foundation
  - serverError: stores status codes from 500 to 599,
  - unknown: stores every  other status codes, it should be used for internal library errors.
  */
-enum StatusCode {
+public enum StatusCode {
     case info(InfoStatusCodeType)
     case success(SuccessStatusCodeType)
     case redirection(RedirectionStatusCodeType)
@@ -29,6 +29,42 @@ enum StatusCode {
 
 extension StatusCode {
 
+    ///Returns raw value of status code.
+    public var rawValue: Int {
+        switch self {
+        case .info(let type):
+            return type.value
+        case .success(let type):
+            return type.value
+        case .redirection(let type):
+            return type.value
+        case .clientError(let type):
+            return type.value
+        case .serverError(let type):
+            return type.value
+        case .unknown(let type):
+            return type.value
+        }
+    }
+
+    ///Human readable description of status code value
+    public var description: String {
+        switch self {
+        case .info(let type):
+            return type.description
+        case .success(let type):
+            return type.description
+        case .redirection(let type):
+            return type.description
+        case .clientError(let type):
+            return type.description
+        case .serverError(let type):
+            return type.description
+        case .unknown(let type):
+            return type.description
+        }
+    }
+    
     /**
      Creates suitable status code based on given HTTP status code value.
 
@@ -47,24 +83,6 @@ extension StatusCode {
             self = .serverError(code)
         } else {
             self = .unknown(UnknownStatusCodeType(value))
-        }
-    }
-
-    ///Returns raw value of status code.
-    var rawValue: Int {
-        switch self {
-        case .info(let type):
-            return type.value
-        case .success(let type):
-            return type.value
-        case .redirection(let type):
-            return type.value
-        case .clientError(let type):
-            return type.value
-        case .serverError(let type):
-            return type.value
-        case .unknown(let type):
-            return type.value
         }
     }
 }
@@ -155,7 +173,7 @@ extension StatusCode: Equatable {
 
      - Parameter code: StatusCode to compare with.
      */
-    func isEqualByType(with code: StatusCode) -> Bool {
+    public func isEqualByType(with code: StatusCode) -> Bool {
         switch (self, code) {
         case (.info(_), .info(_)):
             return true

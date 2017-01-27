@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UnknownStatusCodeType: StatusCodeType {
+public struct UnknownStatusCodeType: StatusCodeType {
 
     let value: Int
 

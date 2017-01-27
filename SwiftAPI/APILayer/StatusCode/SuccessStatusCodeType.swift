@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SuccessStatusCodeType: StatusCodeType {
+public struct SuccessStatusCodeType: StatusCodeType {
 
     let value: Int
 
@@ -38,7 +38,7 @@ struct SuccessStatusCodeType: StatusCodeType {
             return "Unknown status code"
         }
     }
-
+    
     init?(_ value: Int) {
         guard value >= 200, value <= 299 else {
             return nil
