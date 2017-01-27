@@ -37,9 +37,8 @@ class RestServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let header = HttpHeader(name: "testHeader", value: "testHeaderValue")
-        restService = RestService(baseUrl: rootURL, apiPath: "", headers: [header], fileManager: FileCommander())
-        downloadService = RestService(baseUrl: fileRootURL, apiPath: "", headers: [header], fileManager: FileCommander())
+        restService = RestService(baseUrl: rootURL, apiPath: "", fileManager: FileCommander())
+        downloadService = RestService(baseUrl: fileRootURL, apiPath: "", fileManager: FileCommander())
     }
 
     override func tearDown() {

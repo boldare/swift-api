@@ -16,25 +16,20 @@ final class RestService {
     ///Path string of API on server. May be used for versioning. Remember to star it with */* sign.
     let apiPath: String
 
-    ///Array of HTTP header fields.
-    let headerFields: [HttpHeader]?
-
     private let requestService: RequestService
 
     /**
      - Parameters:
        - baseUrl: URL object containing base URL of API server.
        - apiPath: String containing path of API on server.
-       - headers: Array of all aditional HTTP header fields.
        - fileManager: Object of class implementing *FileManagerProtocol*.
      
      - Important: Remember that *baseUrl* should not end with / sign, and *apiPath* should start with / sign.
      */
-    init(baseUrl: URL, apiPath: String, headers: [HttpHeader]?, fileManager: FileManagerProtocol) {
+    init(baseUrl: URL, apiPath: String, fileManager: FileManagerProtocol) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
         self.requestService = RequestService(fileManager: fileManager)
-        self.headerFields = headers
     }
 
     //MARK: - Convenient methods
@@ -44,10 +39,10 @@ final class RestService {
     }
 
     ///Sends data request with given parameters
-    fileprivate func sendRequestForResource(named: String, method: HttpMethod, body: Data?, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest {
+    fileprivate func sendRequestForResource(named: String, method: HttpMethod, body: Data?, headers: [HttpHeader]?, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest {
         let url = requestUrl(for: named)
         let action = ResponseAction.completionActions(for: completionHandler)
-        let httpRequest = HttpDataRequest(url: url, method: method, body: body, headers: headerFields, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
+        let httpRequest = HttpDataRequest(url: url, method: method, body: body, headers: headers, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
 
         requestService.sendHTTPRequest(httpRequest)
 
@@ -55,10 +50,10 @@ final class RestService {
     }
 
     ///Uploads file with given parameters
-    fileprivate func uploadFile(at localFileUrl: URL, forResource resourceName: String, inBackground: Bool, method: HttpMethod, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest  {
+    fileprivate func uploadFile(at localFileUrl: URL, forResource resourceName: String, inBackground: Bool, method: HttpMethod, headers: [HttpHeader]?, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest  {
         let destinationUrl = requestUrl(for: resourceName)
         let action = ResponseAction.completionActions(for: completionHandler)
-        let uploadRequest = HttpUploadRequest(url: destinationUrl, method: method, resourceUrl: localFileUrl, headers: headerFields, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
+        let uploadRequest = HttpUploadRequest(url: destinationUrl, method: method, resourceUrl: localFileUrl, headers: headers, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
 
         requestService.sendHTTPRequest(uploadRequest, in: (inBackground ? .background : .foreground))
 
@@ -66,10 +61,10 @@ final class RestService {
     }
 
     ///Downloads file with given parameters
-    fileprivate func downloadFileResource(named: String, to localUrl: URL, inBackground: Bool, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest  {
+    fileprivate func downloadFileResource(named: String, to localUrl: URL, inBackground: Bool, headers: [HttpHeader]?, useProgress: Bool, completionHandler: WebResponseCompletionHandler?) -> WebRequest  {
         let remoteFileUrl = requestUrl(for: named)
         let action = ResponseAction.completionActions(for: completionHandler)
-        let downloadRequest = HttpDownloadRequest(url: remoteFileUrl, destinationUrl: localUrl, headers: headerFields, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
+        let downloadRequest = HttpDownloadRequest(url: remoteFileUrl, destinationUrl: localUrl, headers: headers, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
 
         requestService.sendHTTPRequest(downloadRequest, in: (inBackground ? .background : .foreground))
 
@@ -84,13 +79,14 @@ extension RestService {
 
      - Parameters:
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func get(resource resourceName: String, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return sendRequestForResource(named: resourceName, method: .get, body: nil, useProgress: useProgress, completionHandler: completionHandler)
+    func get(resource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil,  useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return sendRequestForResource(named: resourceName, method: .get, body: nil, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -99,13 +95,14 @@ extension RestService {
      - Parameters:
        - data: Data object which supposed to be send.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func post(data: Data, forResource resourceName: String, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return sendRequestForResource(named: resourceName, method: .post, body: data, useProgress: useProgress, completionHandler: completionHandler)
+    func post(data: Data, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return sendRequestForResource(named: resourceName, method: .post, body: data, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -114,13 +111,14 @@ extension RestService {
      - Parameters:
        - data: Data object which supposed to be send.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func put(data: Data, forResource resourceName: String, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return sendRequestForResource(named: resourceName, method: .put, body: data, useProgress: useProgress, completionHandler: completionHandler)
+    func put(data: Data, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return sendRequestForResource(named: resourceName, method: .put, body: data, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -129,13 +127,14 @@ extension RestService {
      - Parameters:
        - data: Data object which supposed to be send.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func patch(data: Data, forResource resourceName: String, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return sendRequestForResource(named: resourceName, method: .patch, body: data, useProgress: useProgress, completionHandler: completionHandler)
+    func patch(data: Data, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return sendRequestForResource(named: resourceName, method: .patch, body: data, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -144,13 +143,14 @@ extension RestService {
      - Parameters:
        - data: Data object which supposed to be send.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func delete(resource resourceName: String, data: Data? = nil, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return sendRequestForResource(named: resourceName, method: .delete, body: data, useProgress: useProgress, completionHandler: completionHandler)
+    func delete(resource resourceName: String, data: Data? = nil, with aditionalHeaders: [HttpHeader]? = nil, useProgress: Bool = false, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return sendRequestForResource(named: resourceName, method: .delete, body: data, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 }
 
@@ -162,14 +162,15 @@ extension RestService {
      - Parameters:
        - localFileUrl: URL on disc of the resource to upload.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - inBackground: Flag indicates if uploading should be performed in background or foreground.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func postFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .post, useProgress: useProgress, completionHandler: completionHandler)
+    func postFile(from localFileUrl: URL, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .post, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -178,14 +179,15 @@ extension RestService {
      - Parameters:
        - localFileUrl: URL on disc of the resource to upload.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - inBackground: Flag indicates if uploading should be performed in background or foreground.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func putFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .put, useProgress: useProgress, completionHandler: completionHandler)
+    func putFile(from localFileUrl: URL, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .put, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
     /**
@@ -194,14 +196,15 @@ extension RestService {
      - Parameters:
        - localFileUrl: URL on disc of the resource to upload.
        - resourceName: String containing REST resource name.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - inBackground: Flag indicates if uploading should be performed in background or foreground.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
 
      - Returns: WebRequest object which allows to follow progress and manage request.
      */
-    func patchFile(from localFileUrl: URL, forResource resourceName: String, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .patch, useProgress: useProgress, completionHandler: completionHandler)
+    func patchFile(from localFileUrl: URL, forResource resourceName: String, with aditionalHeaders: [HttpHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return uploadFile(at: localFileUrl, forResource: resourceName, inBackground: inBackground, method: .patch, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 }
 
@@ -212,7 +215,8 @@ extension RestService {
 
      - Parameters:
        - resourceName: String containing REST resource name.
-       - localUrl: URL on disc indicates where file should be saved. 
+       - localUrl: URL on disc indicates where file should be saved.
+       - aditionalHeaders: Array of all aditional HTTP header fields.
        - inBackground: Flag indicates if downloading should be performed in background or foreground.
        - useProgress: Flag indicates if Progress object should be created.
        - completionHandler: Closure called when request is finished.
@@ -221,7 +225,7 @@ extension RestService {
      
      - Important: If any file exists at *localUrl* it will be overridden by downloaded file.
      */
-    func download(resource resourceName: String, to localUrl: URL, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
-        return downloadFileResource(named: resourceName, to: localUrl, inBackground: inBackground, useProgress: useProgress, completionHandler: completionHandler)
+    func download(resource resourceName: String, to localUrl: URL, with aditionalHeaders: [HttpHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: WebResponseCompletionHandler? = nil) -> WebRequest {
+        return downloadFileResource(named: resourceName, to: localUrl, inBackground: inBackground, headers: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 }

@@ -50,29 +50,6 @@ class HttpDownloadRequestTests: XCTestCase {
         XCTAssertNotNil(request.progress)
     }
 
-    func testEqualityOfEqualRequests() {
-        let url = rootURL.appendingPathComponent("posts/1")
-        let destination = exampleDestination
-        let success = exampleSuccessAction
-        let failure = exampleFailureAction
-        let request1 = HttpDownloadRequest(url: url, destinationUrl: destination, onSuccess: success, onFailure: failure, useProgress: true)
-        let request2 = HttpDownloadRequest(url: url, destinationUrl: destination, onSuccess: success, onFailure: failure, useProgress: true)
-
-        XCTAssertTrue(request1 == request2)
-    }
-
-    func testEqualityOfNotEqualRequests() {
-        let url = rootURL.appendingPathComponent("posts/1")
-        let method = HttpMethod.post
-        let destination = exampleDestination
-        let success = exampleSuccessAction
-        let failure = exampleFailureAction
-        let request1 = HttpDownloadRequest(url: url, destinationUrl: destination, onSuccess: success, onFailure: failure, useProgress: true)
-        let request2 = HttpRequest(url: url, method: method, onSuccess: success, onFailure: failure, useProgress: true)
-
-        XCTAssertFalse(request1 == request2)
-    }
-
     func testHashValue() {
         let url = rootURL.appendingPathComponent("posts/1")
         let destination1 = exampleDestination

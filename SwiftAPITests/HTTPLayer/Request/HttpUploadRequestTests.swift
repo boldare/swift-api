@@ -50,31 +50,7 @@ class HttpUploadRequestTests: XCTestCase {
         XCTAssertTrue(failure.isEqualByType(with: request.failureAction!))
         XCTAssertNotNil(request.progress)
     }
-
-    func testEqualityOfEqualRequests() {
-        let url = rootURL.appendingPathComponent("posts/1")
-        let method = HttpMethod.get
-        let resource = exampleResource
-        let success = exampleSuccessAction
-        let failure = exampleFailureAction
-        let request1 = HttpUploadRequest(url: url, method: method, resourceUrl: resource, onSuccess: success, onFailure: failure, useProgress: true)
-        let request2 = HttpUploadRequest(url: url, method: method, resourceUrl: resource, onSuccess: success, onFailure: failure, useProgress: true)
-
-        XCTAssertTrue(request1 == request2)
-    }
-
-    func testEqualityOfNotEqualRequests() {
-        let url = rootURL.appendingPathComponent("posts/1")
-        let method = HttpMethod.post
-        let resource = exampleResource
-        let success = exampleSuccessAction
-        let failure = exampleFailureAction
-        let request1 = HttpUploadRequest(url: url, method: method, resourceUrl: resource, onSuccess: success, onFailure: failure, useProgress: true)
-        let request2 = HttpRequest(url: url, method: method, onSuccess: success, onFailure: failure, useProgress: true)
-
-        XCTAssertFalse(request1 == request2)
-    }
-
+    
     func testHashValue() {
         let url = rootURL.appendingPathComponent("posts/1")
         let method = HttpMethod.post

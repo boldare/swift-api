@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol FileManagerProtocol {
+public protocol FileManagerProtocol {
     func copyFile(from source: URL, to destination: URL ) -> Error?
 }
