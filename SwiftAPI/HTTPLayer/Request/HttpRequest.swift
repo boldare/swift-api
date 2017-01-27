@@ -8,7 +8,10 @@
 
 import Foundation
 
-class HttpRequest: Hashable {
+class HttpRequest {
+
+    ///Unique id of request.
+    let uuid: UUID
 
     ///The URL of the receiver.
     let url: URL
@@ -41,6 +44,7 @@ class HttpRequest: Hashable {
      - Returns: An initialized a HttpRequest object.
      */
     init(url: URL, method: HttpMethod, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
+        self.uuid = UUID()
         self.url = url
         self.method = method
         self.headerFields = headers
@@ -62,29 +66,24 @@ class HttpRequest: Hashable {
         }
         return request
     }
+}
 
-    //MARK: Hashable Protocol
-    var hashValue: Int {
-        return "\(url.hashValue),\(method.rawValue.hashValue)".hashValue
-    }
+extension  HttpRequest: Hashable {
 
-    public static func ==(lhs: HttpRequest, rhs: HttpRequest) -> Bool {
-        return lhs.equalTo(rhs)
+    final var hashValue: Int {
+        return uuid.hashValue
     }
 
     /**
-     Compares current object with given one.
+     Returns a Boolean value indicating whether two requests are equal.
 
-     - Parameter rhs: value to compare with.
+     - Parameters:
+     - rhs: A value to compare.
+     - lhs: Another value to compare.
 
-     - Returns: A Boolean value indicating whether two values are equal.
+     -Important: Two requests are equal, when their UUID's are equal, it means that function will return *true* only when you are comparing the same instance of request or copy of that instance.
      */
-    func equalTo(_ rhs: HttpRequest) -> Bool {
-        return type(of: self) == type(of: rhs) &&
-               url == rhs.url &&
-               method == rhs.method &&
-               ((progress == nil && rhs.progress == nil) || (progress != nil && rhs.progress != nil)) &&
-               ((successAction == nil && rhs.successAction == nil) || (successAction != nil && rhs.successAction != nil)) &&
-               ((failureAction == nil && rhs.failureAction == nil) || (failureAction != nil && rhs.failureAction != nil))
+    public static func ==(lhs: HttpRequest, rhs: HttpRequest) -> Bool {
+        return lhs.uuid == rhs.uuid
     }
 }

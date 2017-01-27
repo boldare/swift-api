@@ -36,21 +36,4 @@ class HttpDataRequest: HttpRequest {
         request.httpBody = body
         return request
     }
-
-    //MARK: Hashable Protocol
-    override var hashValue: Int {
-        var string = "\(super.hashValue)"
-        if let body = body {
-            string.append(",\(body.hashValue)")
-        }
-        return string.hashValue
-    }
-
-    override func equalTo(_ rhs: HttpRequest) -> Bool {
-        guard let rhs = rhs as? HttpDataRequest else {
-            return false
-        }
-        return super.equalTo(rhs) &&
-               body == rhs.body
-    }
 }
