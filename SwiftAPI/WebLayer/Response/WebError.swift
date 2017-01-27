@@ -6,7 +6,7 @@
 //  Copyright © 2017 XSolve. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct WebError {
 

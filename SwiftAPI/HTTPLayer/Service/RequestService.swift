@@ -23,7 +23,7 @@ final class RequestService: NSObject {
     ///Sets response for current task but only when request already exists
     fileprivate func setCurrent(_ response: HttpResponse, for task: URLSessionTask) -> Bool {
         guard var httpFunctions = currentTasks[task] else {
-            print("Cannod add response when there is no request!")
+            debugPrint("Cannod add response when there is no request!")
             return false
         }
         httpFunctions.response = response
