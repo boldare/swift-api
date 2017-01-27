@@ -1,5 +1,5 @@
 //
-//  WebRequest.swift
+//  ApiRequest.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 13.01.2017.
@@ -8,15 +8,10 @@
 
 import Foundation
 
-struct WebRequest {
+public struct ApiRequest {
 
     private let request: HttpRequest
     private let requestService: RequestService
-
-    ///Progress object which allows to follow request progress.
-    var progress: Progress? {
-        return request.progress
-    }
 
     ///Creates request based on HttpRequest and RequestService.
     init(httpRequest: HttpRequest, httpRequestService: RequestService) {
@@ -24,18 +19,23 @@ struct WebRequest {
         self.requestService = httpRequestService
     }
 
+    ///Progress object which allows to follow request progress.
+    public var progress: Progress? {
+        return request.progress
+    }
+
     ///Temporarily suspends request.
-    func suspend() {
+    public func suspend() {
         requestService.suspend(request)
     }
 
     ///Resumes request, if it is suspended.
-    func resume() {
+    public func resume() {
         requestService.resume(request)
     }
 
     ///Cancels request.
-    func cancel() {
+    public func cancel() {
         requestService.cancel(request)
     }
 }
