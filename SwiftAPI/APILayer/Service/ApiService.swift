@@ -63,6 +63,19 @@ final public class ApiService {
     public init(fileManager: FileManagerProtocol) {
         self.requestService = RequestService(fileManager: fileManager)
     }
+
+    /**
+     Handle events for background session with identifier.
+
+     - Parameters:
+       - identifier: The identifier of the URL session requiring attention.
+       - completionHandler: The completion handler to call when you finish processing the events.
+
+     This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
+     */
+    public func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
+        requestService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+    }
 }
 
 ///Manage simple HTTP requests
