@@ -41,14 +41,14 @@ class InfoStatusCodeTypeTests: XCTestCase {
         XCTAssertNil(code)
     }
 
-    func testEqualityOfTwoEqualCodes() {
+    func testEqualityOfEqualCodes() {
         let code1 = InfoStatusCodeType(102)
         let code2 = InfoStatusCodeType(102)
 
         XCTAssertTrue(code1 == code2)
     }
 
-    func testEqualityOfTwoNotEqualCodes() {
+    func testEqualityOfNotEqualCodes() {
         let code1 = InfoStatusCodeType(101)
         let code2 = InfoStatusCodeType(102)
 

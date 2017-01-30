@@ -18,8 +18,8 @@ public struct ApiHeader {
 
     /**
      - Parameters:
-     - name: String containing HTTP header field name.
-     - value: String containing HTTP header field value.
+       - name: String containing header field name.
+       - value: String containing header field value.
      */
     public init(name: String, value: String) {
         self.name = name

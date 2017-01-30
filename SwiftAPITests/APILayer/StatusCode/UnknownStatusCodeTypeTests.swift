@@ -17,14 +17,14 @@ class UnknownStatusCodeTypeTests: XCTestCase {
         XCTAssertEqual(code.value, 999)
     }
 
-    func testEqualityOfTwoEqualCodes() {
+    func testEqualityOfEqualCodes() {
         let code1 = UnknownStatusCodeType(0)
         let code2 = UnknownStatusCodeType(0)
 
         XCTAssertTrue(code1 == code2)
     }
 
-    func testEqualityOfTwoNotEqualCodes() {
+    func testEqualityOfNotEqualCodes() {
         let code1 = UnknownStatusCodeType(-1)
         let code2 = UnknownStatusCodeType(1)
 

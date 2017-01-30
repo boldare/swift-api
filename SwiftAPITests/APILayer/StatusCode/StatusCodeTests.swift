@@ -27,6 +27,28 @@ class StatusCodeTests: XCTestCase {
         XCTAssertEqual(code6.rawValue, 600)
     }
 
+    func testDescription() {
+        let code1 = StatusCode(100)
+        let type1 = InfoStatusCodeType(100)
+        let code2 = StatusCode(200)
+        let type2 = SuccessStatusCodeType(200)
+        let code3 = StatusCode(300)
+        let type3 = RedirectionStatusCodeType(300)
+        let code4 = StatusCode(400)
+        let type4 = ClientErrorStatusCodeType(400)
+        let code5 = StatusCode(500)
+        let type5 = ServerErrorStatusCodeType(500)
+        let code6 = StatusCode(600)
+        let type6 = UnknownStatusCodeType(600)
+
+        XCTAssertEqual(code1.description, type1?.description)
+        XCTAssertEqual(code2.description, type2?.description)
+        XCTAssertEqual(code3.description, type3?.description)
+        XCTAssertEqual(code4.description, type4?.description)
+        XCTAssertEqual(code5.description, type5?.description)
+        XCTAssertEqual(code6.description, type6.description)
+    }
+
     func testIsEqualByType() {
         let code10 = StatusCode(100)
         let code11 = StatusCode(110)

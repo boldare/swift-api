@@ -9,55 +9,55 @@
 import XCTest
 @testable import SwiftAPI
 
-class RedirectionStatusCodeTypeTests: XCTestCase {
+class ServerErrorStatusCodeTypeTests: XCTestCase {
 
     func testConstructor() {
-        let code = RedirectionStatusCodeType(333)
+        let code = ServerErrorStatusCodeType(555)
 
-        XCTAssertEqual(code?.value, 333)
+        XCTAssertEqual(code?.value, 555)
     }
 
     func testConstructorForLowestCode() {
-        let code = RedirectionStatusCodeType(300)
+        let code = ServerErrorStatusCodeType(500)
 
         XCTAssertNotNil(code)
     }
 
     func testConstructorForHighestCode() {
-        let code = RedirectionStatusCodeType(399)
+        let code = ServerErrorStatusCodeType(599)
 
         XCTAssertNotNil(code)
     }
 
     func testConstructorForToLowCode() {
-        let code = RedirectionStatusCodeType(299)
+        let code = ServerErrorStatusCodeType(499)
 
         XCTAssertNil(code)
     }
 
     func testConstructorForToHighCode() {
-        let code = RedirectionStatusCodeType(400)
+        let code = ServerErrorStatusCodeType(600)
 
         XCTAssertNil(code)
     }
 
-    func testEqualityOfTwoEqualCodes() {
-        let code1 = RedirectionStatusCodeType(302)
-        let code2 = RedirectionStatusCodeType(302)
+    func testEqualityOfEqualCodes() {
+        let code1 = ServerErrorStatusCodeType(502)
+        let code2 = ServerErrorStatusCodeType(502)
 
         XCTAssertTrue(code1 == code2)
     }
 
-    func testEqualityOfTwoNotEqualCodes() {
-        let code1 = RedirectionStatusCodeType(301)
-        let code2 = RedirectionStatusCodeType(302)
+    func testEqualityOfNotEqualCodes() {
+        let code1 = ServerErrorStatusCodeType(501)
+        let code2 = ServerErrorStatusCodeType(502)
 
         XCTAssertFalse(code1 == code2)
     }
 
     func testDescription() {
-        for i in 300..<399 {
-            let code = RedirectionStatusCodeType(i)
+        for i in 500..<599 {
+            let code = ServerErrorStatusCodeType(i)
             XCTAssertNotNil(code?.description)
         }
     }

@@ -89,7 +89,7 @@ extension StatusCode {
 
 extension StatusCode {
 
-    private static let internalErrorCode = 99999
+    private static let internalErrorCode = 999999
 
     ///Returns StatusCode for library internal error.
     static var internalErrorStatusCode: StatusCode {
@@ -97,7 +97,7 @@ extension StatusCode {
     }
 
     ///Allows to check if StatusCode is status of library internal error.
-    var isInternalErrorStatusCode: Bool {
+    public var isInternalErrorStatusCode: Bool {
         switch self {
         case .unknown(let code) where code.value == type(of: self).internalErrorCode:
             return true
@@ -106,8 +106,18 @@ extension StatusCode {
         }
     }
 
+    ///Allows to check if StatusCode is status of informational response.
+    public var isInfoStatusCode: Bool {
+        switch self {
+        case .info(_):
+            return true
+        default:
+            return false
+        }
+    }
+
     ///Allows to check if StatusCode is status of success response.
-    var isSuccessStatusCode: Bool {
+    public var isSuccessStatusCode: Bool {
         switch self {
         case .success(_):
             return true
@@ -117,7 +127,7 @@ extension StatusCode {
     }
 
     ///Allows to check if StatusCode is status of redirection response.
-    var isRedirectionStatusCode: Bool {
+    public var isRedirectionStatusCode: Bool {
         switch self {
         case .redirection(_):
             return true
@@ -126,18 +136,8 @@ extension StatusCode {
         }
     }
 
-    ///Allows to check if StatusCode is status of informational response.
-    var isInfoStatusCode: Bool {
-        switch self {
-        case .info(_):
-            return true
-        default:
-            return false
-        }
-    }
-
     ///Allows to check if StatusCode is status of error response.
-    var isErrorStatusCode: Bool {
+    public var isErrorStatusCode: Bool {
         switch self {
         case .clientError(_), .serverError(_), .unknown(_):
             return true

@@ -10,7 +10,10 @@ import Foundation
 
 public struct ApiRequest {
 
+    ///Http request to manage.
     private let request: HttpRequest
+
+    ///RequestService allowing to manage request.
     private let requestService: RequestService
 
     ///Creates request based on HttpRequest and RequestService.

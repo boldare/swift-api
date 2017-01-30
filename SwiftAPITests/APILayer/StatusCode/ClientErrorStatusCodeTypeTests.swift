@@ -9,55 +9,55 @@
 import XCTest
 @testable import SwiftAPI
 
-class SuccessStatusCodeTypeTests: XCTestCase {
+class ClientErrorStatusCodeTypeTests: XCTestCase {
 
     func testConstructor() {
-        let code = SuccessStatusCodeType(222)
+        let code = ClientErrorStatusCodeType(444)
 
-        XCTAssertEqual(code?.value, 222)
+        XCTAssertEqual(code?.value, 444)
     }
 
     func testConstructorForLowestCode() {
-        let code = SuccessStatusCodeType(200)
+        let code = ClientErrorStatusCodeType(400)
 
         XCTAssertNotNil(code)
     }
 
     func testConstructorForHighestCode() {
-        let code = SuccessStatusCodeType(299)
+        let code = ClientErrorStatusCodeType(499)
 
         XCTAssertNotNil(code)
     }
 
     func testConstructorForToLowCode() {
-        let code = SuccessStatusCodeType(199)
+        let code = ClientErrorStatusCodeType(399)
 
         XCTAssertNil(code)
     }
 
     func testConstructorForToHighCode() {
-        let code = SuccessStatusCodeType(300)
+        let code = ClientErrorStatusCodeType(500)
 
         XCTAssertNil(code)
     }
 
-    func testEqualityOfTwoEqualCodes() {
-        let code1 = SuccessStatusCodeType(202)
-        let code2 = SuccessStatusCodeType(202)
+    func testEqualityOfEqualCodes() {
+        let code1 = ClientErrorStatusCodeType(402)
+        let code2 = ClientErrorStatusCodeType(402)
 
         XCTAssertTrue(code1 == code2)
     }
 
-    func testEqualityOfTwoNotEqualCodes() {
-        let code1 = SuccessStatusCodeType(201)
-        let code2 = SuccessStatusCodeType(202)
+    func testEqualityOfNotEqualCodes() {
+        let code1 = ClientErrorStatusCodeType(401)
+        let code2 = ClientErrorStatusCodeType(402)
 
         XCTAssertFalse(code1 == code2)
     }
 
     func testDescription() {
-        for i in 200..<299 {
-            let code = SuccessStatusCodeType(i)
+        for i in 400..<499 {
+            let code = ClientErrorStatusCodeType(i)
             XCTAssertNotNil(code?.description)
         }
     }

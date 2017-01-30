@@ -28,7 +28,7 @@ extension ResponseAction {
             if let response = ApiResponse(response) {
                 completion(response, nil)
             } else {
-                completion(nil, WebError.noResponse)
+                completion(nil, ApiError.noResponse)
             }
         }
         let failure = ResponseAction.failure { (error) in
