@@ -72,12 +72,11 @@ fi
 spec_version=$(grep ".version[^.]" $spec_file | grep -o '".*"' | sed 's/"//g')
 tag_version=${last_tag%"-beta"}
 
-if [ "$spec_version" != "tag_version" ]; then
+if [ "$spec_version" != "$tag_version" ]; then
     echo "${yellow}Version used in ${spec_file} (${spec_version}) does not match to last tag version (${tag_version}).${endColor}"
     printf "${yellow}Do you want to continue? (y/N):${endColor} "
     read -r answer
     should_continue=$(echo $answer | tr '[A-Z]' '[a-z]')
-
     if [ "$should_continue" != "y" ] && [ "$should_continue" != "yes" ]; then
         echo "${red}Terminating script due to podspec and tag versions mismatch.${endColor}"
         exit 1
