@@ -56,6 +56,7 @@ last_commit=$(git log --pretty=format:"%H" -1)
 last_tag=""
 spec_file=""
 
+#Checking if used branch is correct
 if [ "$current_branch" = "master" ]; then
     last_tag=$(git tag -l | sed -e '/beta/d' | tail -1)
     spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/d' | sed -n 1p)
@@ -65,6 +66,22 @@ elif [ "$current_branch" = "develop" ]; then
 else
     echo "${red}${current_branch} does not match to any of release branches! Checkout to master or develop.${endColor}"
     exit 1
+fi
+
+#Checking if version in podspec fits to current tag
+spec_version=$(grep ".version[^.]" $spec_file | grep -o '".*"' | sed 's/"//g')
+tag_version=${last_tag%"-beta"}
+
+if [ "$spec_version" != "tag_version" ]; then
+    echo "${yellow}Version used in ${spec_file} (${spec_version}) does not match to last tag version (${tag_version}).${endColor}"
+    printf "${yellow}Do you want to continue? (y/N):${endColor} "
+    read -r answer
+    should_continue=$(echo $answer | tr '[A-Z]' '[a-z]')
+
+    if [ "$should_continue" != "y" ] && [ "$should_continue" != "yes" ]; then
+        echo "${red}Terminating script due to podspec and tag versions mismatch.${endColor}"
+        exit 1
+    fi
 fi
 
 echo "${yellow}Deleting tag ${last_tag}...${endColor}"
