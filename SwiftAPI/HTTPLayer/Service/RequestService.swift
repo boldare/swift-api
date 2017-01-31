@@ -222,6 +222,7 @@ extension RequestService: URLSessionDelegate {
         for (_, completionHandler) in backgroundSessionCompletionHandler {
             completionHandler()
         }
+        backgroundSessionCompletionHandler.removeAll()
     }
 }
 

@@ -8,10 +8,12 @@
 
 import Foundation
 
-struct FileCommander: FileManagerProtocol {
+public struct FileCommander: FileManagerProtocol {
 
-    ///Copies the file at the specified URL to a new location synchronously. If file exists at destination URL, method will replace it.
-    func copyFile(from source: URL, to destination: URL ) -> Error? {
+    public init() {
+    }
+
+    public func copyFile(from source: URL, to destination: URL ) -> Error? {
         let manager = FileManager.default
         do {
             if manager.fileExists(atPath: destination.path) {
