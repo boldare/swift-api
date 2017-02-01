@@ -85,30 +85,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="km4-Fg-XN2">
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="km4-Fg-XN2" secondAttribute="height" multiplier="2:1" id="dgg-qd-Fzs"/>
-                                </constraints>
-                            </imageView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-gw-pMV"/>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jN-Pw-APd"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-gw-pMV"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7jN-Pw-APd"/>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Large image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgW-cI-fa4">
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image to upload:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsj-A8-XAr">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilz-N5-Npl">
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Perform request"/>
+                                <state key="normal" title="Perform POST request"/>
+                                <connections>
+                                    <action selector="postRequestButtonDidPush" destination="vYv-nd-019" eventType="touchUpInside" id="tbL-qG-3AX"/>
+                                </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3oJ-zK-HcQ">
-                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IQ-8E-YIE">
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Perform PUT request"/>
+                                <connections>
+                                    <action selector="putRequestButtonDidPush" destination="vYv-nd-019" eventType="touchUpInside" id="x8g-uP-sG8"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQD-fh-FVd">
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -124,42 +121,56 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="3mS-dL-p4Q"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qvc-c2-uIA">
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Perform PATCH request"/>
+                                <connections>
+                                    <action selector="patchRequestButtonDidPush" destination="vYv-nd-019" eventType="touchUpInside" id="0S7-NQ-ul0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="km4-Fg-XN2" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="0Rz-br-LYf"/>
                             <constraint firstItem="SgW-cI-fa4" firstAttribute="bottom" secondItem="6Ak-gw-pMV" secondAttribute="bottom" id="1gr-XJ-o2l"/>
-                            <constraint firstItem="Ilz-N5-Npl" firstAttribute="width" secondItem="Tct-xf-6kb" secondAttribute="width" multiplier="2:3" id="2JG-jp-eL8"/>
+                            <constraint firstItem="Ilz-N5-Npl" firstAttribute="width" secondItem="Tct-xf-6kb" secondAttribute="width" multiplier="3:4" id="2JG-jp-eL8"/>
+                            <constraint firstItem="5IQ-8E-YIE" firstAttribute="leading" secondItem="Ilz-N5-Npl" secondAttribute="leading" id="426-21-ZAd"/>
                             <constraint firstItem="UNG-fJ-ey7" firstAttribute="top" secondItem="7jN-Pw-APd" secondAttribute="top" id="431-2W-zeN"/>
+                            <constraint firstItem="5IQ-8E-YIE" firstAttribute="top" secondItem="Ilz-N5-Npl" secondAttribute="bottom" constant="8" id="6Fg-aA-Nh2"/>
                             <constraint firstItem="Ble-TP-MPL" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="7dX-xo-udh"/>
-                            <constraint firstAttribute="trailing" secondItem="km4-Fg-XN2" secondAttribute="trailing" constant="16" id="Brp-B3-Kyc"/>
+                            <constraint firstItem="Qvc-c2-uIA" firstAttribute="leading" secondItem="5IQ-8E-YIE" secondAttribute="leading" id="99c-PA-pn1"/>
+                            <constraint firstItem="3mS-dL-p4Q" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="AGl-VZ-A6y"/>
+                            <constraint firstItem="Qvc-c2-uIA" firstAttribute="trailing" secondItem="5IQ-8E-YIE" secondAttribute="trailing" id="BDA-Fo-WOs"/>
                             <constraint firstItem="pMq-J0-Uof" firstAttribute="top" secondItem="Ble-TP-MPL" secondAttribute="bottom" constant="16" id="DCU-8p-90O"/>
-                            <constraint firstItem="Ilz-N5-Npl" firstAttribute="top" secondItem="3oJ-zK-HcQ" secondAttribute="top" id="DWF-bb-R7v"/>
-                            <constraint firstAttribute="trailing" secondItem="qsj-A8-XAr" secondAttribute="trailing" constant="16" id="HPt-iK-yt2"/>
+                            <constraint firstItem="EQD-fh-FVd" firstAttribute="top" secondItem="3mS-dL-p4Q" secondAttribute="bottom" constant="8" id="FxO-1J-TYq"/>
                             <constraint firstItem="Ilz-N5-Npl" firstAttribute="centerX" secondItem="Tct-xf-6kb" secondAttribute="centerX" id="Hsf-AV-tSy"/>
+                            <constraint firstItem="Ilz-N5-Npl" firstAttribute="top" secondItem="UNG-fJ-ey7" secondAttribute="bottom" constant="8" id="Jmt-Eh-s6M"/>
                             <constraint firstItem="EQD-fh-FVd" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="Mli-GE-F7r"/>
                             <constraint firstAttribute="trailing" secondItem="6Ak-gw-pMV" secondAttribute="trailing" constant="16" id="NXK-zG-wC8"/>
                             <constraint firstItem="6Ak-gw-pMV" firstAttribute="leading" secondItem="SgW-cI-fa4" secondAttribute="trailing" constant="16" id="Nla-QC-ULO"/>
                             <constraint firstItem="Ble-TP-MPL" firstAttribute="top" secondItem="EQD-fh-FVd" secondAttribute="bottom" constant="8" id="PNc-SD-TI2"/>
-                            <constraint firstItem="3oJ-zK-HcQ" firstAttribute="trailing" secondItem="7jN-Pw-APd" secondAttribute="trailing" id="PNp-7W-fru"/>
-                            <constraint firstItem="km4-Fg-XN2" firstAttribute="top" secondItem="qsj-A8-XAr" secondAttribute="bottom" constant="4" id="R9F-je-9sx"/>
                             <constraint firstItem="7jN-Pw-APd" firstAttribute="trailing" secondItem="6Ak-gw-pMV" secondAttribute="trailing" id="X4w-9e-Gue"/>
-                            <constraint firstItem="qsj-A8-XAr" firstAttribute="top" secondItem="aSK-M2-xti" secondAttribute="bottom" constant="8" id="ZgB-gv-Haz"/>
                             <constraint firstItem="7jN-Pw-APd" firstAttribute="leading" secondItem="UNG-fJ-ey7" secondAttribute="trailing" constant="16" id="a9m-0q-hpR"/>
-                            <constraint firstItem="3oJ-zK-HcQ" firstAttribute="top" secondItem="7jN-Pw-APd" secondAttribute="bottom" constant="8" id="bWQ-nS-uKQ"/>
                             <constraint firstAttribute="trailing" secondItem="Ble-TP-MPL" secondAttribute="trailing" constant="16" id="e1M-bL-2YU"/>
-                            <constraint firstItem="Ilz-N5-Npl" firstAttribute="bottom" secondItem="3oJ-zK-HcQ" secondAttribute="bottom" id="i9k-ev-K3q"/>
-                            <constraint firstItem="6Ak-gw-pMV" firstAttribute="top" secondItem="km4-Fg-XN2" secondAttribute="bottom" constant="8" id="iLC-Zn-Nbl"/>
+                            <constraint firstAttribute="trailing" secondItem="3mS-dL-p4Q" secondAttribute="trailing" constant="16" id="ekz-Qs-g7F"/>
+                            <constraint firstItem="3mS-dL-p4Q" firstAttribute="top" secondItem="Qvc-c2-uIA" secondAttribute="bottom" constant="8" id="jix-SL-b6a"/>
                             <constraint firstAttribute="trailing" secondItem="EQD-fh-FVd" secondAttribute="trailing" constant="16" id="jkB-EB-Asn"/>
-                            <constraint firstItem="EQD-fh-FVd" firstAttribute="top" secondItem="Ilz-N5-Npl" secondAttribute="bottom" constant="8" id="mbm-eO-iSZ"/>
+                            <constraint firstItem="Qvc-c2-uIA" firstAttribute="top" secondItem="5IQ-8E-YIE" secondAttribute="bottom" constant="8" id="kyx-ER-Ja8"/>
+                            <constraint firstItem="6Ak-gw-pMV" firstAttribute="top" secondItem="aSK-M2-xti" secondAttribute="bottom" constant="16" id="l5H-AP-Cng"/>
                             <constraint firstItem="UNG-fJ-ey7" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="pe9-96-btu"/>
-                            <constraint firstItem="qsj-A8-XAr" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="prq-Tc-GWi"/>
                             <constraint firstItem="UNG-fJ-ey7" firstAttribute="bottom" secondItem="7jN-Pw-APd" secondAttribute="bottom" id="qPQ-Iy-KLP"/>
                             <constraint firstItem="7jN-Pw-APd" firstAttribute="top" secondItem="6Ak-gw-pMV" secondAttribute="bottom" constant="8" id="sXW-d6-1mK"/>
+                            <constraint firstItem="5IQ-8E-YIE" firstAttribute="trailing" secondItem="Ilz-N5-Npl" secondAttribute="trailing" id="tUM-fm-TKS"/>
                             <constraint firstItem="SgW-cI-fa4" firstAttribute="leading" secondItem="Tct-xf-6kb" secondAttribute="leading" constant="16" id="tcJ-Ee-ZSi"/>
                             <constraint firstItem="SgW-cI-fa4" firstAttribute="top" secondItem="6Ak-gw-pMV" secondAttribute="top" id="xrc-bS-x3Q"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backgroundSwitch" destination="7jN-Pw-APd" id="X24-P1-pC4"/>
+                        <outlet property="largeImageSwitch" destination="6Ak-gw-pMV" id="5Y0-lu-kjO"/>
+                        <outlet property="progressBar" destination="3mS-dL-p4Q" id="cQ2-xw-Usy"/>
+                        <outlet property="textView" destination="Ble-TP-MPL" id="rqe-3r-ow1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPd-eK-6oC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
