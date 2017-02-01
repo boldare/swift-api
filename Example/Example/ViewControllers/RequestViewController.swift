@@ -21,6 +21,12 @@ class RequestViewController: UIViewController {
         indicator.stopAnimating()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        apiService.cancellAllRequests()
+    }
+
     @IBAction func getRequestButtonDidPush() {
         let url = apiRootURL.appendingPathComponent("get")
 

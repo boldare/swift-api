@@ -312,4 +312,28 @@ extension ApiServiceTests {
             XCTAssertNil(responseError, "Download request failed with error: \(responseError!.localizedDescription)")
         }
     }
+
+    func testCancelAllRequests() {
+        let remoteResourceUrl = smallFileUrl
+        let destinationUrl1 = documentsUrl.appendingPathComponent("file1.jpg")
+        let destinationUrl2 = documentsUrl.appendingPathComponent("file2.jpg")
+
+        let responseExpectation = expectation(description: "Expect download response")
+        var response: ApiResponse?
+        var responseError: Error?
+        let completion = { (r: ApiResponse?, e: Error?) in
+            response = r
+            responseError = e
+            responseExpectation.fulfill()
+        }
+        _ = apiService.download(from: remoteResourceUrl, to: destinationUrl1, inBackground: false, useProgress: false)
+        _ = apiService.download(from: remoteResourceUrl, to: destinationUrl2, inBackground: false, useProgress: false, completionHandler: completion)
+        apiService.cancellAllRequests()
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
+            XCTAssertNil(response)
+        }
+    }
 }

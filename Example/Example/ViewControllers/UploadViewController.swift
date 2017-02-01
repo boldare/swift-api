@@ -13,8 +13,8 @@ class UploadViewController: UIViewController {
 
     @IBOutlet var largeImageSwitch: UISwitch!
     @IBOutlet var backgroundSwitch: UISwitch!
-    @IBOutlet var textView: UITextView!
     @IBOutlet var progressBar: UIProgressView!
+    @IBOutlet var textView: UITextView!
 
     fileprivate var progress = Progress(totalUnitCount: 0)
 
@@ -30,6 +30,7 @@ class UploadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
+        apiService.cancellAllRequests()
     }
 
     func prepareForRequest() {

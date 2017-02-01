@@ -64,6 +64,11 @@ final public class ApiService {
         self.requestService = RequestService(fileManager: fileManager)
     }
 
+    ///Cancels all currently running requests.
+    public func cancellAllRequests() {
+        requestService.cancelAllRequests()
+    }
+
     /**
      Handle events for background session with identifier.
 
