@@ -16,6 +16,9 @@ class RequestViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        textView.text = ""
+        indicator.stopAnimating()
     }
 
     @IBAction func getRequestButtonDidPush() {
@@ -59,21 +62,21 @@ class RequestViewController: UIViewController {
     }
 }
 
-extension RequestViewController {
+fileprivate extension RequestViewController {
 
-    fileprivate var apiService: ApiService {
+    var apiService: ApiService {
         return (UIApplication.shared.delegate as! AppDelegate).apiService
     }
 
-    fileprivate var apiRootURL: URL {
+    var apiRootURL: URL {
         return URL(string: "https://httpbin.org")!
     }
 
-    fileprivate var exampleHeaders: [ApiHeader] {
+    var exampleHeaders: [ApiHeader] {
         return [ApiHeader(name: "User-Agent", value: "SwiftApiExample")]
     }
 
-    fileprivate var completionHandler: ApiResponseCompletionHandler {
+    var completionHandler: ApiResponseCompletionHandler {
         return {[weak self] (response: ApiResponse?, error: Error?) in
             guard let strongSelf = self else {
                 return
@@ -103,6 +106,7 @@ extension RequestViewController {
                 }
                 DispatchQueue.main.async {
                     strongSelf.textView.text = readable
+                    strongSelf.textView.setContentOffset(.zero, animated: true)
                 }
             }
             DispatchQueue.main.async {
@@ -111,7 +115,7 @@ extension RequestViewController {
         }
     }
 
-    fileprivate var exampleBody: Data {
+    var exampleBody: Data {
         let dictionary = ["Hello" : "World"]
         return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
 
