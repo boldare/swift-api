@@ -16,7 +16,23 @@
 		EA56C23B1E40991D00068B9E /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2361E40991D00068B9E /* DownloadViewController.swift */; };
 		EA56C23C1E40991D00068B9E /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2371E40991D00068B9E /* RequestViewController.swift */; };
 		EA56C23D1E40991D00068B9E /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2381E40991D00068B9E /* UploadViewController.swift */; };
+		EA745C601E432AFA00A65CB6 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; };
+		EA745C611E432AFA00A65CB6 /* SwiftAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EA745C621E432AFB00A65CB6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA745C611E432AFA00A65CB6 /* SwiftAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EA56C21A1E40977800068B9E /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +46,7 @@
 		EA56C2361E40991D00068B9E /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		EA56C2371E40991D00068B9E /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		EA56C2381E40991D00068B9E /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA745C601E432AFA00A65CB6 /* SwiftAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +66,7 @@
 			children = (
 				EA56C21C1E40977800068B9E /* Example */,
 				EA56C21B1E40977800068B9E /* Products */,
+				EA745C631E432B8000A65CB6 /* EmbededFrameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +135,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		EA745C631E432B8000A65CB6 /* EmbededFrameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */,
+			);
+			name = EmbededFrameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,6 +153,7 @@
 				EA56C2161E40977800068B9E /* Sources */,
 				EA56C2171E40977800068B9E /* Frameworks */,
 				EA56C2181E40977800068B9E /* Resources */,
+				EA745C621E432AFB00A65CB6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -358,6 +386,7 @@
 				EA56C22E1E40977800068B9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
