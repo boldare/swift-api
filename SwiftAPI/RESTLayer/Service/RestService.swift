@@ -55,37 +55,103 @@ fileprivate extension RestService {
         return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
     }
 
-    func completionHandler(for restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
+    ///Converts RestResponseCimpletionHandler into ApiResponseCompletionHandler
+    func completionHandler(for resource: RestResource, with restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
         guard let restHandler = restHandler else {
             return nil
         }
         return { (response: ApiResponse?, error: Error?) in
-
+            guard error != nil else {
+                restHandler(nil, error)
+                return
+            }
+            if let parsingError = resource.updateWith(responseData: response?.body) {
+                restHandler(nil, parsingError)
+            }
+            restHandler(resource, nil)
         }
     }
 }
 
 public extension RestService {
 
+    /**
+     Sends HTTP GET request for given resource.
+
+     - Parameters:
+       - resource: RestResource object which should be filled up with response data.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
     func get(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
-        let handler = completionHandler(for: completion)
+        let handler = completionHandler(for: resource, with: completion)
         return apiService.get(from: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
     }
 
+    /**
+     Sends HTTP POST request with given resource.
+
+     - Parameters:
+       - resource: RestResource object which should be send and filled up with response data.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
     func post(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
-        let handler = completionHandler(for: completion)
-        return apiService.post(data: <#T##Data#>, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.post(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
     }
 
-    func put(resource: RestResource) -> ApiRequest? {
+    /**
+     Sends HTTP PUT request with given resource.
 
-        return nil
+     - Parameters:
+       - resource: RestResource object which should be send and filled up with response data.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func put(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.put(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
     }
 
-    func patch(resource: RestResource) -> ApiRequest? {
-        
-        return nil
+    /**
+     Sends HTTP PATCH request with given resource.
+
+     - Parameters:
+       - resource: RestResource object which should be send and filled up with response data.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func patch(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.patch(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+    }
+
+    /**
+     Sends HTTP DELETE request for given resource.
+
+     - Parameters:
+       - resource: RestResource object which should be filled up with response data. 
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func delete(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.delete(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
     }
 }
