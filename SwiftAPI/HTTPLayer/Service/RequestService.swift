@@ -220,7 +220,9 @@ extension RequestService: URLSessionDelegate {
 
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         for (_, completionHandler) in backgroundSessionCompletionHandler {
-            completionHandler()
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
         backgroundSessionCompletionHandler.removeAll()
     }
