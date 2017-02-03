@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ApiError {
+struct ApiError {
 
     private static let apiDomain = "SwiftApiServiceErrorDomain"
 
