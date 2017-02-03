@@ -113,7 +113,7 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func post(data: Data, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+    func post(data: Data?, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return sendRequest(url: url, method: .post, body: data, apiHeaders: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
@@ -129,7 +129,7 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func put(data: Data, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+    func put(data: Data?, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return sendRequest(url: url, method: .put, body: data, apiHeaders: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
@@ -145,7 +145,7 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func patch(data: Data, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+    func patch(data: Data?, at url: URL, with aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return sendRequest(url: url, method: .patch, body: data, apiHeaders: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
