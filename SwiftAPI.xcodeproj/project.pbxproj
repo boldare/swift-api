@@ -24,6 +24,7 @@
 		EA2E2BFA1E3F396000556CC1 /* ApiHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BF91E3F396000556CC1 /* ApiHeaderTests.swift */; };
 		EA2E2BFD1E3F3DB100556CC1 /* ApiResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BFC1E3F3DB100556CC1 /* ApiResponseTests.swift */; };
 		EA47B7641E44798100F03900 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA47B7631E44798100F03900 /* RestService.swift */; };
+		EA47B7681E44876500F03900 /* RestResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA47B7671E44876500F03900 /* RestResource.swift */; };
 		EA527F631E2CCBC00038F095 /* FileManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA527F621E2CCBC00038F095 /* FileManagerProtocol.swift */; };
 		EA527F671E2CCC420038F095 /* FileCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA527F661E2CCC420038F095 /* FileCommander.swift */; };
 		EA6E58361E1BD8B70060769F /* HttpDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E58321E1BD8B70060769F /* HttpDataRequest.swift */; };
@@ -106,6 +107,7 @@
 		EA2E2BF91E3F396000556CC1 /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHeaderTests.swift; path = Request/ApiHeaderTests.swift; sourceTree = "<group>"; };
 		EA2E2BFC1E3F3DB100556CC1 /* ApiResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseTests.swift; sourceTree = "<group>"; };
 		EA47B7631E44798100F03900 /* RestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestService.swift; path = RESTLayer/Service/RestService.swift; sourceTree = "<group>"; };
+		EA47B7671E44876500F03900 /* RestResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestResource.swift; path = RESTLayer/Service/RestResource.swift; sourceTree = "<group>"; };
 		EA527F621E2CCBC00038F095 /* FileManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManagerProtocol.swift; path = Dependencies/FileManager/FileManagerProtocol.swift; sourceTree = "<group>"; };
 		EA527F661E2CCC420038F095 /* FileCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCommander.swift; path = Dependencies/FileManager/FileCommander.swift; sourceTree = "<group>"; };
 		EA6E58321E1BD8B70060769F /* HttpDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpDataRequest.swift; path = HTTPLayer/Request/HttpDataRequest.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		EA8A48CA1E4B2C920081817B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EA47B7671E44876500F03900 /* RestResource.swift */,
 				EA8A48CB1E4B2CB90081817B /* RestResource.swift */,
 				EA8A48C81E4B2C8E0081817B /* RestFileResource.swift */,
 			);
@@ -746,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA47B7681E44876500F03900 /* RestResource.swift in Sources */,
 				EAB0D3D51E3B6E8E00921990 /* ServerErrorStatusCodeType.swift in Sources */,
 				EAEAC3F61E48A52A00C1CBC4 /* RestResponseHeader.swift in Sources */,
 				EAB0D3DB1E3B8DAF00921990 /* ApiHeader.swift in Sources */,

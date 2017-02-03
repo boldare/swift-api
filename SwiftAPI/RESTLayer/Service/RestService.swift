@@ -8,6 +8,18 @@
 
 import Foundation
 
+<<<<<<< HEAD
+=======
+/**
+ Closure called when api request is finished.
+ - Parameters:
+   - resource: Resource returned from server if there is any.
+   - error: Error which occurred while processing request.
+ */
+public typealias RestResponseCompletionHandler = (_ resource: RestResource?, _ error: Error?) -> ()
+
+
+>>>>>>> Creating rest service, work in progress.
 public class RestService {
 
     ///Base URL of API server. Remember not to finish it with */* sign.
@@ -17,16 +29,27 @@ public class RestService {
     public let apiPath: String
 
     ///Array of aditional HTTP header fields.
+<<<<<<< HEAD
     private let headerFields: [ApiHeader]?
 
     ///File manager.
     private let fileManager: FileManagerProtocol
+=======
+    public private(set) var isAuthorized: Bool
+
+    ///Array of aditional HTTP header fields.
+    fileprivate var headerFields: [ApiHeader]?
+
+    ///File manager.
+    fileprivate let fileManager: FileManagerProtocol
+>>>>>>> Creating rest service, work in progress.
 
     ///Service for managing request with REST server.
     fileprivate lazy var apiService: ApiService = { [unowned self] in
         return ApiService(fileManager: self.fileManager)
     }()
 
+<<<<<<< HEAD
     ///Creates full url by joining *baseUrl* and *apiPath*.
     fileprivate func requestUrl(for resourceName: String) -> URL {
         return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
@@ -274,5 +297,55 @@ public extension RestService {
      */
     public func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
         apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+=======
+    public init(baseUrl: URL, apiPath: String, aditionalHeaders: [ApiHeader]?, fileManager: FileManagerProtocol) {
+        self.baseUrl = baseUrl
+        self.apiPath = apiPath
+        self.isAuthorized = false
+        self.fileManager = fileManager
+        self.headerFields = aditionalHeaders
+    }
+}
+
+fileprivate extension RestService {
+
+    ///Creates full url by joining *baseUrl* and *apiPath*.
+    func requestUrl(for resourceName: String) -> URL {
+        return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
+    }
+
+    func completionHandler(for restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
+        guard let restHandler = restHandler else {
+            return nil
+        }
+        return { (response: ApiResponse?, error: Error?) in
+
+        }
+    }
+}
+
+public extension RestService {
+
+    func get(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let handler = completionHandler(for: completion)
+        return apiService.get(from: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+    }
+
+    func post(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let handler = completionHandler(for: completion)
+        return apiService.post(data: <#T##Data#>, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+    }
+
+    func put(resource: RestResource) -> ApiRequest? {
+
+        return nil
+    }
+
+    func patch(resource: RestResource) -> ApiRequest? {
+        
+        return nil
+>>>>>>> Creating rest service, work in progress.
     }
 }
