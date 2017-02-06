@@ -48,7 +48,7 @@ class HttpFailureResponse: HttpResponse {
     }
 
     @available(*, deprecated)
-    override var allHeaderFields: [AnyHashable : Any]? {
+    override var allHeaderFields: [String : String]? {
         return nil
     }
 

@@ -15,10 +15,6 @@ class HttpResponseTests: XCTestCase {
         return URL(string: "https://jsonplaceholder.typicode.com")!
     }
 
-    private var exampleError: Error {
-        return NSError(domain: "Test", code: 0, userInfo: nil)
-    }
-
     var exampleBody: Data {
         return "Example string.".data(using: .utf8)!
     }

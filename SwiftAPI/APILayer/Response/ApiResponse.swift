@@ -26,7 +26,7 @@ public struct ApiResponse {
     public let textEncodingName: String?
 
     ///A dictionary containing all the HTTP header fields of the receiver.
-    public let allHeaderFields: [AnyHashable : Any]?
+    public let allHeaderFields: [String : String]?
 
     ///Data object for collecting multipart response body.
     public let body: Data?

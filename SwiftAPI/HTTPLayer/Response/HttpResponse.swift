@@ -26,7 +26,7 @@ class HttpResponse {
     private(set) var statusCode: Int?
 
     ///A dictionary containing all the HTTP header fields of the receiver.
-    private(set) var allHeaderFields: [AnyHashable : Any]?
+    private(set) var allHeaderFields: [String : String]?
 
     ///Data object for collecting multipart response body.
     private(set) var body: Data?
@@ -66,7 +66,12 @@ class HttpResponse {
         self.textEncodingName = urlResponse.textEncodingName
         if let response = urlResponse as? HTTPURLResponse {
             self.statusCode = response.statusCode
-            self.allHeaderFields = response.allHeaderFields
+            if let dictionary = response.allHeaderFields as? [String : String] {
+                self.allHeaderFields = dictionary
+            } else {
+                debugPrint("Failure during casting allHeaderFields from [AnyHashable : Any] to [String : String]!")
+                self.allHeaderFields = nil
+            }
         } else {
             self.statusCode = nil
             self.allHeaderFields = nil
@@ -85,7 +90,12 @@ class HttpResponse {
         textEncodingName = urlResponse.textEncodingName
         if let response = urlResponse as? HTTPURLResponse {
             statusCode = response.statusCode
-            allHeaderFields = response.allHeaderFields
+            if let dictionary = response.allHeaderFields as? [String : String] {
+                allHeaderFields = dictionary
+            } else {
+                debugPrint("Failure during casting allHeaderFields from [AnyHashable : Any] to [String : String]!")
+                allHeaderFields = nil
+            }
         } else {
             statusCode = nil
             allHeaderFields = nil
