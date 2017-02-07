@@ -25,6 +25,23 @@ public struct ApiHeader {
         self.name = name
         self.value = value
     }
+
+    /**
+     Creates Basic Auth header.
+
+     - Parameters:
+       - login: String which should be used as login while authorizaton.
+       - password: String which should be used as password while authorizaton.
+
+     - Returns: Ready to use Basic Auth header, or nil when credentials encoding went wrong.
+     */
+    public init?(login: String, password: String) {
+        guard let credentials = "\(login):\(password)".data(using: .utf8)?.base64EncodedString(options: .init(rawValue: 0)) else {
+            return nil
+        }
+        self.name = "Authorization"
+        self.value = "Basic \(credentials)"
+    }
 }
 
 extension ApiHeader: Hashable {

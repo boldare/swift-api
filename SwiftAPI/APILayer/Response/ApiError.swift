@@ -10,10 +10,28 @@ import Foundation
 
 struct ApiError {
 
+    ///Domain of SwiftAPI errors.
     private static let apiDomain = "SwiftApiServiceErrorDomain"
+
+    ///Creates NSError with given code and description.
+    private static func errorWith(code: Int, description: String) -> Error {
+        return NSError(domain: apiDomain, code: code, userInfo: [NSLocalizedDescriptionKey : description])
+    }
 
     ///Error called when service did not received response.
     static var noResponse: Error {
-        return NSError(domain: apiDomain, code: -10, userInfo: [NSLocalizedDescriptionKey : "Rest service did not receive response."])
+        return errorWith(code: -10, description: "Rest service did not receive response.")
+    }
+
+    /**
+     Creates Error representation of error status code.
+
+     - Parameter statusCode: StatusCode for which should be created Error.
+     */
+    static func error(for statusCode: StatusCode) -> Error? {
+        guard statusCode.isErrorStatusCode else {
+            return nil
+        }
+        return errorWith(code: statusCode.rawValue * 10, description: statusCode.description)
     }
 }

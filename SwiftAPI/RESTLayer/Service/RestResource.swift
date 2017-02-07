@@ -25,5 +25,5 @@ public protocol RestResource {
      
      Method should take into account format of data sending by server, if it's JSON, XML or other.
      */
-    func updateWith(responseData: Data?) -> Error?
+    func updateWith(responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error?
 }

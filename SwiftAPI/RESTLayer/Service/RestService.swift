@@ -14,7 +14,7 @@ import Foundation
    - resource: Resource returned from server if there is any.
    - error: Error which occurred while processing request.
  */
-public typealias RestResponseCompletionHandler = (_ resource: RestResource?, _ error: Error?) -> ()
+public typealias RestResponseCompletionHandler = (_ resource: RestResource?, _ error: RestErrorResponse?) -> ()
 
 
 public class RestService {
@@ -26,50 +26,60 @@ public class RestService {
     public let apiPath: String
 
     ///Array of aditional HTTP header fields.
-    public private(set) var isAuthorized: Bool
-
-    ///Array of aditional HTTP header fields.
-    fileprivate var headerFields: [ApiHeader]?
+    private let headerFields: [ApiHeader]?
 
     ///File manager.
-    fileprivate let fileManager: FileManagerProtocol
+    private let fileManager: FileManagerProtocol
 
     ///Service for managing request with REST server.
     fileprivate lazy var apiService: ApiService = { [unowned self] in
         return ApiService(fileManager: self.fileManager)
     }()
 
-    public init(baseUrl: URL, apiPath: String, aditionalHeaders: [ApiHeader]?, fileManager: FileManagerProtocol) {
-        self.baseUrl = baseUrl
-        self.apiPath = apiPath
-        self.isAuthorized = false
-        self.fileManager = fileManager
-        self.headerFields = aditionalHeaders
-    }
-}
-
-fileprivate extension RestService {
-
     ///Creates full url by joining *baseUrl* and *apiPath*.
-    func requestUrl(for resourceName: String) -> URL {
+    fileprivate func requestUrl(for resourceName: String) -> URL {
         return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
     }
 
+    ///Merges *headerFields* with aditional headers.
+    fileprivate func apiHeaders(adding headers: [ApiHeader]?) -> [ApiHeader]? {
+        guard let headers = headers else {
+            return headerFields
+        }
+        var mergedHeders = headerFields
+        mergedHeders?.append(contentsOf: headers)
+        return mergedHeders
+    }
+
     ///Converts RestResponseCimpletionHandler into ApiResponseCompletionHandler
-    func completionHandler(for resource: RestResource, with restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
+    fileprivate func completionHandler(for resource: RestResource, with restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
         guard let restHandler = restHandler else {
             return nil
         }
         return { (response: ApiResponse?, error: Error?) in
-            guard error != nil else {
-                restHandler(nil, error)
+            //We can unwrap response in guard because ApiService always returns at least one of these two objects.
+            guard error != nil, let response = response else {
+                restHandler(nil, RestErrorResponse(error: error!))
                 return
             }
-            if let parsingError = resource.updateWith(responseData: response?.body) {
-                restHandler(nil, parsingError)
+            if let error = ApiError.error(for: response.statusCode) {
+                restHandler(nil, RestErrorResponse(error: error, body: response.body, aditionalInfo: response.allHeaderFields))
+            } else {
+                let info = RestResponseHeader.responseHeaders(with: response.allHeaderFields)
+                if let parsingError = resource.updateWith(responseData: response.body, aditionalInfo: info) {
+                    restHandler(nil, RestErrorResponse(error: parsingError))
+                } else {
+                    restHandler(resource, nil)
+                }
             }
-            restHandler(resource, nil)
         }
+    }
+
+    public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol) {
+        self.baseUrl = baseUrl
+        self.apiPath = apiPath
+        self.fileManager = fileManager
+        self.headerFields = headerFields
     }
 }
 
@@ -80,15 +90,17 @@ public extension RestService {
 
      - Parameters:
        - resource: RestResource object which should be filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func get(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func get(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.get(from: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        return apiService.get(from: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -96,15 +108,17 @@ public extension RestService {
 
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func post(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func post(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.post(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        return apiService.post(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -112,15 +126,17 @@ public extension RestService {
 
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.       
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func put(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func put(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.put(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        return apiService.put(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -128,30 +144,34 @@ public extension RestService {
 
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func patch(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func patch(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.patch(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        return apiService.patch(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
      Sends HTTP DELETE request for given resource.
 
      - Parameters:
-       - resource: RestResource object which should be filled up with response data. 
+       - resource: RestResource object which should be filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func delete(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func delete(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.delete(data: resource.dataRepresentation, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
+        return apiService.delete(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 }
