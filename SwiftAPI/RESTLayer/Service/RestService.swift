@@ -8,15 +8,6 @@
 
 import Foundation
 
-/**
- Closure called when api request is finished.
- - Parameters:
-   - resource: Resource returned from server if there is any.
-   - errorResponse: Error which occurred while processing request.
- */
-public typealias RestResponseCompletionHandler = (_ resource: RestResource, _ errorResponse: RestErrorResponse?) -> ()
-
-
 public class RestService {
 
     ///Base URL of API server. Remember not to finish it with */* sign.
@@ -56,8 +47,8 @@ public class RestService {
         guard let restHandler = restHandler else {
             return nil
         }
-        var resource = resource
         return { (response: ApiResponse?, error: Error?) in
+            var resource = resource
             var errorResponse: RestErrorResponse?
             if let internalError = error {
                 errorResponse = RestErrorResponse(error: internalError)
@@ -65,6 +56,22 @@ public class RestService {
                 errorResponse = RestErrorResponse(error: apiError)
             } else if let r = response, let parsingError = resource.updateWith(responseData: r.body, aditionalInfo: RestResponseHeader.responseHeaders(with: r.allHeaderFields)) {
                 errorResponse = RestErrorResponse(error: parsingError)
+            }
+            restHandler(resource, errorResponse)
+        }
+    }
+
+    ///Converts RestFileResponseCompletionHandler into ApiResponseCompletionHandler
+    fileprivate func completionHandler(for resource: RestFileResource, with restHandler: RestFileResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
+        guard let restHandler = restHandler else {
+            return nil
+        }
+        return { (response: ApiResponse?, error: Error?) in
+            var errorResponse: RestErrorResponse?
+            if let internalError = error {
+                errorResponse = RestErrorResponse(error: internalError)
+            } else if let r = response, let apiError = ApiError.error(for: r.statusCode) {
+                errorResponse = RestErrorResponse(error: apiError)
             }
             restHandler(resource, errorResponse)
         }
@@ -78,6 +85,7 @@ public class RestService {
     }
 }
 
+//MARK: Simple requests
 public extension RestService {
 
     /**
@@ -168,5 +176,81 @@ public extension RestService {
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
         return apiService.delete(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+    }
+}
+
+//MARK: File managing
+public extension RestService {
+
+    /**
+     Sends HTTP GET request for given resource.
+
+     - Parameters:
+     - resource: RestResource object which should be filled up with response data.
+     - aditionalHeaders: Additional header fields which should be sent with request.
+     - useProgress: Flag indicates if Progress object should be created.
+     - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func getFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.download(from: url, to: resource.location, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+    }
+
+    /**
+     Sends HTTP POST request with given resource.
+
+     - Parameters:
+     - resource: RestResource object which should be send and filled up with response data.
+     - aditionalHeaders: Additional header fields which should be sent with request.
+     - useProgress: Flag indicates if Progress object should be created.
+     - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func postFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.postFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+    }
+
+    /**
+     Sends HTTP PUT request with given resource.
+
+     - Parameters:
+     - resource: RestResource object which should be send and filled up with response data.
+     - aditionalHeaders: Additional header fields which should be sent with request.
+     - useProgress: Flag indicates if Progress object should be created.
+     - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func putFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.putFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+    }
+
+    /**
+     Sends HTTP PATCH request with given resource.
+
+     - Parameters:
+     - resource: RestResource object which should be send and filled up with response data.
+     - aditionalHeaders: Additional header fields which should be sent with request.
+     - useProgress: Flag indicates if Progress object should be created.
+     - completion: Closure called when request is finished.
+
+     - Returns: ApiRequest object which allows to follow progress and manage request.
+     */
+    func patchFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
+        let url = requestUrl(for: resource.name)
+        let headers = apiHeaders(adding: aditionalHeaders)
+        let handler = completionHandler(for: resource, with: completion)
+        return apiService.patchFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
     }
 }

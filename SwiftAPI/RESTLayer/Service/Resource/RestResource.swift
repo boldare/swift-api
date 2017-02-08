@@ -10,7 +10,7 @@ import Foundation
 
 public protocol RestResource {
 
-    ///REST name of the resource. Resource should be named with URI.
+    ///REST name of resource. Resource should be named with URI.
     var name: String{get}
 
     ///Ready to send Data object representing resource. If resource must be sent in JSON format, then use JSON parsing if XML than use XML and so on.

@@ -12,7 +12,7 @@ import XCTest
 class RestErrorResponseTests: XCTestCase {
     
     func testSimpleConstructor() {
-        let error = NSError(domain: "test", code: -8, userInfo: nil)
+        let error = NSError(domain: "Tests", code: -8, userInfo: nil)
         let response = RestErrorResponse(error: error)
 
         XCTAssertEqual(response.error as NSError, error)
@@ -21,7 +21,7 @@ class RestErrorResponseTests: XCTestCase {
     }
     
     func testFullConstructor() {
-        let error = NSError(domain: "test", code: -8, userInfo: nil)
+        let error = NSError(domain: "Tests", code: -8, userInfo: nil)
         let body = Data(base64Encoded: "test")
         let info = ["test" : "test"]
         let response = RestErrorResponse(error: error, body: body, aditionalInfo: info)
