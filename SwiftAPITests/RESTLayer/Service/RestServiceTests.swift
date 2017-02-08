@@ -109,7 +109,7 @@ extension RestServiceTests {
 
     //MARK: Simple requests tests
     func testGet() {
-        let resource = ExampleDataResource(name: "get")
+        let resource = ExampleResource(name: "get", shouldFail: false)
         let responseExpectation = expectation(description: "Expect GET response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
