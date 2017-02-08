@@ -12,9 +12,9 @@ import Foundation
  Closure called when api request is finished.
  - Parameters:
    - resource: Resource returned from server if there is any.
-   - error: Error which occurred while processing request.
+   - errorResponse: Error which occurred while processing request.
  */
-public typealias RestResponseCompletionHandler = (_ resource: RestResource?, _ error: RestErrorResponse?) -> ()
+public typealias RestResponseCompletionHandler = (_ resource: RestResource, _ errorResponse: RestErrorResponse?) -> ()
 
 
 public class RestService {
@@ -56,22 +56,17 @@ public class RestService {
         guard let restHandler = restHandler else {
             return nil
         }
+        var resource = resource
         return { (response: ApiResponse?, error: Error?) in
-            //We can unwrap response in guard because ApiService always returns at least one of these two objects.
-            guard error != nil, let response = response else {
-                restHandler(nil, RestErrorResponse(error: error!))
-                return
+            var errorResponse: RestErrorResponse?
+            if let internalError = error {
+                errorResponse = RestErrorResponse(error: internalError)
+            } else if let r = response, let apiError = ApiError.error(for: r.statusCode) {
+                errorResponse = RestErrorResponse(error: apiError)
+            } else if let r = response, let parsingError = resource.updateWith(responseData: r.body, aditionalInfo: RestResponseHeader.responseHeaders(with: r.allHeaderFields)) {
+                errorResponse = RestErrorResponse(error: parsingError)
             }
-            if let error = ApiError.error(for: response.statusCode) {
-                restHandler(nil, RestErrorResponse(error: error, body: response.body, aditionalInfo: response.allHeaderFields))
-            } else {
-                let info = RestResponseHeader.responseHeaders(with: response.allHeaderFields)
-                if let parsingError = resource.updateWith(responseData: response.body, aditionalInfo: info) {
-                    restHandler(nil, RestErrorResponse(error: parsingError))
-                } else {
-                    restHandler(resource, nil)
-                }
-            }
+            restHandler(resource, errorResponse)
         }
     }
 

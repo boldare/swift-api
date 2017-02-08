@@ -14,7 +14,7 @@ public protocol RestResource {
     var name: String{get}
 
     ///Ready to send Data object representing resource. If resource must be sent in JSON format, then use JSON parsing if XML than use XML and so on.
-    var dataRepresentation: Data{get}
+    var dataRepresentation: Data?{get}
 
     /**
      Updates object with it's data representation sent by server.
@@ -25,5 +25,5 @@ public protocol RestResource {
      
      Method should take into account format of data sending by server, if it's JSON, XML or other.
      */
-    func updateWith(responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error?
+    mutating func updateWith(responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error?
 }

@@ -24,12 +24,12 @@ struct ApiError {
     }
 
     /**
-     Creates Error representation of error status code.
+     Creates Error representation of not success status code.
 
      - Parameter statusCode: StatusCode for which should be created Error.
      */
     static func error(for statusCode: StatusCode) -> Error? {
-        guard statusCode.isErrorStatusCode else {
+        if statusCode.isSuccessStatusCode {
             return nil
         }
         return errorWith(code: statusCode.rawValue * 10, description: statusCode.description)
