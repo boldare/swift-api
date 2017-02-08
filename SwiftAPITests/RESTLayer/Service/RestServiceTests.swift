@@ -5,11 +5,10 @@
 //  Created by Marek Kojder on 07.02.2017.
 //  Copyright © 2017 XSolve. All rights reserved.
 //
-
 import XCTest
 @testable import SwiftAPI
 
-fileprivate struct ExampleResource: RestResource {
+fileprivate struct ExampleDataResource: RestDataResource {
 
     let name: String
     private(set) var title: String
@@ -20,7 +19,7 @@ fileprivate struct ExampleResource: RestResource {
         return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
     }
 
-    init(name: String, title: String = "", shouldFail: Bool) {
+    init(name: String, title: String = "", shouldFail: Bool = false) {
         self.name = name
         self.title = title
         self.shouldFail = shouldFail
@@ -32,19 +31,29 @@ fileprivate struct ExampleResource: RestResource {
     }
 }
 
-fileprivate class ExampleFileResource: RestFileResource {
+fileprivate struct ExampleFileResource: RestFileResource {
+
+    private class Resources {
+    }
 
     let name: String
     let location: URL
+    private let shouldFail: Bool
 
-    init(name: String, upload: Bool) {
+    init(name: String, upload: Bool, shouldFail: Bool = false) {
+        self.shouldFail = shouldFail
         if upload {
             self.name = name
-            self.location = Bundle(for: type(of: self)).url(forResource: "testImage", withExtension: "png")!
+            self.location = Bundle(for: ExampleFileResource.Resources.self).url(forResource: "testImage", withExtension: "png")!
         } else {
             self.name = "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg"
             self.location = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true).appendingPathComponent("file.jpg")
         }
+    }
+
+    mutating func update(with aditionalInfo: [RestResponseHeader]? ) -> Error? {
+        let error = NSError(domain: "Tests", code: -8, userInfo: [NSLocalizedDescriptionKey : "Unexpected error!"])
+        return shouldFail ? error : nil
     }
 }
 
@@ -100,7 +109,7 @@ extension RestServiceTests {
 
     //MARK: Simple requests tests
     func testGet() {
-        let resource = ExampleResource(name: "get", shouldFail: false)
+        let resource = ExampleDataResource(name: "get")
         let responseExpectation = expectation(description: "Expect GET response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -117,7 +126,7 @@ extension RestServiceTests {
     }
 
     func testParsingFailureGet() {
-        let resource = ExampleResource(name: "get", shouldFail: true)
+        let resource = ExampleDataResource(name: "get", shouldFail: true)
         let responseExpectation = expectation(description: "Expect GET response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -134,7 +143,7 @@ extension RestServiceTests {
     }
 
     func testNotFoundFailureGet() {
-        let resource = ExampleResource(name: "notFound", shouldFail: false)
+        let resource = ExampleDataResource(name: "notFound")
         let responseExpectation = expectation(description: "Expect GET response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -151,7 +160,7 @@ extension RestServiceTests {
     }
 
     func testPost() {
-        let resource = ExampleResource(name: "post", shouldFail: false)
+        let resource = ExampleDataResource(name: "post")
         let responseExpectation = expectation(description: "Expect POST response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -168,7 +177,7 @@ extension RestServiceTests {
     }
 
     func testPut() {
-        let resource = ExampleResource(name: "put", shouldFail: false)
+        let resource = ExampleDataResource(name: "put")
         let responseExpectation = expectation(description: "Expect PUT response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -185,7 +194,7 @@ extension RestServiceTests {
     }
 
     func testPatch() {
-        let resource = ExampleResource(name: "patch", shouldFail: false)
+        let resource = ExampleDataResource(name: "patch")
         let responseExpectation = expectation(description: "Expect PATCH response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -202,7 +211,7 @@ extension RestServiceTests {
     }
 
     func testDelete() {
-        let resource = ExampleResource(name: "delete", shouldFail: false)
+        let resource = ExampleDataResource(name: "delete")
         let responseExpectation = expectation(description: "Expect DELETE response")
         var responseError: Error?
         let completion = { [weak self] (r: RestResource, e: RestErrorResponse?) in
@@ -236,7 +245,7 @@ extension RestServiceTests {
         }
     }
 
-    func testFailureGetFile() {
+    func testWrongPathGetFile() {
         let resource = ExampleFileResource(name: "", upload: false)
         let responseExpectation = expectation(description: "Expect GET response")
         var responseError: Error?
@@ -246,6 +255,23 @@ extension RestServiceTests {
             responseExpectation.fulfill()
         }
         _ = restService.getFile(resource: resource, inBackground: false, useProgress: false, completion: completion)
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertNotNil(responseError, "GET request should fail")
+        }
+    }
+
+    func testFailureResponseGetFile() {
+        let resource = ExampleFileResource(name: "", upload: false, shouldFail: true)
+        let responseExpectation = expectation(description: "Expect GET response")
+        var responseError: Error?
+        let completion = { [weak self] (r: RestFileResource, e: RestErrorResponse?) in
+            self?.log(response: e, for: r.name)
+            responseError = e?.error
+            responseExpectation.fulfill()
+        }
+        _ = downloadRestService.getFile(resource: resource, inBackground: false, useProgress: false, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -323,5 +349,4 @@ extension RestServiceTests {
             XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
         }
     }
-
 }

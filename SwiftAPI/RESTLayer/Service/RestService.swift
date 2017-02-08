@@ -5,51 +5,27 @@
 //  Created by Marek Kojder on 03.02.2017.
 //  Copyright © 2017 XSolve. All rights reserved.
 //
-
 import Foundation
 
-<<<<<<< HEAD
-=======
-/**
- Closure called when api request is finished.
- - Parameters:
-   - resource: Resource returned from server if there is any.
-   - error: Error which occurred while processing request.
- */
-public typealias RestResponseCompletionHandler = (_ resource: RestResource?, _ error: Error?) -> ()
-
-
->>>>>>> Creating rest service, work in progress.
 public class RestService {
 
     ///Base URL of API server. Remember not to finish it with */* sign.
     public let baseUrl: URL
 
-    ///Path string of API on server. May be used for versioning. Remember to star it with */* sign.
+    ///Path of API on server. May be used for versioning. Remember to star it with */* sign.
     public let apiPath: String
 
     ///Array of aditional HTTP header fields.
-<<<<<<< HEAD
     private let headerFields: [ApiHeader]?
 
     ///File manager.
     private let fileManager: FileManagerProtocol
-=======
-    public private(set) var isAuthorized: Bool
-
-    ///Array of aditional HTTP header fields.
-    fileprivate var headerFields: [ApiHeader]?
-
-    ///File manager.
-    fileprivate let fileManager: FileManagerProtocol
->>>>>>> Creating rest service, work in progress.
 
     ///Service for managing request with REST server.
     fileprivate lazy var apiService: ApiService = { [unowned self] in
         return ApiService(fileManager: self.fileManager)
     }()
 
-<<<<<<< HEAD
     ///Creates full url by joining *baseUrl* and *apiPath*.
     fileprivate func requestUrl(for resourceName: String) -> URL {
         return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
@@ -65,8 +41,8 @@ public class RestService {
         return mergedHeders
     }
 
-    ///Converts RestResponseCimpletionHandler into ApiResponseCompletionHandler
-    fileprivate func completionHandler(for resource: RestResource, with restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
+    ///Converts RestDataResponseCimpletionHandler into ApiResponseCompletionHandler
+    fileprivate func completionHandler(for resource: RestDataResource, with restHandler: RestDataResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
         guard let restHandler = restHandler else {
             return nil
         }
@@ -90,16 +66,26 @@ public class RestService {
             return nil
         }
         return { (response: ApiResponse?, error: Error?) in
+            var resource = resource
             var errorResponse: RestErrorResponse?
             if let internalError = error {
                 errorResponse = RestErrorResponse(error: internalError)
             } else if let r = response, let apiError = ApiError.error(for: r.statusCode) {
                 errorResponse = RestErrorResponse(error: apiError)
+            } else if let r = response, let updatingError = resource.update(with: RestResponseHeader.list(with: r.allHeaderFields)) {
+                errorResponse = RestErrorResponse(error: updatingError)
             }
             restHandler(resource, errorResponse)
         }
     }
 
+    /**
+     - Parameters:
+       - baseUrl: Base URL of API server.
+       - apiPath: Path of API on server.
+       - headerFields: Array of HTTP header fields which will be added to all requests.
+       - fileManager: Object of class implementing *FileManagerProtocol*.
+     */
     public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
@@ -113,16 +99,14 @@ public extension RestService {
 
     /**
      Sends HTTP GET request for given resource.
-
      - Parameters:
        - resource: RestResource object which should be filled up with response data.
        - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
-
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func get(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func get(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
@@ -131,16 +115,14 @@ public extension RestService {
 
     /**
      Sends HTTP POST request with given resource.
-
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
        - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
-
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func post(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func post(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
@@ -149,16 +131,14 @@ public extension RestService {
 
     /**
      Sends HTTP PUT request with given resource.
-
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
-       - aditionalHeaders: Additional header fields which should be sent with request.       
+       - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
-
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func put(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func put(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
@@ -167,16 +147,14 @@ public extension RestService {
 
     /**
      Sends HTTP PATCH request with given resource.
-
      - Parameters:
        - resource: RestResource object which should be send and filled up with response data.
        - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
-
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func patch(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func patch(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
@@ -185,16 +163,14 @@ public extension RestService {
 
     /**
      Sends HTTP DELETE request for given resource.
-
      - Parameters:
        - resource: RestResource object which should be filled up with response data.
        - aditionalHeaders: Additional header fields which should be sent with request.
        - useProgress: Flag indicates if Progress object should be created.
        - completion: Closure called when request is finished.
-
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func delete(resource: RestResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
+    func delete(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
@@ -207,13 +183,11 @@ public extension RestService {
 
     /**
      Sends HTTP GET request for given resource.
-
      - Parameters:
-     - resource: RestResource object which should be filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
-
+       - resource: RestResource object which should be filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
     func getFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
@@ -225,13 +199,11 @@ public extension RestService {
 
     /**
      Sends HTTP POST request with given resource.
-
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
-
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
     func postFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
@@ -243,13 +215,11 @@ public extension RestService {
 
     /**
      Sends HTTP PUT request with given resource.
-
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
-
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
     func putFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
@@ -261,13 +231,11 @@ public extension RestService {
 
     /**
      Sends HTTP PATCH request with given resource.
-
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
-
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
     func patchFile(resource: RestFileResource, inBackground: Bool = true, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = true, completion: RestFileResponseCompletionHandler? = nil) -> ApiRequest {
@@ -288,64 +256,12 @@ public extension RestService {
 
     /**
      Handle events for background session with identifier.
-
      - Parameters:
        - identifier: The identifier of the URL session requiring attention.
        - completionHandler: The completion handler to call when you finish processing the events.
-
      This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
      */
     public func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
         apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
-=======
-    public init(baseUrl: URL, apiPath: String, aditionalHeaders: [ApiHeader]?, fileManager: FileManagerProtocol) {
-        self.baseUrl = baseUrl
-        self.apiPath = apiPath
-        self.isAuthorized = false
-        self.fileManager = fileManager
-        self.headerFields = aditionalHeaders
-    }
-}
-
-fileprivate extension RestService {
-
-    ///Creates full url by joining *baseUrl* and *apiPath*.
-    func requestUrl(for resourceName: String) -> URL {
-        return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
-    }
-
-    func completionHandler(for restHandler: RestResponseCompletionHandler?) -> ApiResponseCompletionHandler? {
-        guard let restHandler = restHandler else {
-            return nil
-        }
-        return { (response: ApiResponse?, error: Error?) in
-
-        }
-    }
-}
-
-public extension RestService {
-
-    func get(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
-        let url = requestUrl(for: resource.name)
-        let handler = completionHandler(for: completion)
-        return apiService.get(from: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
-    }
-
-    func post(resource: RestResource, useProgress: Bool = false, completion: RestResponseCompletionHandler? = nil) -> ApiRequest {
-        let url = requestUrl(for: resource.name)
-        let handler = completionHandler(for: completion)
-        return apiService.post(data: <#T##Data#>, at: url, with: headerFields, useProgress: useProgress, completionHandler: handler)
-    }
-
-    func put(resource: RestResource) -> ApiRequest? {
-
-        return nil
-    }
-
-    func patch(resource: RestResource) -> ApiRequest? {
-        
-        return nil
->>>>>>> Creating rest service, work in progress.
     }
 }
