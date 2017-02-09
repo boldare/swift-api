@@ -18,6 +18,7 @@ class HttpDownloadRequest: HttpRequest {
     let destinationUrl: URL
 
     ///Method not allowed to use in current class.
+    @available(*, deprecated)
     private override init(url: URL, method: HttpMethod, headers: [HttpHeader]? = nil, onSuccess: ResponseAction? = nil, onFailure: ResponseAction? = nil, useProgress: Bool = false) {
         self.destinationUrl = URL(fileURLWithPath: "")
         super.init(url: url, method: method, onSuccess: onSuccess, onFailure: onFailure, useProgress: useProgress)

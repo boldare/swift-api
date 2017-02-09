@@ -66,12 +66,7 @@ class HttpResponse {
         self.textEncodingName = urlResponse.textEncodingName
         if let response = urlResponse as? HTTPURLResponse {
             self.statusCode = response.statusCode
-            if let dictionary = response.allHeaderFields as? [String : String] {
-                self.allHeaderFields = dictionary
-            } else {
-                debugPrint("Failure during casting allHeaderFields from [AnyHashable : Any] to [String : String]!")
-                self.allHeaderFields = nil
-            }
+            self.allHeaderFields = response.allHeaderFields as? [String : String]
         } else {
             self.statusCode = nil
             self.allHeaderFields = nil
@@ -90,12 +85,7 @@ class HttpResponse {
         textEncodingName = urlResponse.textEncodingName
         if let response = urlResponse as? HTTPURLResponse {
             statusCode = response.statusCode
-            if let dictionary = response.allHeaderFields as? [String : String] {
-                allHeaderFields = dictionary
-            } else {
-                debugPrint("Failure during casting allHeaderFields from [AnyHashable : Any] to [String : String]!")
-                allHeaderFields = nil
-            }
+            allHeaderFields = response.allHeaderFields as? [String : String]
         } else {
             statusCode = nil
             allHeaderFields = nil

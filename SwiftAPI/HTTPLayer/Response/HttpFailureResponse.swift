@@ -63,12 +63,14 @@ class HttpFailureResponse: HttpResponse {
     }
 
     ///Method not allowed to use in current class.
+    @available(*, deprecated)
     override private init(body: Data) {
         self.error = NSError()
         super.init(body: body)
     }
 
     ///Method not allowed to use in current class.
+    @available(*, deprecated)
     override private init(resourceUrl: URL) {
         self.error = NSError()
         super.init(resourceUrl: resourceUrl)
