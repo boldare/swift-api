@@ -303,4 +303,25 @@ extension RestServiceTests {
             XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
         }
     }
+
+    func testCancelAllRequests() {
+        let resource1 = ExampleFileResource(name: "put", upload: true)
+        let resource2 = ExampleFileResource(name: "patch", upload: true)
+        let responseExpectation = expectation(description: "Expect PATCH response")
+        var responseError: Error?
+        let completion = { [weak self] (r: RestFileResource, e: RestErrorResponse?) in
+            self?.log(response: e, for: r.name)
+            responseError = e?.error
+            responseExpectation.fulfill()
+        }
+        _ = restService.putFile(resource: resource1, inBackground: false, useProgress: false)
+        _ = restService.patchFile(resource: resource2, inBackground: false, useProgress: false, completion: completion)
+        restService.cancelAllRequests()
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
+        }
+    }
+
 }

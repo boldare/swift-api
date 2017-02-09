@@ -254,3 +254,25 @@ public extension RestService {
         return apiService.patchFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
     }
 }
+
+//MARK: Requests managing
+public extension RestService {
+
+    ///Cancels all currently running requests.
+    func cancelAllRequests() {
+        apiService.cancellAllRequests()
+    }
+
+    /**
+     Handle events for background session with identifier.
+
+     - Parameters:
+       - identifier: The identifier of the URL session requiring attention.
+       - completionHandler: The completion handler to call when you finish processing the events.
+
+     This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
+     */
+    public func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
+        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+    }
+}
