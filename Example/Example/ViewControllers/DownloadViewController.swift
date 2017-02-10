@@ -17,8 +17,6 @@ class DownloadViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var textView: UITextView!
 
-    fileprivate var apiManager = ApiManager()
-    fileprivate var restManager = RestManager()
     fileprivate var progress = Progress(totalUnitCount: 0)
 
     override func viewDidLoad() {
@@ -57,6 +55,14 @@ class DownloadViewController: UIViewController {
 }
 
 fileprivate extension DownloadViewController {
+
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
+    }
+
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).fileDownloadRestManager
+    }
 
     func prepareForRequest() {
         imageView.image = nil

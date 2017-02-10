@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let apiService = ApiService(fileManager: FileCommander())
+    lazy var apiManager = ApiManager()
+    lazy var restManager = RestManager(forFileDownload: false)
+    lazy var fileDownloadRestManager = RestManager(forFileDownload: true)
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -45,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+        apiManager.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+        restManager.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+        fileDownloadRestManager.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
     }
 }

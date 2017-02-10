@@ -14,9 +14,6 @@ class RequestViewController: UIViewController {
     @IBOutlet var textView: UITextView!
     @IBOutlet var indicator: UIActivityIndicatorView!
 
-    fileprivate var apiManager = ApiManager()
-    fileprivate var restManager = RestManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,9 +32,9 @@ class RequestViewController: UIViewController {
         indicator.startAnimating()
 
         if apiServiceSwitch.isOn {
-            apiManager.getRequest(completion: apiCompletionHandler)
+            apiManager.getRequest(apiCompletionHandler)
         } else {
-
+            restManager.getResource(restCompletionHandler)
         }
     }
 
@@ -46,9 +43,9 @@ class RequestViewController: UIViewController {
         indicator.startAnimating()
 
         if apiServiceSwitch.isOn {
-            apiManager.postRequest(completion: apiCompletionHandler)
+            apiManager.postRequest(apiCompletionHandler)
         } else {
-
+            restManager.postResource(restCompletionHandler)
         }
     }
 
@@ -57,9 +54,9 @@ class RequestViewController: UIViewController {
         indicator.startAnimating()
 
         if apiServiceSwitch.isOn {
-            apiManager.putRequest(completion: apiCompletionHandler)
+            apiManager.putRequest(apiCompletionHandler)
         } else {
-
+            restManager.putResource(restCompletionHandler)
         }
     }
 
@@ -68,9 +65,9 @@ class RequestViewController: UIViewController {
         indicator.startAnimating()
 
         if apiServiceSwitch.isOn {
-            apiManager.patchRequest(completion: apiCompletionHandler)
+            apiManager.patchRequest(apiCompletionHandler)
         } else {
-
+            restManager.patchResource(restCompletionHandler)
         }
     }
 
@@ -79,14 +76,22 @@ class RequestViewController: UIViewController {
         indicator.startAnimating()
 
         if apiServiceSwitch.isOn {
-            apiManager.deleteRequest(completion: apiCompletionHandler)
+            apiManager.deleteRequest(apiCompletionHandler)
         } else {
-
+            restManager.deleteResource(restCompletionHandler)
         }
     }
 }
 
 fileprivate extension RequestViewController {
+
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
+    }
+
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).restManager
+    }
 
     var apiCompletionHandler: ApiManagerCompletionHandler {
         return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
@@ -102,6 +107,26 @@ fileprivate extension RequestViewController {
                 DispatchQueue.main.async {
                     strongSelf.textView.setContentOffset(.zero, animated: false)
                     strongSelf.textView.text = readableResponse
+                    strongSelf.indicator.stopAnimating()
+                }
+            }
+        }
+    }
+
+    var restCompletionHandler: RestManagerSimpleCompletionHandler {
+        return {[weak self] (resource: SimpleResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if let errorString = readableError {
+                DispatchQueue.main.async {
+                    strongSelf.textView.text = errorString
+                    strongSelf.indicator.stopAnimating()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    strongSelf.textView.setContentOffset(.zero, animated: false)
+                    strongSelf.textView.text = resource?.readableDescription
                     strongSelf.indicator.stopAnimating()
                 }
             }

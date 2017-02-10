@@ -16,8 +16,6 @@ class UploadViewController: UIViewController {
     @IBOutlet var progressBar: UIProgressView!
     @IBOutlet var textView: UITextView!
 
-    fileprivate var apiManager = ApiManager()
-    fileprivate var restManager = RestManager()
     fileprivate var progress = Progress(totalUnitCount: 0)
 
     override func viewDidLoad() {
@@ -77,6 +75,14 @@ class UploadViewController: UIViewController {
 
 fileprivate extension UploadViewController {
 
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
+    }
+
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).restManager
+    }
+
     func prepareForRequest() {
         textView.text = ""
     }
@@ -111,6 +117,27 @@ fileprivate extension UploadViewController {
                 DispatchQueue.main.async {
                     strongSelf.textView.setContentOffset(.zero, animated: false)
                     strongSelf.textView.text = readableResponse
+                }
+            }
+        }
+    }
+
+    var restCompletionHandler: RestManagerFileCompletionHandler {
+        return {[weak self] (resource: FileResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
+                strongSelf.resetProgress()
+            }
+            if let errorString = readableError {
+                DispatchQueue.main.async {
+                    strongSelf.textView.text = errorString
+                }
+            } else {
+                DispatchQueue.main.async {
+                    strongSelf.textView.setContentOffset(.zero, animated: false)
+//                    strongSelf.textView.text = resource?.readableDescription
                 }
             }
         }

@@ -13,36 +13,46 @@ typealias ApiManagerCompletionHandler = (_ readableResponse: String?, _ resource
 
 struct ApiManager {
 
+    fileprivate let apiService: ApiService
+
+    init() {
+        self.apiService = ApiService(fileManager: FileCommander())
+    }
+
     func cancelAllRequests() {
         apiService.cancellAllRequests()
     }
 
+    func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
+        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+    }
+
     //MARK: Data requests
-    func getRequest(completion: @escaping ApiManagerCompletionHandler) {
+    func getRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("get")
 
         _ = apiService.get(from: url, completionHandler: completionHandler(for: completion))
     }
 
-    func postRequest(completion: @escaping ApiManagerCompletionHandler) {
+    func postRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("post")
 
         _ = apiService.post(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
     }
 
-    func putRequest(completion: @escaping ApiManagerCompletionHandler) {
+    func putRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("put")
 
         _ = apiService.put(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
     }
 
-    func patchRequest(completion: @escaping ApiManagerCompletionHandler) {
+    func patchRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("patch")
 
         _ = apiService.patch(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
     }
 
-    func deleteRequest(completion: @escaping ApiManagerCompletionHandler) {
+    func deleteRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("delete")
 
         _ = apiService.delete(at: url, completionHandler: completionHandler(for: completion))
@@ -69,20 +79,13 @@ struct ApiManager {
 
     //MARK: Downloading files
     func downloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
-        let fileName = large ? "bigImage.jpg" : "smallImage.jpg"
-        let destination = documentsUrl.appendingPathComponent(fileName)
-
-        return apiService.download(from: fileToDownload(large: large), to: destination, inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.download(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
     }
 }
 
 fileprivate extension ApiManager {
 
-    class Resources {
-    }
-
-    var apiService: ApiService {
-        return (UIApplication.shared.delegate as! AppDelegate).apiService
+    private class Resources {
     }
 
     var documentsUrl: URL {
@@ -116,6 +119,10 @@ fileprivate extension ApiManager {
         } else {
             return URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
         }
+    }
+
+    func downloadedFileURL(large: Bool) -> URL {
+        return documentsUrl.appendingPathComponent(large ? "bigImage.jpg" : "smallImage.jpg")
     }
 
     func completionHandler(for completion: @escaping ApiManagerCompletionHandler) -> ApiResponseCompletionHandler {
