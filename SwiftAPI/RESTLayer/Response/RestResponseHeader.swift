@@ -29,12 +29,12 @@ public struct RestResponseHeader {
     /**
      Converts *[String : String]* dictionary to array of response headers.
 
-     - Parameter headers: dictionary of headers
+     - Parameter rawHeaders: dictionary of headers.
 
      - Returns: If *headers* is not nil, array of *RestResponseHeader* objects, otherwise nil.
      */
-    static func responseHeaders(with headers: [String : String]?) -> [RestResponseHeader]? {
-        guard let headers = headers else {
+    static func list(with rawHeaders: [String : String]?) -> [RestResponseHeader]? {
+        guard let headers = rawHeaders else {
             return nil
         }
         var responseHeaders = [RestResponseHeader]()

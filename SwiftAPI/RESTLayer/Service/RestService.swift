@@ -54,7 +54,7 @@ public class RestService {
                 errorResponse = RestErrorResponse(error: internalError)
             } else if let r = response, let apiError = ApiError.error(for: r.statusCode) {
                 errorResponse = RestErrorResponse(error: apiError)
-            } else if let r = response, let parsingError = resource.updateWith(responseData: r.body, aditionalInfo: RestResponseHeader.responseHeaders(with: r.allHeaderFields)) {
+            } else if let r = response, let parsingError = resource.update(with: r.body, aditionalInfo: RestResponseHeader.list(with: r.allHeaderFields)) {
                 errorResponse = RestErrorResponse(error: parsingError)
             }
             restHandler(resource, errorResponse)
@@ -103,7 +103,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.get(from: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.getData(from: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -121,7 +121,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.post(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.post(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -139,7 +139,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.put(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.put(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -157,7 +157,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.patch(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.patch(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -175,7 +175,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.delete(data: resource.dataRepresentation, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.delete(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
     }
 }
 
@@ -197,7 +197,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.download(from: url, to: resource.location, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+        return apiService.downloadFile(from: url, to: resource.location, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
     }
 
     /**
@@ -260,7 +260,7 @@ public extension RestService {
 
     ///Cancels all currently running requests.
     func cancelAllRequests() {
-        apiService.cancellAllRequests()
+        apiService.cancelAllRequests()
     }
 
     /**

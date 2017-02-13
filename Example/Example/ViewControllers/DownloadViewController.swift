@@ -32,7 +32,7 @@ class DownloadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        apiService.cancellAllRequests()
+        apiService.cancelAllRequests()
     }
 
     func prepareForRequest() {
@@ -59,7 +59,7 @@ class DownloadViewController: UIViewController {
         let destination = documentsUrl.appendingPathComponent(fileName)
 
         prepareForRequest()
-        let request = apiService.download(from: fileToDownload, to: destination, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
+        let request = apiService.downloadFile(from: fileToDownload, to: destination, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
         startProgress(with: request)
     }
 

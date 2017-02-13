@@ -47,7 +47,7 @@ public struct ApiResponse {
         if let code = response.statusCode {
             self.statusCode = StatusCode(code)
         } else {
-            self.statusCode = StatusCode.internalErrorStatusCode
+            self.statusCode = StatusCode.internalError
         }
         self.expectedContentLength = response.expectedContentLength
         self.mimeType = response.mimeType

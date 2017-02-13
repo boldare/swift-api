@@ -15,7 +15,7 @@ fileprivate struct ExampleResource: RestResource {
     private(set) var title: String
     private let shouldFail: Bool
 
-    var dataRepresentation: Data? {
+    var data: Data? {
         let dictionary = ["title" : title]
         return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
     }
@@ -26,7 +26,7 @@ fileprivate struct ExampleResource: RestResource {
         self.shouldFail = shouldFail
     }
 
-    mutating func updateWith(responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error? {
+    mutating func update(with data: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error? {
         let error = NSError(domain: "Tests", code: -8, userInfo: [NSLocalizedDescriptionKey : "Unexpected error!"])
         return shouldFail ? error : nil
     }

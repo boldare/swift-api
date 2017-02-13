@@ -30,7 +30,7 @@ class UploadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        apiService.cancellAllRequests()
+        apiService.cancelAllRequests()
     }
 
     func prepareForRequest() {

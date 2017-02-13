@@ -141,15 +141,15 @@ class StatusCodeTests: XCTestCase {
     }
 
     func testIsInternalErrorStatusCode() {
-        let error1 = StatusCode.internalErrorStatusCode
+        let error1 = StatusCode.internalError
         let error2 = StatusCode(400)
         let error3 = StatusCode(500)
         let error4 = StatusCode(600)
 
-        XCTAssertTrue(error1.isInternalErrorStatusCode)
-        XCTAssertFalse(error2.isInternalErrorStatusCode)
-        XCTAssertFalse(error3.isInternalErrorStatusCode)
-        XCTAssertFalse(error4.isInternalErrorStatusCode)
+        XCTAssertTrue(error1.isInternalError)
+        XCTAssertFalse(error2.isInternalError)
+        XCTAssertFalse(error3.isInternalError)
+        XCTAssertFalse(error4.isInternalError)
     }
 
     func testIsSuccessStatusCode() {
@@ -161,13 +161,13 @@ class StatusCodeTests: XCTestCase {
         let error2 = StatusCode(500)
         let unknown = StatusCode(0)
 
-        XCTAssertTrue(success1.isSuccessStatusCode)
-        XCTAssertTrue(success2.isSuccessStatusCode)
-        XCTAssertFalse(info.isSuccessStatusCode)
-        XCTAssertFalse(redirection.isSuccessStatusCode)
-        XCTAssertFalse(error1.isSuccessStatusCode)
-        XCTAssertFalse(error2.isSuccessStatusCode)
-        XCTAssertFalse(unknown.isSuccessStatusCode)
+        XCTAssertTrue(success1.isSuccess)
+        XCTAssertTrue(success2.isSuccess)
+        XCTAssertFalse(info.isSuccess)
+        XCTAssertFalse(redirection.isSuccess)
+        XCTAssertFalse(error1.isSuccess)
+        XCTAssertFalse(error2.isSuccess)
+        XCTAssertFalse(unknown.isSuccess)
     }
 
     func testIsRedirectionStatusCode() {
@@ -179,13 +179,13 @@ class StatusCodeTests: XCTestCase {
         let error2 = StatusCode(500)
         let unknown = StatusCode(0)
 
-        XCTAssertTrue(redirection1.isRedirectionStatusCode)
-        XCTAssertTrue(redirection2.isRedirectionStatusCode)
-        XCTAssertFalse(info.isRedirectionStatusCode)
-        XCTAssertFalse(success.isRedirectionStatusCode)
-        XCTAssertFalse(error1.isRedirectionStatusCode)
-        XCTAssertFalse(error2.isRedirectionStatusCode)
-        XCTAssertFalse(unknown.isRedirectionStatusCode)
+        XCTAssertTrue(redirection1.isRedirection)
+        XCTAssertTrue(redirection2.isRedirection)
+        XCTAssertFalse(info.isRedirection)
+        XCTAssertFalse(success.isRedirection)
+        XCTAssertFalse(error1.isRedirection)
+        XCTAssertFalse(error2.isRedirection)
+        XCTAssertFalse(unknown.isRedirection)
     }
 
     func testIsInfoStatusCode() {
@@ -197,13 +197,13 @@ class StatusCodeTests: XCTestCase {
         let error2 = StatusCode(500)
         let unknown = StatusCode(0)
 
-        XCTAssertTrue(info1.isInfoStatusCode)
-        XCTAssertTrue(info2.isInfoStatusCode)
-        XCTAssertFalse(success.isInfoStatusCode)
-        XCTAssertFalse(redirection.isInfoStatusCode)
-        XCTAssertFalse(error1.isInfoStatusCode)
-        XCTAssertFalse(error2.isInfoStatusCode)
-        XCTAssertFalse(unknown.isInfoStatusCode)
+        XCTAssertTrue(info1.isInfo)
+        XCTAssertTrue(info2.isInfo)
+        XCTAssertFalse(success.isInfo)
+        XCTAssertFalse(redirection.isInfo)
+        XCTAssertFalse(error1.isInfo)
+        XCTAssertFalse(error2.isInfo)
+        XCTAssertFalse(unknown.isInfo)
     }
 
     func testIsErrorStatusCode() {
@@ -217,14 +217,14 @@ class StatusCodeTests: XCTestCase {
         let unknown1 = StatusCode(0)
         let unknown2 = StatusCode(600)
 
-        XCTAssertTrue(error1.isErrorStatusCode)
-        XCTAssertTrue(error2.isErrorStatusCode)
-        XCTAssertTrue(error3.isErrorStatusCode)
-        XCTAssertTrue(error4.isErrorStatusCode)
-        XCTAssertTrue(unknown1.isErrorStatusCode)
-        XCTAssertTrue(unknown2.isErrorStatusCode)
-        XCTAssertFalse(info.isErrorStatusCode)
-        XCTAssertFalse(success.isErrorStatusCode)
-        XCTAssertFalse(redirection.isErrorStatusCode)
+        XCTAssertTrue(error1.isError)
+        XCTAssertTrue(error2.isError)
+        XCTAssertTrue(error3.isError)
+        XCTAssertTrue(error4.isError)
+        XCTAssertTrue(unknown1.isError)
+        XCTAssertTrue(unknown2.isError)
+        XCTAssertFalse(info.isError)
+        XCTAssertFalse(success.isError)
+        XCTAssertFalse(redirection.isError)
     }
 }

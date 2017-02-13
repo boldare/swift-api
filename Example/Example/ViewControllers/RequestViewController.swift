@@ -24,7 +24,7 @@ class RequestViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        apiService.cancellAllRequests()
+        apiService.cancelAllRequests()
     }
 
     @IBAction func getRequestButtonDidPush() {
@@ -32,7 +32,7 @@ class RequestViewController: UIViewController {
 
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.get(from: url, completionHandler: completionHandler)
+        _ = apiService.getData(from: url, completionHandler: completionHandler)
     }
 
     @IBAction func postRequestButtonDidPush() {

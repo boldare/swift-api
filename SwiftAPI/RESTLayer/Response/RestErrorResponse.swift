@@ -30,6 +30,6 @@ public struct RestErrorResponse {
     init(error: Error, body: Data?, aditionalInfo: [String : String]?) {
         self.error = error
         self.body = body
-        self.aditionalInfo = RestResponseHeader.responseHeaders(with: aditionalInfo)
+        self.aditionalInfo = RestResponseHeader.list(with: aditionalInfo)
     }
 }

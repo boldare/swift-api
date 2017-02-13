@@ -65,7 +65,7 @@ final public class ApiService {
     }
 
     ///Cancels all currently running requests.
-    public func cancellAllRequests() {
+    public func cancelAllRequests() {
         requestService.cancelAllRequests()
     }
 
@@ -97,7 +97,7 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func get(from url: URL, with aditionalHeaders: [ApiHeader]? = nil,  useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+    func getData(from url: URL, with aditionalHeaders: [ApiHeader]? = nil,  useProgress: Bool = false, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return sendRequest(url: url, method: .get, body: nil, apiHeaders: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 
@@ -239,7 +239,7 @@ public extension ApiService {
      
      - Important: If any file exists at *localUrl* it will be overridden by downloaded file.
      */
-    func download(from remoteFileUrl: URL, to localUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+    func downloadFile(from remoteFileUrl: URL, to localUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, completionHandler: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return downloadFile(from: remoteFileUrl, to: localUrl, inBackground: inBackground, apiHeaders: aditionalHeaders, useProgress: useProgress, completionHandler: completionHandler)
     }
 }

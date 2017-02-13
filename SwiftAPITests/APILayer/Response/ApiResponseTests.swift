@@ -28,7 +28,7 @@ class ApiResponseTests: XCTestCase {
         XCTAssertNil(response?.textEncodingName)
         XCTAssertNil(response?.allHeaderFields)
         XCTAssertNil(response?.resourceUrl)
-        XCTAssertTrue(response!.statusCode.isInternalErrorStatusCode)
+        XCTAssertTrue(response!.statusCode.isInternalError)
         XCTAssertEqual(response?.expectedContentLength, -1)
         XCTAssertEqual(response?.body, data)
     }
