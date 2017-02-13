@@ -32,7 +32,9 @@ class DownloadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
+
         apiManager.cancelAllRequests()
+        restManager.cancelAllRequests()
     }
 
     @IBAction func requestButtonDidPush() {
@@ -83,6 +85,14 @@ fileprivate extension DownloadViewController {
         progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
     }
 
+    func display(_ response: String?, and image: UIImage? = nil) {
+        DispatchQueue.main.async {
+            self.textView.setContentOffset(.zero, animated: false)
+            self.textView.text = response
+            self.imageView.image = image
+        }
+    }
+
     var apiCompletionHandler: ApiManagerCompletionHandler {
         return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
@@ -91,20 +101,36 @@ fileprivate extension DownloadViewController {
             if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
                 strongSelf.resetProgress()
             }
+            var message: String?
+            var image: UIImage?
             if let error = error {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = "Error ocured during request:\n\(error.localizedDescription)"
-                }
+                message = "Error ocured during request:\n\(error.localizedDescription)"
             } else {
-                var image: UIImage?
+                message = readableResponse
                 if let imageUrl = resourceUrl {
                     image = UIImage(contentsOfFile: imageUrl.path)
                 }
-                DispatchQueue.main.async {
-                    strongSelf.textView.setContentOffset(.zero, animated: false)
-                    strongSelf.textView.text = readableResponse
-                    strongSelf.imageView.image = image
+            }
+            strongSelf.display(message, and: image)
+        }
+    }
+
+    var restCompletionHandler: RestManagerFileCompletionHandler {
+        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
+                strongSelf.resetProgress()
+            }
+            if let errorString = readableError {
+                strongSelf.display(errorString)
+            } else {
+                var image: UIImage?
+                if let imageUrl = resource?.location {
+                    image = UIImage(contentsOfFile: imageUrl.path)
                 }
+                strongSelf.display(resource?.readableDescription, and: image)
             }
         }
     }

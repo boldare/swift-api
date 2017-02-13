@@ -9,10 +9,10 @@
 import UIKit
 import SwiftAPI
 
-typealias RestManagerSimpleCompletionHandler = (_ resource: SimpleResource?, _ readableError: String?) -> ()
-typealias RestManagerFileCompletionHandler = (_ resource: FileResource?, _ readableError: String?) -> ()
+typealias RestManagerSimpleCompletionHandler = (_ resource: SimpleDataResource?, _ readableError: String?) -> ()
+typealias RestManagerFileCompletionHandler = (_ resource: SimpleFileResource?, _ readableError: String?) -> ()
 
-struct SimpleResource: RestResource {
+struct SimpleDataResource: RestDataResource {
 
     let name: String
     let title: String
@@ -25,12 +25,12 @@ struct SimpleResource: RestResource {
         self.readableDescription = ""
     }
 
-    var dataRepresentation: Data? {
+    var data: Data? {
         let dictionary = ["title" : title]
         return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
     }
 
-    mutating func updateWith(responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error? {
+    mutating func update(with responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error? {
         var readableDescription = ""
         if let headers = aditionalInfo {
             readableDescription.append("Aditional info:\n")
@@ -45,14 +45,17 @@ struct SimpleResource: RestResource {
     }
 }
 
-struct FileResource: RestFileResource {
+struct SimpleFileResource: RestFileResource {
 
     let name: String
     let location: URL
 
+    private(set) var readableDescription: String
+    
     init(name: String, location: URL) {
         self.name = name
         self.location = location
+        self.readableDescription = ""
     }
 }
 
@@ -84,49 +87,49 @@ struct RestManager {
 
     //MARK: Data requests
     func getResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
-        let resource = SimpleResource(name: "get")
+        let resource = SimpleDataResource(name: "get")
         _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func postResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
-        let resource = SimpleResource(name: "post")
+        let resource = SimpleDataResource(name: "post")
         _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func putResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
-        let resource = SimpleResource(name: "put")
+        let resource = SimpleDataResource(name: "put")
         _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func patchResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
-        let resource = SimpleResource(name: "patch")
+        let resource = SimpleDataResource(name: "patch")
         _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func deleteResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
-        let resource = SimpleResource(name: "delete")
+        let resource = SimpleDataResource(name: "delete")
         _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     //MARK: Downloading files
     func getFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
-        let resource = FileResource(name: "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg", location: downloadedFileURL(large: large))
+        let resource = SimpleFileResource(name: "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg", location: downloadedFileURL(large: large))
         return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
         //MARK: Uploading files
     func postFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
-        let resource = FileResource(name: "post", location: fileToUpload(large: large))
+        let resource = SimpleFileResource(name: "post", location: fileToUpload(large: large))
         return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
     func putFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
-        let resource = FileResource(name: "put", location: fileToUpload(large: large))
+        let resource = SimpleFileResource(name: "put", location: fileToUpload(large: large))
         return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
     func patchFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
-        let resource = FileResource(name: "patch", location: fileToUpload(large: large))
+        let resource = SimpleFileResource(name: "patch", location: fileToUpload(large: large))
         return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 }
@@ -159,7 +162,7 @@ fileprivate extension RestManager {
         }
     }
 
-    func simpleCompletionHandler(for completion: @escaping RestManagerSimpleCompletionHandler) -> RestResponseCompletionHandler {
+    func simpleCompletionHandler(for completion: @escaping RestManagerSimpleCompletionHandler) -> RestDataResponseCompletionHandler {
         return { (resource: RestResource, error: RestErrorResponse?) in
             if let error = error {
                 var readableError = "Error occured during request:\n \(error.error.localizedDescription)"
@@ -173,7 +176,7 @@ fileprivate extension RestManager {
                     readableError.append("Data:\n\(json)")
                 }
                 completion(nil, readableError)
-            } else if let resource = resource as? SimpleResource {
+            } else if let resource = resource as? SimpleDataResource {
                 completion(resource, nil)
             } else {
                 completion(nil, "This should not happen!")
@@ -195,7 +198,7 @@ fileprivate extension RestManager {
                     readableError.append("Data:\n\(json)")
                 }
                 completion(nil, readableError)
-            } else if let resource = resource as? FileResource {
+            } else if let resource = resource as? SimpleFileResource {
                 completion(resource, nil)
             } else {
                 completion(nil, "This should not happen!")

@@ -20,7 +20,7 @@ struct ApiManager {
     }
 
     func cancelAllRequests() {
-        apiService.cancellAllRequests()
+        apiService.cancelAllRequests()
     }
 
     func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
@@ -31,7 +31,7 @@ struct ApiManager {
     func getRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("get")
 
-        _ = apiService.get(from: url, completionHandler: completionHandler(for: completion))
+        _ = apiService.getData(from: url, completionHandler: completionHandler(for: completion))
     }
 
     func postRequest(_ completion: @escaping ApiManagerCompletionHandler) {
@@ -79,7 +79,7 @@ struct ApiManager {
 
     //MARK: Downloading files
     func downloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
-        return apiService.download(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
     }
 }
 

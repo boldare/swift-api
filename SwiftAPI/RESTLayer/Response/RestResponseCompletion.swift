@@ -14,7 +14,7 @@ import Foundation
    - resource: Resource returned from server if there is any.
    - errorResponse: Error which occurred while processing request.
  */
-public typealias RestResponseCompletionHandler = (_ resource: RestResource, _ errorResponse: RestErrorResponse?) -> ()
+public typealias RestDataResponseCompletionHandler = (_ resource: RestDataResource, _ errorResponse: RestErrorResponse?) -> ()
 
 /**
  Closure called when file request is finished.

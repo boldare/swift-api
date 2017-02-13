@@ -32,6 +32,7 @@ class UploadViewController: UIViewController {
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
         
         apiManager.cancelAllRequests()
+        restManager.cancelAllRequests()
     }
 
     @IBAction func postRequestButtonDidPush() {
@@ -101,6 +102,13 @@ fileprivate extension UploadViewController {
         progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
     }
 
+    func display(_ response: String?) {
+        DispatchQueue.main.async {
+            self.textView.setContentOffset(.zero, animated: false)
+            self.textView.text = response
+        }
+    }
+
     var apiCompletionHandler: ApiManagerCompletionHandler {
         return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
@@ -110,20 +118,15 @@ fileprivate extension UploadViewController {
                 strongSelf.resetProgress()
             }
             if let error = error {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = "Error ocured during request:\n\(error.localizedDescription)"
-                }
+                strongSelf.display("Error ocured during request:\n\(error.localizedDescription)")
             } else {
-                DispatchQueue.main.async {
-                    strongSelf.textView.setContentOffset(.zero, animated: false)
-                    strongSelf.textView.text = readableResponse
-                }
+                strongSelf.display(readableResponse)
             }
         }
     }
 
     var restCompletionHandler: RestManagerFileCompletionHandler {
-        return {[weak self] (resource: FileResource?, readableError: String?) in
+        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
             guard let strongSelf = self else {
                 return
             }
@@ -131,14 +134,9 @@ fileprivate extension UploadViewController {
                 strongSelf.resetProgress()
             }
             if let errorString = readableError {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = errorString
-                }
+                strongSelf.display(errorString)
             } else {
-                DispatchQueue.main.async {
-                    strongSelf.textView.setContentOffset(.zero, animated: false)
-//                    strongSelf.textView.text = resource?.readableDescription
-                }
+                strongSelf.display(resource?.readableDescription)
             }
         }
     }
