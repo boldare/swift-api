@@ -24,6 +24,7 @@ final public class ApiService {
         }
         return headers
     }
+
     ///Sends data request with given parameters
     fileprivate func sendRequest(url: URL, method: HttpMethod, body: Data?, apiHeaders: [ApiHeader]?, useProgress: Bool, completionHandler: ApiResponseCompletionHandler?) -> ApiRequest {
         let headers = httpHeaders(for: apiHeaders)

@@ -33,6 +33,7 @@ public struct ApiRequest {
     }
 
     ///Resumes request, if it is suspended.
+    @available(iOS 9.0, *)
     public func resume() {
         requestService.resume(request)
     }

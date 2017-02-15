@@ -21,7 +21,7 @@ enum RequestServiceConfiguration {
 
 extension RequestServiceConfiguration {
 
-    ///URLSessionConfiguration object for current session
+    ///*URLSessionConfiguration* object for current session
     var urlSessionConfiguration: URLSessionConfiguration {
         switch self {
         case .foreground:

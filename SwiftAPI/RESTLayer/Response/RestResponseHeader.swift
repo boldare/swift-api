@@ -18,8 +18,8 @@ public struct RestResponseHeader {
 
     /**
      - Parameters:
-     - name: String containing header field name.
-     - value: String containing header field value.
+       - name: String containing header field name.
+       - value: String containing header field value.
      */
     init(name: String, value: String) {
         self.name = name

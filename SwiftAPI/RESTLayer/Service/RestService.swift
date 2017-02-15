@@ -273,10 +273,10 @@ public extension RestService {
      Sends HTTP GET request for given resource.
 
      - Parameters:
-     - resource: RestResource object which should be filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+       - resource: RestResource object which should be filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -291,10 +291,10 @@ public extension RestService {
      Sends HTTP POST request with given resource.
 
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -309,10 +309,10 @@ public extension RestService {
      Sends HTTP PUT request with given resource.
 
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -327,10 +327,10 @@ public extension RestService {
      Sends HTTP PATCH request with given resource.
 
      - Parameters:
-     - resource: RestResource object which should be send and filled up with response data.
-     - aditionalHeaders: Additional header fields which should be sent with request.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+       - resource: RestResource object which should be send and filled up with response data.
+       - aditionalHeaders: Additional header fields which should be sent with request.
+       - useProgress: Flag indicates if Progress object should be created.
+       - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */

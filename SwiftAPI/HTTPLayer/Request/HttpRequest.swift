@@ -55,7 +55,7 @@ class HttpRequest {
         }
     }
 
-    ///URLRequest representation of current object.
+    ///*URLRequest* representation of current object.
     var urlRequest: URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -78,8 +78,8 @@ extension  HttpRequest: Hashable {
      Returns a Boolean value indicating whether two requests are equal.
 
      - Parameters:
-     - rhs: A value to compare.
-     - lhs: Another value to compare.
+       - rhs: A value to compare.
+       - lhs: Another value to compare.
 
      -Important: Two requests are equal, when their UUID's are equal, it means that function will return *true* only when you are comparing the same instance of request or copy of that instance.
      */

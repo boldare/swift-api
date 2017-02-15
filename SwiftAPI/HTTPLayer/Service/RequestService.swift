@@ -169,15 +169,12 @@ extension RequestService {
 
      - Parameter request: An HttpUploadRequest to resume.
      */
+    @available(iOS 9.0, *)
     func resume(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.resume()
         }
-        if #available(iOS 9.0, *) {
-            request.progress?.resume()
-        } else {
-            //TODO: Fallback on earlier versions
-        }
+        request.progress?.resume()
     }
 
     /**
