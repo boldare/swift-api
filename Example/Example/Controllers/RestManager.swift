@@ -31,7 +31,7 @@ struct SimpleDataResource: RestDataResource {
     }
 
     mutating func update(with responseData: Data?, aditionalInfo: [RestResponseHeader]? ) -> Error? {
-        var readableDescription = ""
+        readableDescription = ""
         if let headers = aditionalInfo {
             readableDescription.append("Aditional info:\n")
             for header in headers {
@@ -56,6 +56,18 @@ struct SimpleFileResource: RestFileResource {
         self.name = name
         self.location = location
         self.readableDescription = ""
+    }
+
+    mutating func update(with aditionalInfo: [RestResponseHeader]?) -> Error? {
+        readableDescription = ""
+        if let headers = aditionalInfo {
+            readableDescription.append("Aditional info:\n")
+            for header in headers {
+                readableDescription.append("   \(header.name) : \(header.value)\n")
+            }
+        }
+        readableDescription.append("File URL:\n\(location.path)")
+        return nil
     }
 }
 
@@ -93,44 +105,44 @@ struct RestManager {
 
     func postResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
         let resource = SimpleDataResource(name: "post")
-        _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
+        _ = restService.post(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func putResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
         let resource = SimpleDataResource(name: "put")
-        _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
+        _ = restService.put(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func patchResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
         let resource = SimpleDataResource(name: "patch")
-        _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
+        _ = restService.patch(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     func deleteResource(_ completion: @escaping RestManagerSimpleCompletionHandler) {
         let resource = SimpleDataResource(name: "delete")
-        _ = restService.get(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
+        _ = restService.delete(resource: resource, aditionalHeaders: authHeader, completion: simpleCompletionHandler(for: completion))
     }
 
     //MARK: Downloading files
     func getFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
-        let resource = SimpleFileResource(name: "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg", location: downloadedFileURL(large: large))
+        let resource = SimpleFileResource(name: fileToDownload(large: large), location: downloadedFileURL(large: large))
         return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
         //MARK: Uploading files
     func postFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let resource = SimpleFileResource(name: "post", location: fileToUpload(large: large))
-        return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
+        return restService.postFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
     func putFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let resource = SimpleFileResource(name: "put", location: fileToUpload(large: large))
-        return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
+        return restService.putFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 
     func patchFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let resource = SimpleFileResource(name: "patch", location: fileToUpload(large: large))
-        return restService.getFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
+        return restService.patchFile(resource: resource, inBackground: inBackground, completion: fileCompletionHandler(for: completion)).progress
     }
 }
 
@@ -152,6 +164,14 @@ fileprivate extension RestManager {
 
     func downloadedFileURL(large: Bool) -> URL {
         return documentsUrl.appendingPathComponent(large ? "bigImage.jpg" : "smallImage.jpg")
+    }
+
+    func fileToDownload(large: Bool) -> String {
+        if large {
+            return "wikipedia/commons/3/3f/Fronalpstock_big.jpg"
+        } else {
+            return "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg"
+        }
     }
 
     func fileToUpload(large: Bool) -> URL {

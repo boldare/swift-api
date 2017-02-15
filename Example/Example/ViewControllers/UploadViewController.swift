@@ -10,7 +10,7 @@ import UIKit
 
 class UploadViewController: UIViewController {
 
-    @IBOutlet var apiServiceSwitch: UISwitch!
+    @IBOutlet var restServiceSwitch: UISwitch!
     @IBOutlet var largeImageSwitch: UISwitch!
     @IBOutlet var backgroundSwitch: UISwitch!
     @IBOutlet var progressBar: UIProgressView!
@@ -38,30 +38,30 @@ class UploadViewController: UIViewController {
     @IBAction func postRequestButtonDidPush() {
         prepareForRequest()
 
-        if apiServiceSwitch.isOn {
-            startProgress(with: apiManager.postFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.postFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
         } else {
-
+            startProgress(with: apiManager.postFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
         }
     }
 
     @IBAction func putRequestButtonDidPush() {
         prepareForRequest()
 
-        if apiServiceSwitch.isOn {
-            startProgress(with: apiManager.putFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.putFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
         } else {
-
+            startProgress(with: apiManager.putFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
         }
     }
 
     @IBAction func patchRequestButtonDidPush() {
         prepareForRequest()
 
-        if apiServiceSwitch.isOn {
-            startProgress(with: apiManager.patchFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.patchFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
         } else {
-
+            startProgress(with: apiManager.patchFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
         }
     }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class RequestViewController: UIViewController {
 
-    @IBOutlet var apiServiceSwitch: UISwitch!
+    @IBOutlet var restServiceSwitch: UISwitch!
     @IBOutlet var textView: UITextView!
     @IBOutlet var indicator: UIActivityIndicatorView!
 
@@ -32,10 +32,10 @@ class RequestViewController: UIViewController {
         textView.text = ""
         indicator.startAnimating()
 
-        if apiServiceSwitch.isOn {
-            apiManager.getRequest(apiCompletionHandler)
-        } else {
+        if restServiceSwitch.isOn {
             restManager.getResource(restCompletionHandler)
+        } else {
+            apiManager.getRequest(apiCompletionHandler)
         }
     }
 
@@ -43,10 +43,10 @@ class RequestViewController: UIViewController {
         textView.text = ""
         indicator.startAnimating()
 
-        if apiServiceSwitch.isOn {
-            apiManager.postRequest(apiCompletionHandler)
-        } else {
+        if restServiceSwitch.isOn {
             restManager.postResource(restCompletionHandler)
+        } else {
+            apiManager.postRequest(apiCompletionHandler)
         }
     }
 
@@ -54,10 +54,10 @@ class RequestViewController: UIViewController {
         textView.text = ""
         indicator.startAnimating()
 
-        if apiServiceSwitch.isOn {
-            apiManager.putRequest(apiCompletionHandler)
-        } else {
+        if restServiceSwitch.isOn {
             restManager.putResource(restCompletionHandler)
+        } else {
+            apiManager.putRequest(apiCompletionHandler)
         }
     }
 
@@ -65,10 +65,10 @@ class RequestViewController: UIViewController {
         textView.text = ""
         indicator.startAnimating()
 
-        if apiServiceSwitch.isOn {
-            apiManager.patchRequest(apiCompletionHandler)
-        } else {
+        if restServiceSwitch.isOn {
             restManager.patchResource(restCompletionHandler)
+        } else {
+            apiManager.patchRequest(apiCompletionHandler)
         }
     }
 
@@ -76,10 +76,10 @@ class RequestViewController: UIViewController {
         textView.text = ""
         indicator.startAnimating()
 
-        if apiServiceSwitch.isOn {
-            apiManager.deleteRequest(apiCompletionHandler)
-        } else {
+        if restServiceSwitch.isOn {
             restManager.deleteResource(restCompletionHandler)
+        } else {
+            apiManager.deleteRequest(apiCompletionHandler)
         }
     }
 }

@@ -210,10 +210,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="apiServiceSwitch" destination="fjO-hQ-Z2v" id="FaQ-R6-0Mk"/>
                         <outlet property="backgroundSwitch" destination="7jN-Pw-APd" id="X24-P1-pC4"/>
                         <outlet property="largeImageSwitch" destination="6Ak-gw-pMV" id="5Y0-lu-kjO"/>
                         <outlet property="progressBar" destination="3mS-dL-p4Q" id="cQ2-xw-Usy"/>
+                        <outlet property="restServiceSwitch" destination="fjO-hQ-Z2v" id="rxL-b0-Add"/>
                         <outlet property="textView" destination="Ble-TP-MPL" id="rqe-3r-ow1"/>
                     </connections>
                 </viewController>
@@ -344,8 +344,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="apiServiceSwitch" destination="4YZ-pT-Fmn" id="syA-tV-6fF"/>
                         <outlet property="indicator" destination="46Q-tm-5gs" id="cN0-yh-QQ9"/>
+                        <outlet property="restServiceSwitch" destination="4YZ-pT-Fmn" id="4dC-Ke-xSu"/>
                         <outlet property="textView" destination="Ecw-Ja-Q0G" id="UkN-Pm-nO6"/>
                     </connections>
                 </viewController>
@@ -496,11 +496,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="apiServiceSwitch" destination="2gP-eO-7if" id="GFf-lL-cy0"/>
                         <outlet property="backgroundSwitch" destination="grE-4Q-TMY" id="u9b-Rm-eWt"/>
                         <outlet property="imageView" destination="WCm-PD-UgO" id="Cc9-Ij-0Th"/>
                         <outlet property="largeImageSwitch" destination="gzo-KV-q8e" id="Shg-sX-nzA"/>
                         <outlet property="progressBar" destination="KtD-LK-wQZ" id="wk9-QW-uVg"/>
+                        <outlet property="restServiceSwitch" destination="2gP-eO-7if" id="1H6-Tt-0B1"/>
                         <outlet property="textView" destination="UUU-bd-d9W" id="TfR-jp-Omf"/>
                     </connections>
                 </viewController>

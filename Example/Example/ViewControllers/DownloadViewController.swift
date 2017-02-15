@@ -10,7 +10,7 @@ import UIKit
 
 class DownloadViewController: UIViewController {
 
-    @IBOutlet var apiServiceSwitch: UISwitch!
+    @IBOutlet var restServiceSwitch: UISwitch!
     @IBOutlet var largeImageSwitch: UISwitch!
     @IBOutlet var backgroundSwitch: UISwitch!
     @IBOutlet var progressBar: UIProgressView!
@@ -40,10 +40,10 @@ class DownloadViewController: UIViewController {
     @IBAction func requestButtonDidPush() {
         prepareForRequest()
 
-        if apiServiceSwitch.isOn {
-            startProgress(with: apiManager.downloadFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.getFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
         } else {
-
+            startProgress(with: apiManager.downloadFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
         }
     }
 
@@ -101,17 +101,15 @@ fileprivate extension DownloadViewController {
             if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
                 strongSelf.resetProgress()
             }
-            var message: String?
-            var image: UIImage?
             if let error = error {
-                message = "Error ocured during request:\n\(error.localizedDescription)"
+                strongSelf.display("Error ocured during request:\n\(error.localizedDescription)")
             } else {
-                message = readableResponse
+                var image: UIImage?
                 if let imageUrl = resourceUrl {
                     image = UIImage(contentsOfFile: imageUrl.path)
                 }
+                strongSelf.display(readableResponse, and: image)
             }
-            strongSelf.display(message, and: image)
         }
     }
 

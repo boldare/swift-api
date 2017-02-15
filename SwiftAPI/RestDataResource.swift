@@ -14,11 +14,11 @@ public protocol RestDataResource: RestResource {
     var data: Data?{get}
 
     /**
-     Updates object with it's data representation sent by server.
+     Updates object with it's data representation and header fields sent by server.
 
      - Parameters:
-     - data: Data representation of object sent by API server.
-     - aditionalInfo: Headers containing aditional info sent by server.
+       - data: Data representation of object sent by API server.
+       - aditionalInfo: Headers containing aditional info sent by server.
 
      - Returns: Error if parsing or updating went wrong.
 
