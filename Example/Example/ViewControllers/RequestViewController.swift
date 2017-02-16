@@ -10,10 +10,16 @@ import UIKit
 
 class RequestViewController: UIViewController {
 
+    ///Switch to decide if *resetService* or *apiService* should be used.
     @IBOutlet var restServiceSwitch: UISwitch!
+
+    ///TextView to show output.
     @IBOutlet var textView: UITextView!
+
+    ///Indicator to show that request is performing.
     @IBOutlet var indicator: UIActivityIndicatorView!
 
+    //MARK: ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +34,7 @@ class RequestViewController: UIViewController {
         restManager.cancelAllRequests()
     }
 
+    //MARK: Actions
     @IBAction func getRequestButtonDidPush() {
         textView.text = ""
         indicator.startAnimating()
@@ -84,16 +91,20 @@ class RequestViewController: UIViewController {
     }
 }
 
+//MARK: Private helpers
 fileprivate extension RequestViewController {
 
+    ///Gets *ApiManager* instance from *AppDelegate*.
     var apiManager: ApiManager {
         return (UIApplication.shared.delegate as! AppDelegate).apiManager
     }
 
+    ///Gets *RestManager* instance from *AppDelegate*.
     var restManager: RestManager {
         return (UIApplication.shared.delegate as! AppDelegate).restManager
     }
 
+    ///Shows response of request.
     func display(_ response: String?) {
         DispatchQueue.main.async {
             self.textView.setContentOffset(.zero, animated: false)
@@ -102,6 +113,7 @@ fileprivate extension RequestViewController {
         }
     }
 
+    ///Completion handler for *apiManager*.
     var apiCompletionHandler: ApiManagerCompletionHandler {
         return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
@@ -115,6 +127,7 @@ fileprivate extension RequestViewController {
         }
     }
 
+    ///Completion handler for *restManager*.
     var restCompletionHandler: RestManagerSimpleCompletionHandler {
         return {[weak self] (resource: SimpleDataResource?, readableError: String?) in
             guard let strongSelf = self else {

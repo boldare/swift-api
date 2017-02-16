@@ -10,15 +10,28 @@ import UIKit
 
 class DownloadViewController: UIViewController {
 
+    ///Switch to decide if *resetService* or *apiService* should be used.
     @IBOutlet var restServiceSwitch: UISwitch!
+
+    ///Switch to decide if large or small image should be used.
     @IBOutlet var largeImageSwitch: UISwitch!
+
+    ///Switch to decide if request should run in background or foreground.
     @IBOutlet var backgroundSwitch: UISwitch!
+
+    ///Progress bar to show progress of request.
     @IBOutlet var progressBar: UIProgressView!
+
+    ///ImageView to show downloaded image.
     @IBOutlet var imageView: UIImageView!
+
+    ///TextView to show output.
     @IBOutlet var textView: UITextView!
 
+    ///Parent of all current progresses.
     fileprivate var progress = Progress(totalUnitCount: 0)
 
+    //MARK: ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +50,7 @@ class DownloadViewController: UIViewController {
         restManager.cancelAllRequests()
     }
 
+    //MARK: Actions
     @IBAction func requestButtonDidPush() {
         prepareForRequest()
 
@@ -47,6 +61,7 @@ class DownloadViewController: UIViewController {
         }
     }
 
+    ///Observes progress changes and displays it on progress bar.
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "fractionCompleted", let p = object as? Progress {
             DispatchQueue.main.async {
@@ -56,21 +71,26 @@ class DownloadViewController: UIViewController {
     }
 }
 
+//MARK: Private helpers
 fileprivate extension DownloadViewController {
 
+    ///Gets *ApiManager* instance from *AppDelegate*.
     var apiManager: ApiManager {
         return (UIApplication.shared.delegate as! AppDelegate).apiManager
     }
 
+    ///Gets *RestManager* instance from *AppDelegate*.
     var restManager: RestManager {
         return (UIApplication.shared.delegate as! AppDelegate).fileDownloadRestManager
     }
 
+    ///Prepares UI to request.
     func prepareForRequest() {
         imageView.image = nil
         textView.text = ""
     }
 
+    ///Starts new progress.
     func startProgress(with subProgress: Progress?) {
         if let p = subProgress {
             progress.totalUnitCount += 1
@@ -79,12 +99,14 @@ fileprivate extension DownloadViewController {
         progressBar.progress = Float(progress.fractionCompleted)
     }
 
+    ///Resets parent progress.
     func resetProgress() {
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
         progress = Progress(totalUnitCount: 0)
         progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
     }
 
+    ///Shows response of request.
     func display(_ response: String?, and image: UIImage? = nil) {
         DispatchQueue.main.async {
             self.textView.setContentOffset(.zero, animated: false)
@@ -93,6 +115,7 @@ fileprivate extension DownloadViewController {
         }
     }
 
+    ///Completion handler for *apiManager*.
     var apiCompletionHandler: ApiManagerCompletionHandler {
         return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
@@ -113,6 +136,7 @@ fileprivate extension DownloadViewController {
         }
     }
 
+    ///Completion handler for *restManager*.
     var restCompletionHandler: RestManagerFileCompletionHandler {
         return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
             guard let strongSelf = self else {
