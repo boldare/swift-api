@@ -1,0 +1,24 @@
+language: objective-c
+osx_image: xcode8.2
+
+before_install: true
+install: "./scripts/install-dependencies.sh"
+before_script: true
+script: "./scripts/test.sh"
+after_success: sleep 5
+before_deploy: true
+deploy: true
+after_deploy: true
+xcode_workspace: SwiftAPI.xcworkspace
+xcode_scheme: SwiftAPI
+env:
+  global:
+  - PODSPEC="SwiftAPI.podspec"
+branches:
+  only:
+  - master
+  - develop
+notifications:
+  slack:
+    rooms:
+      secure: tZ9zsy9NmFpnyqLtP47Nt7xopxMxlN+8Vsid5pyC/zWbXeuJDiSFnbeD37uWl92gYni5NVu+Ycv5sekv8MRd5zBuuZsYnltw56zHxYHSlFDKrWNpgPro4IDaLYZTtTg9JrtRSjgth9Piu4I7s7qOTa5H3xfz2CucN7V77MQ3rO6KSdwTgK991TXBL8x0zbLeWxOGof2URahCV3kFtFAN5JC9o8HMb/OnEbGQyV9wp+Vo50SYla+YBB0XEeI9Xi19czTvAl1YpOmyIb3eX5l/mzfQaWl7UmP6flMoRROyMmGX14sR4JLeyNSqdWE7hVpIqAFf9aaPBeOSqvGe9YRQWuLELR0MvVgXi1mNKW0W7mEhul4T4xPRNIugTJK+D/ysZ+2Lm/+H5lwFQg+oQb9Xm7sWdg6TxKFcToQx3UbPj3A8F45saABBT65B8wQeN9vLvyY0uHqbxTXtnF/diUh8tKVFDHRHIHvwt0QJU9STnt77NEZONXfQHHotWc9kKma8Il+9MypXn5AmgeJyyMtzrleZnY2Y+ifEG80XaF4K9T/X80HotEbp4OzlQKpHXQ1YU+0gvTetky+RORF3fxii4rG/pBME35yGYSlc9w1eeDDWsaIU5O+KLlKQkZzguJbhEVL2tdGC8VaKMJNGvHMbrLADdiSPthhQ1CcOxGpZb2c=
