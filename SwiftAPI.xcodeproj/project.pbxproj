@@ -35,6 +35,9 @@
 		EA6E58421E1BD9150060769F /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E583F1E1BD9150060769F /* RequestService.swift */; };
 		EA6E58431E1BD9150060769F /* RequestServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E58401E1BD9150060769F /* RequestServiceConfiguration.swift */; };
 		EA8AD2F21E1E303F001BA522 /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */; };
+		EA992AA41E56FA2F007E7222 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = EA992AA31E56FA2F007E7222 /* CHANGELOG.md */; };
+		EA992AA91E56FB4D007E7222 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EA992AA71E56FB4D007E7222 /* README.md */; };
+		EA992AAA1E56FB4D007E7222 /* script.sh in Resources */ = {isa = PBXBuildFile; fileRef = EA992AA81E56FB4D007E7222 /* script.sh */; };
 		EA9AB5121E36121200261C33 /* HttpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AB5111E36121200261C33 /* HttpHeader.swift */; };
 		EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */; };
 		EAA8BB8B1E30A1F700C60238 /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */; };
@@ -108,6 +111,9 @@
 		EA6E583F1E1BD9150060769F /* RequestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestService.swift; path = HTTPLayer/Service/RequestService.swift; sourceTree = "<group>"; };
 		EA6E58401E1BD9150060769F /* RequestServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestServiceConfiguration.swift; path = HTTPLayer/Service/RequestServiceConfiguration.swift; sourceTree = "<group>"; };
 		EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseActionTests.swift; path = HTTPLayer/Response/ResponseActionTests.swift; sourceTree = "<group>"; };
+		EA992AA31E56FA2F007E7222 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
+		EA992AA71E56FB4D007E7222 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		EA992AA81E56FB4D007E7222 /* script.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = script.sh; sourceTree = SOURCE_ROOT; };
 		EA9AB5111E36121200261C33 /* HttpHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpHeader.swift; path = HTTPLayer/Request/HttpHeader.swift; sourceTree = "<group>"; };
 		EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCommanderTests.swift; path = Dependencies/FileManager/FileCommanderTests.swift; sourceTree = "<group>"; };
 		EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestServiceConfigurationTests.swift; path = HTTPLayer/Service/RequestServiceConfigurationTests.swift; sourceTree = "<group>"; };
@@ -203,8 +209,8 @@
 			children = (
 				EA96B8411E28C94800172AE5 /* APILayer */,
 				EA06583A1E03EDF600B46CEA /* HTTPLayer */,
-				EA06583B1E04051F00B46CEA /* SupportingFiles */,
 				EA527F641E2CCBC50038F095 /* Dependencies */,
+				EA06583B1E04051F00B46CEA /* SupportingFiles */,
 			);
 			path = SwiftAPI;
 			sourceTree = "<group>";
@@ -236,6 +242,9 @@
 			children = (
 				EA0658141E03EBF000B46CEA /* SwiftAPI.h */,
 				EA0658151E03EBF000B46CEA /* Info.plist */,
+				EA992AA81E56FB4D007E7222 /* script.sh */,
+				EA992AA71E56FB4D007E7222 /* README.md */,
+				EA992AA31E56FA2F007E7222 /* CHANGELOG.md */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -562,6 +571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA992AAA1E56FB4D007E7222 /* script.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,12 +681,14 @@
 				EA6E58421E1BD9150060769F /* RequestService.swift in Sources */,
 				EAB0D3CD1E3B6E8E00921990 /* ApiError.swift in Sources */,
 				EAB0D3D31E3B6E8E00921990 /* InfoStatusCodeType.swift in Sources */,
+				EA992AA91E56FB4D007E7222 /* README.md in Sources */,
 				EAB93F981E27943400ADFCA9 /* HttpFailureResponse.swift in Sources */,
 				EA6E58371E1BD8B70060769F /* HttpDownloadRequest.swift in Sources */,
 				EA6E58411E1BD9150060769F /* HttpMethod.swift in Sources */,
 				EAB0D3CF1E3B6E8E00921990 /* ApiResponseCompletionHandler.swift in Sources */,
 				EAB0D3D11E3B6E8E00921990 /* ApiService.swift in Sources */,
 				EAB0D3D61E3B6E8E00921990 /* StatusCode.swift in Sources */,
+				EA992AA41E56FA2F007E7222 /* CHANGELOG.md in Sources */,
 				EA6E58361E1BD8B70060769F /* HttpDataRequest.swift in Sources */,
 				EAB0D3CE1E3B6E8E00921990 /* ApiResponse.swift in Sources */,
 				EA6E583D1E1BD8E10060769F /* ResponseAction.swift in Sources */,
