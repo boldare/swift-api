@@ -33,7 +33,7 @@ xcodebuild -workspace "$TRAVIS_XCODE_WORKSPACE" \
 exitIfLastStatusWasUnsuccessful
 
 if [[ -n $PODSPEC ]]; then
-    pod lib lint --private --sources=Specs-iOS,master --allow-warnings
+    pod lib lint --private --sources=master --allow-warnings
 
     exitIfLastStatusWasUnsuccessful
 fi
