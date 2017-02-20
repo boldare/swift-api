@@ -35,8 +35,6 @@
 		EA6E58421E1BD9150060769F /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E583F1E1BD9150060769F /* RequestService.swift */; };
 		EA6E58431E1BD9150060769F /* RequestServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E58401E1BD9150060769F /* RequestServiceConfiguration.swift */; };
 		EA8AD2F21E1E303F001BA522 /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */; };
-		EA992AA41E56FA2F007E7222 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = EA992AA31E56FA2F007E7222 /* CHANGELOG.md */; };
-		EA992AA91E56FB4D007E7222 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = EA992AA71E56FB4D007E7222 /* README.md */; };
 		EA992AAA1E56FB4D007E7222 /* script.sh in Resources */ = {isa = PBXBuildFile; fileRef = EA992AA81E56FB4D007E7222 /* script.sh */; };
 		EA9AB5121E36121200261C33 /* HttpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AB5111E36121200261C33 /* HttpHeader.swift */; };
 		EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */; };
@@ -681,14 +679,12 @@
 				EA6E58421E1BD9150060769F /* RequestService.swift in Sources */,
 				EAB0D3CD1E3B6E8E00921990 /* ApiError.swift in Sources */,
 				EAB0D3D31E3B6E8E00921990 /* InfoStatusCodeType.swift in Sources */,
-				EA992AA91E56FB4D007E7222 /* README.md in Sources */,
 				EAB93F981E27943400ADFCA9 /* HttpFailureResponse.swift in Sources */,
 				EA6E58371E1BD8B70060769F /* HttpDownloadRequest.swift in Sources */,
 				EA6E58411E1BD9150060769F /* HttpMethod.swift in Sources */,
 				EAB0D3CF1E3B6E8E00921990 /* ApiResponseCompletionHandler.swift in Sources */,
 				EAB0D3D11E3B6E8E00921990 /* ApiService.swift in Sources */,
 				EAB0D3D61E3B6E8E00921990 /* StatusCode.swift in Sources */,
-				EA992AA41E56FA2F007E7222 /* CHANGELOG.md in Sources */,
 				EA6E58361E1BD8B70060769F /* HttpDataRequest.swift in Sources */,
 				EAB0D3CE1E3B6E8E00921990 /* ApiResponse.swift in Sources */,
 				EA6E583D1E1BD8E10060769F /* ResponseAction.swift in Sources */,
