@@ -94,7 +94,7 @@
 		EA0658141E03EBF000B46CEA /* SwiftAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftAPI.h; sourceTree = "<group>"; };
 		EA0658151E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA06581A1E03EBF000B46CEA /* SwiftAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA0658211E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA0658211E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		EA06E7211E3743E9006F7D0C /* HttpHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpHeaderTests.swift; path = HTTPLayer/Request/HttpHeaderTests.swift; sourceTree = "<group>"; };
 		EA2E2BE31E3F2F6600556CC1 /* ApiErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
 		EA2E2BE51E3F2F6600556CC1 /* ApiServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTests.swift; sourceTree = "<group>"; };
@@ -241,7 +241,6 @@
 				EA2E2BE11E3F2F6600556CC1 /* APILayer */,
 				EADB79571E1D112700C7C801 /* HTTPLayer */,
 				EAA8BB881E309EE700C60238 /* Dependencies */,
-				EA0658211E03EBF000B46CEA /* Info.plist */,
 				EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */,
 			);
 			path = SwiftAPITests;
@@ -403,6 +402,7 @@
 		EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				EA0658211E03EBF000B46CEA /* Info.plist */,
 				EAAA3CD31E23BC5D00CA4A84 /* testImage.png */,
 			);
 			path = SupportingFiles;
