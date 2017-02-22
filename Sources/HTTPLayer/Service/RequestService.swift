@@ -99,7 +99,7 @@ final class RequestService: NSObject {
 
     //MARK: - Handling background sessions
     ///Keeps completion handler for background sessions.
-    fileprivate var backgroundSessionCompletionHandler = [String : () -> Void]()
+    lazy var backgroundSessionCompletionHandler = [String : () -> Void]()
 
     //MARK: Initialization
     ///Initializes service with given file manager.
@@ -169,7 +169,7 @@ extension RequestService {
 
      - Parameter request: An HttpUploadRequest to resume.
      */
-    @available(iOS 9.0, *)
+    @available(iOS 9.0, OSX 10.11, *)
     func resume(_ request: HttpRequest) {
         for task in currentTasks(for: request) {
             task.resume()
@@ -193,35 +193,12 @@ extension RequestService {
     func cancelAllRequests() {
         cancelAllTasks()
     }
-
-    //MARK: - Handling background sessions
-    /**
-     Handle events for background session with identifier.
-
-     - Parameters:
-       - identifier: The identifier of the URL session requiring attention.
-       - completionHandler: The completion handler to call when you finish processing the events.
-     
-     This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
-     */
-    func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        backgroundSessionCompletionHandler[identifier] = completionHandler
-    }
 }
 
 extension RequestService: URLSessionDelegate {
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
         //Informs that finishTasksAndInvalidate() or invalidateAndCancel() method was call on session object.
-    }
-
-    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-        for (_, completionHandler) in backgroundSessionCompletionHandler {
-            DispatchQueue.main.async {
-                completionHandler()
-            }
-        }
-        backgroundSessionCompletionHandler.removeAll()
     }
 }
 

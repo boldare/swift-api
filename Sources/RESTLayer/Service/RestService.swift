@@ -18,13 +18,8 @@ public class RestService {
     ///Array of aditional HTTP header fields.
     private let headerFields: [ApiHeader]?
 
-    ///File manager.
-    private let fileManager: FileManagerProtocol
-
     ///Service for managing request with REST server.
-    fileprivate lazy var apiService: ApiService = { [unowned self] in
-        return ApiService(fileManager: self.fileManager)
-    }()
+    internal let apiService: ApiService
 
     ///Creates full url by joining *baseUrl* and *apiPath*.
     fileprivate func requestUrl(for resourceName: String) -> URL {
@@ -89,8 +84,8 @@ public class RestService {
     public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
-        self.fileManager = fileManager
         self.headerFields = headerFields
+        self.apiService = ApiService(fileManager: fileManager)
     }
 }
 
@@ -252,16 +247,5 @@ public extension RestService {
     ///Cancels all currently running requests.
     func cancelAllRequests() {
         apiService.cancelAllRequests()
-    }
-
-    /**
-     Handle events for background session with identifier.
-     - Parameters:
-       - identifier: The identifier of the URL session requiring attention.
-       - completionHandler: The completion handler to call when you finish processing the events.
-     This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
-     */
-    public func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
     }
 }

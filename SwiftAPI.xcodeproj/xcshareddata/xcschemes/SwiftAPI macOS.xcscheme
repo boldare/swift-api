@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA0658101E03EBF000B46CEA"
+               BlueprintIdentifier = "EAA0E18D1E5D9A7400A7AA3A"
                BuildableName = "SwiftAPI.framework"
-               BlueprintName = "SwiftAPI"
+               BlueprintName = "SwiftAPI macOS"
                ReferencedContainer = "container:SwiftAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,29 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA0658191E03EBF000B46CEA"
-               BuildableName = "SwiftAPITests.xctest"
-               BlueprintName = "SwiftAPITests"
-               ReferencedContainer = "container:SwiftAPI.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA0658101E03EBF000B46CEA"
-            BuildableName = "SwiftAPI.framework"
-            BlueprintName = "SwiftAPI"
-            ReferencedContainer = "container:SwiftAPI.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -65,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA0658101E03EBF000B46CEA"
+            BlueprintIdentifier = "EAA0E18D1E5D9A7400A7AA3A"
             BuildableName = "SwiftAPI.framework"
-            BlueprintName = "SwiftAPI"
+            BlueprintName = "SwiftAPI macOS"
             ReferencedContainer = "container:SwiftAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA0658101E03EBF000B46CEA"
+            BlueprintIdentifier = "EAA0E18D1E5D9A7400A7AA3A"
             BuildableName = "SwiftAPI.framework"
-            BlueprintName = "SwiftAPI"
+            BlueprintName = "SwiftAPI macOS"
             ReferencedContainer = "container:SwiftAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
