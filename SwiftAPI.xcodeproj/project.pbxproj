@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA9125781E5ED3B1006A2801 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9125761E5ED391006A2801 /* FileCommanderTests.swift */; };
 		EA93FE341E5EC42A00A82381 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
 		EA93FE831E5EC64100A82381 /* RestErrorResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5F1E5EC4C700A82381 /* RestErrorResponseTests.swift */; };
 		EA93FE841E5EC64500A82381 /* RestResponseHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE601E5EC4C700A82381 /* RestResponseHeaderTests.swift */; };
@@ -32,7 +33,6 @@
 		EA93FE981E5EC69300A82381 /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE581E5EC4C700A82381 /* ResponseActionTests.swift */; };
 		EA93FE991E5EC69700A82381 /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5A1E5EC4C700A82381 /* RequestServiceConfigurationTests.swift */; };
 		EA93FE9A1E5EC69B00A82381 /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5B1E5EC4C700A82381 /* RequestServiceTests.swift */; };
-		EA93FE9B1E5EC69F00A82381 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE4D1E5EC4C700A82381 /* FileCommanderTests.swift */; };
 		EA93FE9C1E5EC6A300A82381 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA93FE5C1E5EC4C700A82381 /* Info.plist */; };
 		EA93FEA81E5EC87500A82381 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
 		EA93FEC01E5ECAEB00A82381 /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEAF1E5ECAB400A82381 /* ApiServiceTests.swift */; };
@@ -215,6 +215,7 @@
 		67A68FE868B6B6DEA0948996 /* Pods_SwiftAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F758214662673A40D981E2 /* Pods-SwiftAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPITests/Pods-SwiftAPITests.release.xcconfig"; sourceTree = "<group>"; };
 		9E7D820679C817FD6EF3F97F /* Pods-SwiftAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.release.xcconfig"; sourceTree = "<group>"; };
+		EA9125761E5ED391006A2801 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCommanderTests.swift; sourceTree = "<group>"; };
 		EA93FE2F1E5EC42A00A82381 /* UnitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA93FE3D1E5EC4C700A82381 /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeaderTests.swift; sourceTree = "<group>"; };
 		EA93FE3F1E5EC4C700A82381 /* ApiErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
@@ -227,7 +228,6 @@
 		EA93FE481E5EC4C700A82381 /* StatusCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCodeTests.swift; sourceTree = "<group>"; };
 		EA93FE491E5EC4C700A82381 /* SuccessStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatusCodeTypeTests.swift; sourceTree = "<group>"; };
 		EA93FE4A1E5EC4C700A82381 /* UnknownStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnknownStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA93FE4D1E5EC4C700A82381 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCommanderTests.swift; sourceTree = "<group>"; };
 		EA93FE501E5EC4C700A82381 /* HttpDataRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpDataRequestTests.swift; sourceTree = "<group>"; };
 		EA93FE511E5EC4C700A82381 /* HttpDownloadRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpDownloadRequestTests.swift; sourceTree = "<group>"; };
 		EA93FE521E5EC4C700A82381 /* HttpHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpHeaderTests.swift; sourceTree = "<group>"; };
@@ -449,13 +449,28 @@
 			name = FileManager;
 			sourceTree = "<group>";
 		};
+		EA9125741E5ED391006A2801 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				EA9125751E5ED391006A2801 /* FileManager */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		EA9125751E5ED391006A2801 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				EA9125761E5ED391006A2801 /* FileCommanderTests.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
 		EA93FE3A1E5EC4C700A82381 /* Unit */ = {
 			isa = PBXGroup;
 			children = (
 				EA93FE5D1E5EC4C700A82381 /* RESTLayer */,
 				EA93FE3B1E5EC4C700A82381 /* APILayer */,
 				EA93FE4E1E5EC4C700A82381 /* HTTPLayer */,
-				EA93FE4B1E5EC4C700A82381 /* Dependencies */,
 				EA93FE631E5EC4C700A82381 /* SupportingFiles */,
 			);
 			name = Unit;
@@ -510,22 +525,6 @@
 				EA93FE481E5EC4C700A82381 /* StatusCodeTests.swift */,
 			);
 			path = StatusCode;
-			sourceTree = "<group>";
-		};
-		EA93FE4B1E5EC4C700A82381 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				EA93FE4C1E5EC4C700A82381 /* FileManager */,
-			);
-			path = Dependencies;
-			sourceTree = "<group>";
-		};
-		EA93FE4C1E5EC4C700A82381 /* FileManager */ = {
-			isa = PBXGroup;
-			children = (
-				EA93FE4D1E5EC4C700A82381 /* FileCommanderTests.swift */,
-			);
-			path = FileManager;
 			sourceTree = "<group>";
 		};
 		EA93FE4E1E5EC4C700A82381 /* HTTPLayer */ = {
@@ -609,6 +608,7 @@
 				EA93FEB41E5ECAB400A82381 /* RESTLayer */,
 				EA93FEAE1E5ECAB400A82381 /* APILayer */,
 				EA93FEB01E5ECAB400A82381 /* HTTPLayer */,
+				EA9125741E5ED391006A2801 /* Dependencies */,
 				EA93FEBB1E5ECAB900A82381 /* SupportingFIles */,
 			);
 			name = Functional;
@@ -1078,7 +1078,6 @@
 				EA93FE891E5EC65D00A82381 /* ClientErrorStatusCodeTypeTests.swift in Sources */,
 				EA93FE981E5EC69300A82381 /* ResponseActionTests.swift in Sources */,
 				EA93FE8C1E5EC66700A82381 /* StatusCodeTests.swift in Sources */,
-				EA93FE9B1E5EC69F00A82381 /* FileCommanderTests.swift in Sources */,
 				EA93FE941E5EC68500A82381 /* HttpUploadRequestTests.swift in Sources */,
 				EA93FE991E5EC69700A82381 /* RequestServiceConfigurationTests.swift in Sources */,
 				EA93FE931E5EC68200A82381 /* HttpDataRequestTests.swift in Sources */,
@@ -1097,6 +1096,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA9125781E5ED3B1006A2801 /* FileCommanderTests.swift in Sources */,
 				EA93FEC01E5ECAEB00A82381 /* ApiServiceTests.swift in Sources */,
 				EA93FEC21E5ECAF400A82381 /* RequestServiceTests.swift in Sources */,
 				EA93FEC31E5ECAF800A82381 /* RestServiceTests.swift in Sources */,
