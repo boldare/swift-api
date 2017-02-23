@@ -8,20 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18A0171347DE8DA635E9B81B /* Pods_SwiftAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A68FE868B6B6DEA0948996 /* Pods_SwiftAPITests.framework */; };
-		EA06E7221E3743E9006F7D0C /* HttpHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06E7211E3743E9006F7D0C /* HttpHeaderTests.swift */; };
-		EA2E2BEF1E3F2F6600556CC1 /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BE31E3F2F6600556CC1 /* ApiErrorTests.swift */; };
-		EA2E2BF01E3F2F6600556CC1 /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BE51E3F2F6600556CC1 /* ApiServiceTests.swift */; };
-		EA2E2BF21E3F2F6600556CC1 /* ClientErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BE81E3F2F6600556CC1 /* ClientErrorStatusCodeTypeTests.swift */; };
-		EA2E2BF31E3F2F6600556CC1 /* InfoStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BE91E3F2F6600556CC1 /* InfoStatusCodeTypeTests.swift */; };
-		EA2E2BF41E3F2F6600556CC1 /* RedirectionStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BEA1E3F2F6600556CC1 /* RedirectionStatusCodeTypeTests.swift */; };
-		EA2E2BF51E3F2F6600556CC1 /* ServerErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BEB1E3F2F6600556CC1 /* ServerErrorStatusCodeTypeTests.swift */; };
-		EA2E2BF61E3F2F6600556CC1 /* StatusCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BEC1E3F2F6600556CC1 /* StatusCodeTests.swift */; };
-		EA2E2BF71E3F2F6600556CC1 /* SuccessStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BED1E3F2F6600556CC1 /* SuccessStatusCodeTypeTests.swift */; };
-		EA2E2BF81E3F2F6600556CC1 /* UnknownStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BEE1E3F2F6600556CC1 /* UnknownStatusCodeTypeTests.swift */; };
-		EA2E2BFA1E3F396000556CC1 /* ApiHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BF91E3F396000556CC1 /* ApiHeaderTests.swift */; };
-		EA2E2BFD1E3F3DB100556CC1 /* ApiResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2E2BFC1E3F3DB100556CC1 /* ApiResponseTests.swift */; };
-		EA8A48C61E4B16E50081817B /* RestErrorResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A48C51E4B16E50081817B /* RestErrorResponseTests.swift */; };
-		EA8AD2F21E1E303F001BA522 /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */; };
 		EAA0E2181E5DB9B800A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E2191E5DB9B900A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E21A1E5DB9BA00A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,19 +157,46 @@
 		EAA0E2B81E5DD31500A7AA3A /* RestService+BackgroundEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2B71E5DD31500A7AA3A /* RestService+BackgroundEvents.swift */; };
 		EAA0E2B91E5DD31500A7AA3A /* RestService+BackgroundEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2B71E5DD31500A7AA3A /* RestService+BackgroundEvents.swift */; };
 		EAA0E2BA1E5DD31500A7AA3A /* RestService+BackgroundEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2B71E5DD31500A7AA3A /* RestService+BackgroundEvents.swift */; };
-		EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */; };
-		EAA8BB8B1E30A1F700C60238 /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */; };
-		EAAA3CD41E23BC5D00CA4A84 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAA3CD31E23BC5D00CA4A84 /* testImage.png */; };
-		EAAAC5231E49D11600C55808 /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC5221E49D11600C55808 /* RestServiceTests.swift */; };
-		EADB795C1E1D120F00C7C801 /* HttpRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADB795B1E1D120F00C7C801 /* HttpRequestTests.swift */; };
-		EADB795E1E1D1FF500C7C801 /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADB795D1E1D1FF500C7C801 /* RequestServiceTests.swift */; };
-		EAE038EA1E2F968B00ACD01B /* HttpDataRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE038E71E2F968B00ACD01B /* HttpDataRequestTests.swift */; };
-		EAE038EB1E2F968B00ACD01B /* HttpDownloadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE038E81E2F968B00ACD01B /* HttpDownloadRequestTests.swift */; };
-		EAE038EC1E2F968B00ACD01B /* HttpUploadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE038E91E2F968B00ACD01B /* HttpUploadRequestTests.swift */; };
-		EAE038EE1E2FBF2900ACD01B /* HttpFailureResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE038ED1E2FBF2900ACD01B /* HttpFailureResponseTests.swift */; };
-		EAE038F01E2FCFCC00ACD01B /* HttpResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE038EF1E2FCFCC00ACD01B /* HttpResponseTests.swift */; };
-		EAED55881E5495D4007272F7 /* RestResponseHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED55871E5495D4007272F7 /* RestResponseHeaderTests.swift */; };
+		EAA0E3581E5DDD8000A7AA3A /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
+		EAA0E35B1E5DDDC600A7AA3A /* RestErrorResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2EE1E5DDB0B00A7AA3A /* RestErrorResponseTests.swift */; };
+		EAA0E35C1E5DDDCB00A7AA3A /* RestResponseHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2EF1E5DDB0B00A7AA3A /* RestResponseHeaderTests.swift */; };
+		EAA0E35D1E5DDDD400A7AA3A /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2F11E5DDB0B00A7AA3A /* RestServiceTests.swift */; };
+		EAA0E35E1E5DDDDB00A7AA3A /* InfoStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D41E5DDB0B00A7AA3A /* InfoStatusCodeTypeTests.swift */; };
+		EAA0E35F1E5DDDE000A7AA3A /* SuccessStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D81E5DDB0B00A7AA3A /* SuccessStatusCodeTypeTests.swift */; };
+		EAA0E3601E5DDDE400A7AA3A /* RedirectionStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D51E5DDB0B00A7AA3A /* RedirectionStatusCodeTypeTests.swift */; };
+		EAA0E3611E5DDDE800A7AA3A /* ClientErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D31E5DDB0B00A7AA3A /* ClientErrorStatusCodeTypeTests.swift */; };
+		EAA0E3621E5DDDEC00A7AA3A /* ServerErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D61E5DDB0B00A7AA3A /* ServerErrorStatusCodeTypeTests.swift */; };
+		EAA0E3631E5DDDF100A7AA3A /* UnknownStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D91E5DDB0B00A7AA3A /* UnknownStatusCodeTypeTests.swift */; };
+		EAA0E3641E5DDDF500A7AA3A /* StatusCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D71E5DDB0B00A7AA3A /* StatusCodeTests.swift */; };
+		EAA0E3651E5DDDFA00A7AA3A /* ApiHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2CC1E5DDB0B00A7AA3A /* ApiHeaderTests.swift */; };
+		EAA0E3661E5DDDFE00A7AA3A /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2CE1E5DDB0B00A7AA3A /* ApiErrorTests.swift */; };
+		EAA0E3671E5DDE0400A7AA3A /* ApiResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2CF1E5DDB0B00A7AA3A /* ApiResponseTests.swift */; };
+		EAA0E3681E5DDE0900A7AA3A /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2D11E5DDB0B00A7AA3A /* ApiServiceTests.swift */; };
+		EAA0E3691E5DDE0F00A7AA3A /* HttpHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E11E5DDB0B00A7AA3A /* HttpHeaderTests.swift */; };
+		EAA0E36A1E5DDE1300A7AA3A /* HttpRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E21E5DDB0B00A7AA3A /* HttpRequestTests.swift */; };
+		EAA0E36B1E5DDE1700A7AA3A /* HttpDataRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2DF1E5DDB0B00A7AA3A /* HttpDataRequestTests.swift */; };
+		EAA0E36C1E5DDE1B00A7AA3A /* HttpUploadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E31E5DDB0B00A7AA3A /* HttpUploadRequestTests.swift */; };
+		EAA0E36D1E5DDE1F00A7AA3A /* HttpDownloadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E01E5DDB0B00A7AA3A /* HttpDownloadRequestTests.swift */; };
+		EAA0E36E1E5DDE2300A7AA3A /* HttpResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E61E5DDB0B00A7AA3A /* HttpResponseTests.swift */; };
+		EAA0E36F1E5DDE2700A7AA3A /* HttpFailureResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E51E5DDB0B00A7AA3A /* HttpFailureResponseTests.swift */; };
+		EAA0E3701E5DDE2B00A7AA3A /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E71E5DDB0B00A7AA3A /* ResponseActionTests.swift */; };
+		EAA0E3711E5DDE2F00A7AA3A /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2E91E5DDB0B00A7AA3A /* RequestServiceConfigurationTests.swift */; };
+		EAA0E3721E5DDE3300A7AA3A /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2EA1E5DDB0B00A7AA3A /* RequestServiceTests.swift */; };
+		EAA0E3731E5DDE3800A7AA3A /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E2DC1E5DDB0B00A7AA3A /* FileCommanderTests.swift */; };
+		EAA0E3741E5DDE3E00A7AA3A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAA0E2EB1E5DDB0B00A7AA3A /* Info.plist */; };
+		EAA0E3751E5DDE4600A7AA3A /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA0E2F41E5DDB0B00A7AA3A /* testImage.png */; };
+		EAA0E3761E5DDE4A00A7AA3A /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAA0E2F31E5DDB0B00A7AA3A /* Resources.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EAA0E3591E5DDD9600A7AA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA0658081E03EBF000B46CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA0E1B41E5D9B8900A7AA3A;
+			remoteInfo = "SwiftAPI iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		17F31C7E5B0185FA7DC540E1 /* Pods-SwiftAPITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPITests/Pods-SwiftAPITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -192,21 +205,6 @@
 		91F758214662673A40D981E2 /* Pods-SwiftAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPITests/Pods-SwiftAPITests.release.xcconfig"; sourceTree = "<group>"; };
 		9E7D820679C817FD6EF3F97F /* Pods-SwiftAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.release.xcconfig"; sourceTree = "<group>"; };
 		EA06581A1E03EBF000B46CEA /* SwiftAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA0658211E03EBF000B46CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
-		EA06E7211E3743E9006F7D0C /* HttpHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpHeaderTests.swift; path = HTTPLayer/Request/HttpHeaderTests.swift; sourceTree = "<group>"; };
-		EA2E2BE31E3F2F6600556CC1 /* ApiErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
-		EA2E2BE51E3F2F6600556CC1 /* ApiServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTests.swift; sourceTree = "<group>"; };
-		EA2E2BE81E3F2F6600556CC1 /* ClientErrorStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientErrorStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BE91E3F2F6600556CC1 /* InfoStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BEA1E3F2F6600556CC1 /* RedirectionStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedirectionStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BEB1E3F2F6600556CC1 /* ServerErrorStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerErrorStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BEC1E3F2F6600556CC1 /* StatusCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCodeTests.swift; sourceTree = "<group>"; };
-		EA2E2BED1E3F2F6600556CC1 /* SuccessStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BEE1E3F2F6600556CC1 /* UnknownStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnknownStatusCodeTypeTests.swift; sourceTree = "<group>"; };
-		EA2E2BF91E3F396000556CC1 /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHeaderTests.swift; path = Request/ApiHeaderTests.swift; sourceTree = "<group>"; };
-		EA2E2BFC1E3F3DB100556CC1 /* ApiResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseTests.swift; sourceTree = "<group>"; };
-		EA8A48C51E4B16E50081817B /* RestErrorResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestErrorResponseTests.swift; path = RESTLayer/Response/RestErrorResponseTests.swift; sourceTree = "<group>"; };
-		EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseActionTests.swift; path = HTTPLayer/Response/ResponseActionTests.swift; sourceTree = "<group>"; };
 		EA992AA31E56FA2F007E7222 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		EA992AA71E56FB4D007E7222 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		EA992AA81E56FB4D007E7222 /* script.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = script.sh; sourceTree = SOURCE_ROOT; };
@@ -259,18 +257,36 @@
 		EAA0E2AF1E5DCB6B00A7AA3A /* RequestService+BackgroundEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestService+BackgroundEvents.swift"; sourceTree = "<group>"; };
 		EAA0E2B31E5DD28300A7AA3A /* ApiService+BackgroundEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ApiService+BackgroundEvents.swift"; sourceTree = "<group>"; };
 		EAA0E2B71E5DD31500A7AA3A /* RestService+BackgroundEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RestService+BackgroundEvents.swift"; sourceTree = "<group>"; };
-		EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCommanderTests.swift; path = Dependencies/FileManager/FileCommanderTests.swift; sourceTree = "<group>"; };
-		EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestServiceConfigurationTests.swift; path = HTTPLayer/Service/RequestServiceConfigurationTests.swift; sourceTree = "<group>"; };
-		EAAA3CD31E23BC5D00CA4A84 /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
-		EAAAC5221E49D11600C55808 /* RestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestServiceTests.swift; path = RESTLayer/Service/RestServiceTests.swift; sourceTree = "<group>"; };
-		EADB795B1E1D120F00C7C801 /* HttpRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequestTests.swift; path = HTTPLayer/Request/HttpRequestTests.swift; sourceTree = "<group>"; };
-		EADB795D1E1D1FF500C7C801 /* RequestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestServiceTests.swift; path = HTTPLayer/Service/RequestServiceTests.swift; sourceTree = "<group>"; };
-		EAE038E71E2F968B00ACD01B /* HttpDataRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpDataRequestTests.swift; path = HTTPLayer/Request/HttpDataRequestTests.swift; sourceTree = "<group>"; };
-		EAE038E81E2F968B00ACD01B /* HttpDownloadRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpDownloadRequestTests.swift; path = HTTPLayer/Request/HttpDownloadRequestTests.swift; sourceTree = "<group>"; };
-		EAE038E91E2F968B00ACD01B /* HttpUploadRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUploadRequestTests.swift; path = HTTPLayer/Request/HttpUploadRequestTests.swift; sourceTree = "<group>"; };
-		EAE038ED1E2FBF2900ACD01B /* HttpFailureResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpFailureResponseTests.swift; path = HTTPLayer/Response/HttpFailureResponseTests.swift; sourceTree = "<group>"; };
-		EAE038EF1E2FCFCC00ACD01B /* HttpResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpResponseTests.swift; path = HTTPLayer/Response/HttpResponseTests.swift; sourceTree = "<group>"; };
-		EAED55871E5495D4007272F7 /* RestResponseHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestResponseHeaderTests.swift; path = RESTLayer/Response/RestResponseHeaderTests.swift; sourceTree = "<group>"; };
+		EAA0E2CC1E5DDB0B00A7AA3A /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeaderTests.swift; sourceTree = "<group>"; };
+		EAA0E2CE1E5DDB0B00A7AA3A /* ApiErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrorTests.swift; sourceTree = "<group>"; };
+		EAA0E2CF1E5DDB0B00A7AA3A /* ApiResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseTests.swift; sourceTree = "<group>"; };
+		EAA0E2D11E5DDB0B00A7AA3A /* ApiServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTests.swift; sourceTree = "<group>"; };
+		EAA0E2D31E5DDB0B00A7AA3A /* ClientErrorStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientErrorStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D41E5DDB0B00A7AA3A /* InfoStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D51E5DDB0B00A7AA3A /* RedirectionStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedirectionStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D61E5DDB0B00A7AA3A /* ServerErrorStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerErrorStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D71E5DDB0B00A7AA3A /* StatusCodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCodeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D81E5DDB0B00A7AA3A /* SuccessStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2D91E5DDB0B00A7AA3A /* UnknownStatusCodeTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnknownStatusCodeTypeTests.swift; sourceTree = "<group>"; };
+		EAA0E2DC1E5DDB0B00A7AA3A /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCommanderTests.swift; sourceTree = "<group>"; };
+		EAA0E2DF1E5DDB0B00A7AA3A /* HttpDataRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpDataRequestTests.swift; sourceTree = "<group>"; };
+		EAA0E2E01E5DDB0B00A7AA3A /* HttpDownloadRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpDownloadRequestTests.swift; sourceTree = "<group>"; };
+		EAA0E2E11E5DDB0B00A7AA3A /* HttpHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpHeaderTests.swift; sourceTree = "<group>"; };
+		EAA0E2E21E5DDB0B00A7AA3A /* HttpRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequestTests.swift; sourceTree = "<group>"; };
+		EAA0E2E31E5DDB0B00A7AA3A /* HttpUploadRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpUploadRequestTests.swift; sourceTree = "<group>"; };
+		EAA0E2E51E5DDB0B00A7AA3A /* HttpFailureResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpFailureResponseTests.swift; sourceTree = "<group>"; };
+		EAA0E2E61E5DDB0B00A7AA3A /* HttpResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponseTests.swift; sourceTree = "<group>"; };
+		EAA0E2E71E5DDB0B00A7AA3A /* ResponseActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseActionTests.swift; sourceTree = "<group>"; };
+		EAA0E2E91E5DDB0B00A7AA3A /* RequestServiceConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServiceConfigurationTests.swift; sourceTree = "<group>"; };
+		EAA0E2EA1E5DDB0B00A7AA3A /* RequestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServiceTests.swift; sourceTree = "<group>"; };
+		EAA0E2EB1E5DDB0B00A7AA3A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
+		EAA0E2EE1E5DDB0B00A7AA3A /* RestErrorResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestErrorResponseTests.swift; sourceTree = "<group>"; };
+		EAA0E2EF1E5DDB0B00A7AA3A /* RestResponseHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestResponseHeaderTests.swift; sourceTree = "<group>"; };
+		EAA0E2F11E5DDB0B00A7AA3A /* RestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestServiceTests.swift; sourceTree = "<group>"; };
+		EAA0E2F31E5DDB0B00A7AA3A /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
+		EAA0E2F41E5DDB0B00A7AA3A /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
+		EAA0E34F1E5DDCA000A7AA3A /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		EAA0E3511E5DDCA000A7AA3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBAA4505EBDB06395103B642 /* Pods-SwiftAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,6 +295,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA0E3581E5DDD8000A7AA3A /* SwiftAPI.framework in Frameworks */,
 				18A0171347DE8DA635E9B81B /* Pods_SwiftAPITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,7 +356,8 @@
 			children = (
 				EA0658131E03EBF000B46CEA /* Sources */,
 				EAA0E2A81E5DC43F00A7AA3A /* Metadata */,
-				EA06581E1E03EBF000B46CEA /* SwiftAPITests */,
+				EA06581E1E03EBF000B46CEA /* Tests */,
+				EAA0E34E1E5DDCA000A7AA3A /* Tests */,
 				EA0658121E03EBF000B46CEA /* Products */,
 				C283B9D8C8F9E1CFFD6672D8 /* Pods */,
 				5B3BBE1B5574504503C6F539 /* Frameworks */,
@@ -371,15 +389,16 @@
 			path = SwiftAPI;
 			sourceTree = "<group>";
 		};
-		EA06581E1E03EBF000B46CEA /* SwiftAPITests */ = {
+		EA06581E1E03EBF000B46CEA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				EAAAC5241E49D11B00C55808 /* RESTLayer */,
-				EA2E2BE11E3F2F6600556CC1 /* APILayer */,
-				EADB79571E1D112700C7C801 /* HTTPLayer */,
-				EAA8BB881E309EE700C60238 /* Dependencies */,
-				EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */,
+				EAA0E2EC1E5DDB0B00A7AA3A /* RESTLayer */,
+				EAA0E2CA1E5DDB0B00A7AA3A /* APILayer */,
+				EAA0E2DD1E5DDB0B00A7AA3A /* HTTPLayer */,
+				EAA0E2DA1E5DDB0B00A7AA3A /* Dependencies */,
+				EAA0E2F21E5DDB0B00A7AA3A /* SupportingFiles */,
 			);
+			name = Tests;
 			path = SwiftAPITests;
 			sourceTree = "<group>";
 		};
@@ -393,56 +412,6 @@
 				EAA0E2111E5DB31900A7AA3A /* Info-watchOS.plist */,
 			);
 			name = SupportingFiles;
-			sourceTree = "<group>";
-		};
-		EA2E2BE11E3F2F6600556CC1 /* APILayer */ = {
-			isa = PBXGroup;
-			children = (
-				EA2E2BE71E3F2F6600556CC1 /* StatusCode */,
-				EA2E2BFB1E3F396300556CC1 /* Request */,
-				EA2E2BE21E3F2F6600556CC1 /* Response */,
-				EA2E2BE41E3F2F6600556CC1 /* Service */,
-			);
-			path = APILayer;
-			sourceTree = "<group>";
-		};
-		EA2E2BE21E3F2F6600556CC1 /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				EA2E2BE31E3F2F6600556CC1 /* ApiErrorTests.swift */,
-				EA2E2BFC1E3F3DB100556CC1 /* ApiResponseTests.swift */,
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		EA2E2BE41E3F2F6600556CC1 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				EA2E2BE51E3F2F6600556CC1 /* ApiServiceTests.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		EA2E2BE71E3F2F6600556CC1 /* StatusCode */ = {
-			isa = PBXGroup;
-			children = (
-				EA2E2BE91E3F2F6600556CC1 /* InfoStatusCodeTypeTests.swift */,
-				EA2E2BED1E3F2F6600556CC1 /* SuccessStatusCodeTypeTests.swift */,
-				EA2E2BEA1E3F2F6600556CC1 /* RedirectionStatusCodeTypeTests.swift */,
-				EA2E2BE81E3F2F6600556CC1 /* ClientErrorStatusCodeTypeTests.swift */,
-				EA2E2BEB1E3F2F6600556CC1 /* ServerErrorStatusCodeTypeTests.swift */,
-				EA2E2BEE1E3F2F6600556CC1 /* UnknownStatusCodeTypeTests.swift */,
-				EA2E2BEC1E3F2F6600556CC1 /* StatusCodeTests.swift */,
-			);
-			path = StatusCode;
-			sourceTree = "<group>";
-		};
-		EA2E2BFB1E3F396300556CC1 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				EA2E2BF91E3F396000556CC1 /* ApiHeaderTests.swift */,
-			);
-			name = Request;
 			sourceTree = "<group>";
 		};
 		EA527F641E2CCBC50038F095 /* Dependencies */ = {
@@ -460,15 +429,6 @@
 				EAA0E20A1E5DB1F200A7AA3A /* FileCommander.swift */,
 			);
 			name = FileManager;
-			sourceTree = "<group>";
-		};
-		EA8A48C71E4B16E90081817B /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				EA8A48C51E4B16E50081817B /* RestErrorResponseTests.swift */,
-				EAED55871E5495D4007272F7 /* RestResponseHeaderTests.swift */,
-			);
-			name = Response;
 			sourceTree = "<group>";
 		};
 		EAA0E1BD1E5DB05D00A7AA3A /* RESTLayer */ = {
@@ -623,87 +583,161 @@
 			name = Metadata;
 			sourceTree = "<group>";
 		};
-		EAA8BB881E309EE700C60238 /* Dependencies */ = {
+		EAA0E2CA1E5DDB0B00A7AA3A /* APILayer */ = {
 			isa = PBXGroup;
 			children = (
-				EAA8BB891E309F1300C60238 /* FileManager */,
+				EAA0E2D21E5DDB0B00A7AA3A /* StatusCode */,
+				EAA0E2CB1E5DDB0B00A7AA3A /* Request */,
+				EAA0E2CD1E5DDB0B00A7AA3A /* Response */,
+				EAA0E2D01E5DDB0B00A7AA3A /* Service */,
+			);
+			name = APILayer;
+			path = Tests/APILayer;
+			sourceTree = SOURCE_ROOT;
+		};
+		EAA0E2CB1E5DDB0B00A7AA3A /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2CC1E5DDB0B00A7AA3A /* ApiHeaderTests.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		EAA0E2CD1E5DDB0B00A7AA3A /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2CE1E5DDB0B00A7AA3A /* ApiErrorTests.swift */,
+				EAA0E2CF1E5DDB0B00A7AA3A /* ApiResponseTests.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		EAA0E2D01E5DDB0B00A7AA3A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2D11E5DDB0B00A7AA3A /* ApiServiceTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EAA0E2D21E5DDB0B00A7AA3A /* StatusCode */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2D41E5DDB0B00A7AA3A /* InfoStatusCodeTypeTests.swift */,
+				EAA0E2D81E5DDB0B00A7AA3A /* SuccessStatusCodeTypeTests.swift */,
+				EAA0E2D51E5DDB0B00A7AA3A /* RedirectionStatusCodeTypeTests.swift */,
+				EAA0E2D31E5DDB0B00A7AA3A /* ClientErrorStatusCodeTypeTests.swift */,
+				EAA0E2D61E5DDB0B00A7AA3A /* ServerErrorStatusCodeTypeTests.swift */,
+				EAA0E2D91E5DDB0B00A7AA3A /* UnknownStatusCodeTypeTests.swift */,
+				EAA0E2D71E5DDB0B00A7AA3A /* StatusCodeTests.swift */,
+			);
+			path = StatusCode;
+			sourceTree = "<group>";
+		};
+		EAA0E2DA1E5DDB0B00A7AA3A /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2DB1E5DDB0B00A7AA3A /* FileManager */,
 			);
 			name = Dependencies;
-			sourceTree = "<group>";
+			path = Tests/Dependencies;
+			sourceTree = SOURCE_ROOT;
 		};
-		EAA8BB891E309F1300C60238 /* FileManager */ = {
+		EAA0E2DB1E5DDB0B00A7AA3A /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
-				EAA8BB861E309ECF00C60238 /* FileCommanderTests.swift */,
+				EAA0E2DC1E5DDB0B00A7AA3A /* FileCommanderTests.swift */,
 			);
-			name = FileManager;
+			path = FileManager;
 			sourceTree = "<group>";
 		};
-		EAAA3CD21E23BC5D00CA4A84 /* SupportingFiles */ = {
+		EAA0E2DD1E5DDB0B00A7AA3A /* HTTPLayer */ = {
 			isa = PBXGroup;
 			children = (
-				EA0658211E03EBF000B46CEA /* Info.plist */,
-				EAAA3CD31E23BC5D00CA4A84 /* testImage.png */,
-			);
-			path = SupportingFiles;
-			sourceTree = "<group>";
-		};
-		EAAAC5241E49D11B00C55808 /* RESTLayer */ = {
-			isa = PBXGroup;
-			children = (
-				EA8A48C71E4B16E90081817B /* Response */,
-				EAAAC5251E49D12800C55808 /* Service */,
-			);
-			name = RESTLayer;
-			sourceTree = "<group>";
-		};
-		EAAAC5251E49D12800C55808 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				EAAAC5221E49D11600C55808 /* RestServiceTests.swift */,
-			);
-			name = Service;
-			sourceTree = "<group>";
-		};
-		EADB79571E1D112700C7C801 /* HTTPLayer */ = {
-			isa = PBXGroup;
-			children = (
-				EADB79591E1D11B000C7C801 /* Request */,
-				EADB795A1E1D11B800C7C801 /* Response */,
-				EADB79581E1D113100C7C801 /* Service */,
+				EAA0E2DE1E5DDB0B00A7AA3A /* Request */,
+				EAA0E2E41E5DDB0B00A7AA3A /* Response */,
+				EAA0E2E81E5DDB0B00A7AA3A /* Service */,
 			);
 			name = HTTPLayer;
-			sourceTree = "<group>";
+			path = Tests/HTTPLayer;
+			sourceTree = SOURCE_ROOT;
 		};
-		EADB79581E1D113100C7C801 /* Service */ = {
+		EAA0E2DE1E5DDB0B00A7AA3A /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				EADB795D1E1D1FF500C7C801 /* RequestServiceTests.swift */,
-				EAA8BB8A1E30A1F700C60238 /* RequestServiceConfigurationTests.swift */,
+				EAA0E2E11E5DDB0B00A7AA3A /* HttpHeaderTests.swift */,
+				EAA0E2E21E5DDB0B00A7AA3A /* HttpRequestTests.swift */,
+				EAA0E2DF1E5DDB0B00A7AA3A /* HttpDataRequestTests.swift */,
+				EAA0E2E31E5DDB0B00A7AA3A /* HttpUploadRequestTests.swift */,
+				EAA0E2E01E5DDB0B00A7AA3A /* HttpDownloadRequestTests.swift */,
 			);
-			name = Service;
+			path = Request;
 			sourceTree = "<group>";
 		};
-		EADB79591E1D11B000C7C801 /* Request */ = {
+		EAA0E2E41E5DDB0B00A7AA3A /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				EA06E7211E3743E9006F7D0C /* HttpHeaderTests.swift */,
-				EADB795B1E1D120F00C7C801 /* HttpRequestTests.swift */,
-				EAE038E71E2F968B00ACD01B /* HttpDataRequestTests.swift */,
-				EAE038E91E2F968B00ACD01B /* HttpUploadRequestTests.swift */,
-				EAE038E81E2F968B00ACD01B /* HttpDownloadRequestTests.swift */,
+				EAA0E2E61E5DDB0B00A7AA3A /* HttpResponseTests.swift */,
+				EAA0E2E51E5DDB0B00A7AA3A /* HttpFailureResponseTests.swift */,
+				EAA0E2E71E5DDB0B00A7AA3A /* ResponseActionTests.swift */,
 			);
-			name = Request;
+			path = Response;
 			sourceTree = "<group>";
 		};
-		EADB795A1E1D11B800C7C801 /* Response */ = {
+		EAA0E2E81E5DDB0B00A7AA3A /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				EAE038EF1E2FCFCC00ACD01B /* HttpResponseTests.swift */,
-				EAE038ED1E2FBF2900ACD01B /* HttpFailureResponseTests.swift */,
-				EA8AD2F11E1E303F001BA522 /* ResponseActionTests.swift */,
+				EAA0E2E91E5DDB0B00A7AA3A /* RequestServiceConfigurationTests.swift */,
+				EAA0E2EA1E5DDB0B00A7AA3A /* RequestServiceTests.swift */,
 			);
-			name = Response;
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EAA0E2EC1E5DDB0B00A7AA3A /* RESTLayer */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2ED1E5DDB0B00A7AA3A /* Response */,
+				EAA0E2F01E5DDB0B00A7AA3A /* Service */,
+			);
+			name = RESTLayer;
+			path = Tests/RESTLayer;
+			sourceTree = SOURCE_ROOT;
+		};
+		EAA0E2ED1E5DDB0B00A7AA3A /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2EE1E5DDB0B00A7AA3A /* RestErrorResponseTests.swift */,
+				EAA0E2EF1E5DDB0B00A7AA3A /* RestResponseHeaderTests.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		EAA0E2F01E5DDB0B00A7AA3A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2F11E5DDB0B00A7AA3A /* RestServiceTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EAA0E2F21E5DDB0B00A7AA3A /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E2EB1E5DDB0B00A7AA3A /* Info.plist */,
+				EAA0E2F41E5DDB0B00A7AA3A /* testImage.png */,
+				EAA0E2F31E5DDB0B00A7AA3A /* Resources.xcassets */,
+			);
+			name = SupportingFiles;
+			path = Tests/SupportingFiles;
+			sourceTree = SOURCE_ROOT;
+		};
+		EAA0E34E1E5DDCA000A7AA3A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EAA0E34F1E5DDCA000A7AA3A /* Tests.swift */,
+				EAA0E3511E5DDCA000A7AA3A /* Info.plist */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -758,6 +792,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EAA0E35A1E5DDD9600A7AA3A /* PBXTargetDependency */,
 			);
 			name = SwiftAPITests;
 			productName = SwiftAPITests;
@@ -842,7 +877,7 @@
 		EA0658081E03EBF000B46CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = XSolve;
 				TargetAttributes = {
@@ -899,7 +934,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAAA3CD41E23BC5D00CA4A84 /* testImage.png in Resources */,
+				EAA0E3761E5DDE4A00A7AA3A /* Resources.xcassets in Resources */,
+				EAA0E3741E5DDE3E00A7AA3A /* Info.plist in Resources */,
+				EAA0E3751E5DDE4600A7AA3A /* testImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,31 +1023,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA2E2BF71E3F2F6600556CC1 /* SuccessStatusCodeTypeTests.swift in Sources */,
-				EA2E2BFD1E3F3DB100556CC1 /* ApiResponseTests.swift in Sources */,
-				EA8AD2F21E1E303F001BA522 /* ResponseActionTests.swift in Sources */,
-				EAE038EC1E2F968B00ACD01B /* HttpUploadRequestTests.swift in Sources */,
-				EAE038F01E2FCFCC00ACD01B /* HttpResponseTests.swift in Sources */,
-				EAAAC5231E49D11600C55808 /* RestServiceTests.swift in Sources */,
-				EA2E2BF51E3F2F6600556CC1 /* ServerErrorStatusCodeTypeTests.swift in Sources */,
-				EA06E7221E3743E9006F7D0C /* HttpHeaderTests.swift in Sources */,
-				EAE038EE1E2FBF2900ACD01B /* HttpFailureResponseTests.swift in Sources */,
-				EA8A48C61E4B16E50081817B /* RestErrorResponseTests.swift in Sources */,
-				EADB795C1E1D120F00C7C801 /* HttpRequestTests.swift in Sources */,
-				EAA8BB871E309ECF00C60238 /* FileCommanderTests.swift in Sources */,
-				EA2E2BF61E3F2F6600556CC1 /* StatusCodeTests.swift in Sources */,
-				EA2E2BF31E3F2F6600556CC1 /* InfoStatusCodeTypeTests.swift in Sources */,
-				EA2E2BFA1E3F396000556CC1 /* ApiHeaderTests.swift in Sources */,
-				EA2E2BF21E3F2F6600556CC1 /* ClientErrorStatusCodeTypeTests.swift in Sources */,
-				EA2E2BF01E3F2F6600556CC1 /* ApiServiceTests.swift in Sources */,
-				EAE038EB1E2F968B00ACD01B /* HttpDownloadRequestTests.swift in Sources */,
-				EADB795E1E1D1FF500C7C801 /* RequestServiceTests.swift in Sources */,
-				EA2E2BF41E3F2F6600556CC1 /* RedirectionStatusCodeTypeTests.swift in Sources */,
-				EA2E2BEF1E3F2F6600556CC1 /* ApiErrorTests.swift in Sources */,
-				EAE038EA1E2F968B00ACD01B /* HttpDataRequestTests.swift in Sources */,
-				EA2E2BF81E3F2F6600556CC1 /* UnknownStatusCodeTypeTests.swift in Sources */,
-				EAED55881E5495D4007272F7 /* RestResponseHeaderTests.swift in Sources */,
-				EAA8BB8B1E30A1F700C60238 /* RequestServiceConfigurationTests.swift in Sources */,
+				EAA0E36F1E5DDE2700A7AA3A /* HttpFailureResponseTests.swift in Sources */,
+				EAA0E3641E5DDDF500A7AA3A /* StatusCodeTests.swift in Sources */,
+				EAA0E3661E5DDDFE00A7AA3A /* ApiErrorTests.swift in Sources */,
+				EAA0E35F1E5DDDE000A7AA3A /* SuccessStatusCodeTypeTests.swift in Sources */,
+				EAA0E35E1E5DDDDB00A7AA3A /* InfoStatusCodeTypeTests.swift in Sources */,
+				EAA0E3651E5DDDFA00A7AA3A /* ApiHeaderTests.swift in Sources */,
+				EAA0E3711E5DDE2F00A7AA3A /* RequestServiceConfigurationTests.swift in Sources */,
+				EAA0E35B1E5DDDC600A7AA3A /* RestErrorResponseTests.swift in Sources */,
+				EAA0E3611E5DDDE800A7AA3A /* ClientErrorStatusCodeTypeTests.swift in Sources */,
+				EAA0E3671E5DDE0400A7AA3A /* ApiResponseTests.swift in Sources */,
+				EAA0E36C1E5DDE1B00A7AA3A /* HttpUploadRequestTests.swift in Sources */,
+				EAA0E36B1E5DDE1700A7AA3A /* HttpDataRequestTests.swift in Sources */,
+				EAA0E3631E5DDDF100A7AA3A /* UnknownStatusCodeTypeTests.swift in Sources */,
+				EAA0E3691E5DDE0F00A7AA3A /* HttpHeaderTests.swift in Sources */,
+				EAA0E36D1E5DDE1F00A7AA3A /* HttpDownloadRequestTests.swift in Sources */,
+				EAA0E3621E5DDDEC00A7AA3A /* ServerErrorStatusCodeTypeTests.swift in Sources */,
+				EAA0E3601E5DDDE400A7AA3A /* RedirectionStatusCodeTypeTests.swift in Sources */,
+				EAA0E3721E5DDE3300A7AA3A /* RequestServiceTests.swift in Sources */,
+				EAA0E3701E5DDE2B00A7AA3A /* ResponseActionTests.swift in Sources */,
+				EAA0E35D1E5DDDD400A7AA3A /* RestServiceTests.swift in Sources */,
+				EAA0E3731E5DDE3800A7AA3A /* FileCommanderTests.swift in Sources */,
+				EAA0E36E1E5DDE2300A7AA3A /* HttpResponseTests.swift in Sources */,
+				EAA0E36A1E5DDE1300A7AA3A /* HttpRequestTests.swift in Sources */,
+				EAA0E3681E5DDE0900A7AA3A /* ApiServiceTests.swift in Sources */,
+				EAA0E35C1E5DDDCB00A7AA3A /* RestResponseHeaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1188,6 +1225,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EAA0E35A1E5DDD9600A7AA3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA0E1B41E5D9B8900A7AA3A /* SwiftAPI iOS */;
+			targetProxy = EAA0E3591E5DDD9600A7AA3A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		EA0658231E03EBF000B46CEA /* Debug */ = {
@@ -1527,6 +1572,7 @@
 				EAA0E1951E5D9A7400A7AA3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EAA0E1A01E5D9B0700A7AA3A /* Build configuration list for PBXNativeTarget "SwiftAPI tvOS" */ = {
 			isa = XCConfigurationList;
@@ -1535,6 +1581,7 @@
 				EAA0E1A21E5D9B0700A7AA3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EAA0E1AD1E5D9B6B00A7AA3A /* Build configuration list for PBXNativeTarget "SwiftAPI watchOS" */ = {
 			isa = XCConfigurationList;
@@ -1543,6 +1590,7 @@
 				EAA0E1AF1E5D9B6B00A7AA3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EAA0E1BA1E5D9B8900A7AA3A /* Build configuration list for PBXNativeTarget "SwiftAPI iOS" */ = {
 			isa = XCConfigurationList;
@@ -1551,6 +1599,7 @@
 				EAA0E1BC1E5D9B8900A7AA3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
