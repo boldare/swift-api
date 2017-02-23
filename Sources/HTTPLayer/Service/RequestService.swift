@@ -16,7 +16,7 @@ final class RequestService: NSObject {
     private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
 
     ///Sets request for current task
-    func setCurrent(_ request: HttpRequest, for task: URLSessionTask) {
+    fileprivate func setCurrent(_ request: HttpRequest, for task: URLSessionTask) {
         currentTasks[task] = (request, nil)
     }
 

@@ -185,7 +185,7 @@ extension ApiServiceTests {
         }
         _ = apiService.postFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
 
-        waitForExpectations(timeout: 150) { error in
+        waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
         }
@@ -209,7 +209,7 @@ extension ApiServiceTests {
         }
         _ = apiService.putFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
 
-        waitForExpectations(timeout: 150) { error in
+        waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
         }
@@ -233,7 +233,7 @@ extension ApiServiceTests {
         }
         _ = apiService.patchFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
 
-        waitForExpectations(timeout: 150) { error in
+        waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
         }

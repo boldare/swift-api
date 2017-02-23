@@ -256,7 +256,7 @@ extension RestServiceTests {
         }
         _ = restService.getFile(resource: resource, inBackground: false, useProgress: false, completion: completion)
 
-        waitForExpectations(timeout: 30) { error in
+        waitForExpectations(timeout: 60) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNotNil(responseError, "GET request should fail")
         }
@@ -273,7 +273,7 @@ extension RestServiceTests {
         }
         _ = downloadRestService.getFile(resource: resource, inBackground: false, useProgress: false, completion: completion)
 
-        waitForExpectations(timeout: 30) { error in
+        waitForExpectations(timeout: 60) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNotNil(responseError, "GET request should fail")
         }
