@@ -22,6 +22,11 @@ public struct ApiRequest {
         self.requestService = httpRequestService
     }
 
+    ///Unique id of request.
+    public var uuid: UUID {
+        return request.uuid
+    }
+
     ///Progress object which allows to follow request progress.
     public var progress: Progress? {
         return request.progress

@@ -33,14 +33,12 @@
 		EA93FE981E5EC69300A82381 /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE581E5EC4C700A82381 /* ResponseActionTests.swift */; };
 		EA93FE991E5EC69700A82381 /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5A1E5EC4C700A82381 /* RequestServiceConfigurationTests.swift */; };
 		EA93FE9A1E5EC69B00A82381 /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5B1E5EC4C700A82381 /* RequestServiceTests.swift */; };
-		EA93FE9C1E5EC6A300A82381 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA93FE5C1E5EC4C700A82381 /* Info.plist */; };
 		EA93FEA81E5EC87500A82381 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
 		EA93FEC01E5ECAEB00A82381 /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEAF1E5ECAB400A82381 /* ApiServiceTests.swift */; };
 		EA93FEC21E5ECAF400A82381 /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEB21E5ECAB400A82381 /* RequestServiceTests.swift */; };
 		EA93FEC31E5ECAF800A82381 /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEB51E5ECAB400A82381 /* RestServiceTests.swift */; };
 		EA93FEC41E5ECAFC00A82381 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBC1E5ECAE200A82381 /* Resources.xcassets */; };
 		EA93FEC51E5ECB0000A82381 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBD1E5ECAE200A82381 /* testImage.png */; };
-		EA93FEC61E5ECB0300A82381 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEB31E5ECAB400A82381 /* Info.plist */; };
 		EAA0E2181E5DB9B800A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E2191E5DB9B900A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E21A1E5DB9BA00A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1016,7 +1014,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA93FE9C1E5EC6A300A82381 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1026,7 +1023,6 @@
 			files = (
 				EA93FEC41E5ECAFC00A82381 /* Resources.xcassets in Resources */,
 				EA93FEC51E5ECB0000A82381 /* testImage.png in Resources */,
-				EA93FEC61E5ECB0300A82381 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

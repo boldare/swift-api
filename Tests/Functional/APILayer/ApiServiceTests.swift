@@ -261,6 +261,7 @@ extension ApiServiceTests {
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "Download request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertNotNil(request.uuid)
             XCTAssertNotNil(request.progress)
         }
     }
@@ -330,7 +331,7 @@ extension ApiServiceTests {
         _ = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl2, inBackground: false, useProgress: false, completionHandler: completion)
         apiService.cancelAllRequests()
 
-        waitForExpectations(timeout: 30) { error in
+        waitForExpectations(timeout: 10) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
             XCTAssertNil(response)

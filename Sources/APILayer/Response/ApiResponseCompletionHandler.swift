@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias ApiResponseCompletionHandler = (ApiResponse?, Error?) -> ()
+public typealias ApiResponseCompletionHandler = (_ response: ApiResponse?, _ error: Error?) -> ()
 
 extension ResponseAction {
 
