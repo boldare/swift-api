@@ -7,13 +7,19 @@
 //
 
 import UIKit
-import SwiftAPI
 
 class RequestViewController: UIViewController {
 
+    ///Switch to decide if *resetService* or *apiService* should be used.
+    @IBOutlet var restServiceSwitch: UISwitch!
+
+    ///TextView to show output.
     @IBOutlet var textView: UITextView!
+
+    ///Indicator to show that request is performing.
     @IBOutlet var indicator: UIActivityIndicatorView!
 
+    //MARK: ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,106 +30,114 @@ class RequestViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        apiService.cancelAllRequests()
+        apiManager.cancelAllRequests()
+        restManager.cancelAllRequests()
     }
 
+    //MARK: Actions
     @IBAction func getRequestButtonDidPush() {
-        let url = apiRootURL.appendingPathComponent("get")
-
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.getData(from: url, completionHandler: completionHandler)
+
+        if restServiceSwitch.isOn {
+            restManager.getResource(restCompletionHandler)
+        } else {
+            apiManager.getRequest(apiCompletionHandler)
+        }
     }
 
     @IBAction func postRequestButtonDidPush() {
-        let url = apiRootURL.appendingPathComponent("post")
-
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.post(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler)
+
+        if restServiceSwitch.isOn {
+            restManager.postResource(restCompletionHandler)
+        } else {
+            apiManager.postRequest(apiCompletionHandler)
+        }
     }
 
     @IBAction func putRequestButtonDidPush() {
-        let url = apiRootURL.appendingPathComponent("put")
-
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.put(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler)
+
+        if restServiceSwitch.isOn {
+            restManager.putResource(restCompletionHandler)
+        } else {
+            apiManager.putRequest(apiCompletionHandler)
+        }
     }
 
     @IBAction func patchRequestButtonDidPush() {
-        let url = apiRootURL.appendingPathComponent("patch")
-
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.patch(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler)
+
+        if restServiceSwitch.isOn {
+            restManager.patchResource(restCompletionHandler)
+        } else {
+            apiManager.patchRequest(apiCompletionHandler)
+        }
     }
 
     @IBAction func deleteRequestButtonDidPush() {
-        let url = apiRootURL.appendingPathComponent("delete")
-
         textView.text = ""
         indicator.startAnimating()
-        _ = apiService.delete(at: url, completionHandler: completionHandler)
+
+        if restServiceSwitch.isOn {
+            restManager.deleteResource(restCompletionHandler)
+        } else {
+            apiManager.deleteRequest(apiCompletionHandler)
+        }
     }
 }
 
+//MARK: Private helpers
 fileprivate extension RequestViewController {
 
-    var apiService: ApiService {
-        return (UIApplication.shared.delegate as! AppDelegate).apiService
+    ///Gets *ApiManager* instance from *AppDelegate*.
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
     }
 
-    var apiRootURL: URL {
-        return URL(string: "https://httpbin.org")!
+    ///Gets *RestManager* instance from *AppDelegate*.
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).restManager
     }
 
-    var exampleHeaders: [ApiHeader] {
-        return [ApiHeader(name: "User-Agent", value: "SwiftApiExample")]
+    ///Shows response of request.
+    func display(_ response: String?) {
+        DispatchQueue.main.async {
+            self.textView.setContentOffset(.zero, animated: false)
+            self.textView.text = response
+            self.indicator.stopAnimating()
+        }
     }
 
-    var completionHandler: ApiResponseCompletionHandler {
-        return {[weak self] (response: ApiResponse?, error: Error?) in
+    ///Completion handler for *apiManager*.
+    var apiCompletionHandler: ApiManagerCompletionHandler {
+        return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
                 return
             }
             if let error = error {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = "Error ocured during request:\n\(error.localizedDescription)"
-                }
-            } else if let response = response {
-                var readable = ""
-                if let url = response.url {
-                    readable.append("URL: \(url)\n")
-                }
-                readable.append("Status code: \(response.statusCode.rawValue) \(response.statusCode.description)\n")
-                if let mime = response.mimeType {
-                    readable.append("MIME Type: \(mime)\n")
-                }
-                if let headers = response.allHeaderFields {
-                    readable.append("Headers:\n")
-                    for header in headers {
-                        readable.append("   \(header.key) : \(header.value)\n")
-                    }
-                }
-                if let body = response.body, let json = String(data: body, encoding: .utf8){
-                    readable.append("Body:\n")
-                    readable.append(json)
-                }
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = readable
-                    strongSelf.textView.setContentOffset(.zero, animated: true)
-                }
-            }
-            DispatchQueue.main.async {
-                strongSelf.indicator.stopAnimating()
+                strongSelf.display("Error ocured during request:\n\(error.localizedDescription)")
+            } else {
+                strongSelf.display(readableResponse)
             }
         }
     }
 
-    var exampleBody: Data {
-        let dictionary = ["Hello" : "World"]
-        return try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
-
+    ///Completion handler for *restManager*.
+    var restCompletionHandler: RestManagerSimpleCompletionHandler {
+        return {[weak self] (resource: SimpleDataResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if let errorString = readableError {
+                strongSelf.display(errorString)
+            } else {
+                strongSelf.display(resource?.readableDescription)
+            }
+        }
     }
 }

@@ -7,18 +7,31 @@
 //
 
 import UIKit
-import SwiftAPI
 
 class DownloadViewController: UIViewController {
 
+    ///Switch to decide if *resetService* or *apiService* should be used.
+    @IBOutlet var restServiceSwitch: UISwitch!
+
+    ///Switch to decide if large or small image should be used.
     @IBOutlet var largeImageSwitch: UISwitch!
+
+    ///Switch to decide if request should run in background or foreground.
     @IBOutlet var backgroundSwitch: UISwitch!
+
+    ///Progress bar to show progress of request.
     @IBOutlet var progressBar: UIProgressView!
+
+    ///ImageView to show downloaded image.
     @IBOutlet var imageView: UIImageView!
+
+    ///TextView to show output.
     @IBOutlet var textView: UITextView!
 
+    ///Parent of all current progresses.
     fileprivate var progress = Progress(totalUnitCount: 0)
 
+    //MARK: ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,37 +45,23 @@ class DownloadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        apiService.cancelAllRequests()
+
+        apiManager.cancelAllRequests()
+        restManager.cancelAllRequests()
     }
 
-    func prepareForRequest() {
-        imageView.image = nil
-        textView.text = ""
-    }
-
-    func startProgress(with request: ApiRequest) {
-        if let p = request.progress {
-            progress.totalUnitCount += 1
-            progress.addChild(p, withPendingUnitCount: 1)
-        }
-        progressBar.progress = Float(progress.fractionCompleted)
-    }
-
-    func reserProgress() {
-        progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        progress = Progress(totalUnitCount: 0)
-        progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
-    }
-
+    //MARK: Actions
     @IBAction func requestButtonDidPush() {
-        let fileName = largeImageSwitch.isOn ? "bigImage.jpg" : "smallImage.jpg"
-        let destination = documentsUrl.appendingPathComponent(fileName)
-
         prepareForRequest()
-        let request = apiService.downloadFile(from: fileToDownload, to: destination, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
-        startProgress(with: request)
+
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.getFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
+        } else {
+            startProgress(with: apiManager.downloadFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        }
     }
 
+    ///Observes progress changes and displays it on progress bar.
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "fractionCompleted", let p = object as? Progress {
             DispatchQueue.main.async {
@@ -72,76 +71,88 @@ class DownloadViewController: UIViewController {
     }
 }
 
+//MARK: Private helpers
 fileprivate extension DownloadViewController {
 
-    var apiService: ApiService {
-        return (UIApplication.shared.delegate as! AppDelegate).apiService
+    ///Gets *ApiManager* instance from *AppDelegate*.
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
     }
 
-    var apiRootURL: URL {
-        return URL(string: "https://httpbin.org")!
+    ///Gets *RestManager* instance from *AppDelegate*.
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).fileDownloadRestManager
     }
 
-    var documentsUrl: URL {
-        return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
+    ///Prepares UI to request.
+    func prepareForRequest() {
+        imageView.image = nil
+        textView.text = ""
     }
 
-    var smallRemoteFileUrl: URL {
-        return URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg")!
+    ///Starts new progress.
+    func startProgress(with subProgress: Progress?) {
+        if let p = subProgress {
+            progress.totalUnitCount += 1
+            progress.addChild(p, withPendingUnitCount: 1)
+        }
+        progressBar.progress = Float(progress.fractionCompleted)
     }
 
-    var bigRemoteFileUrl: URL {
-        return URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg")!
+    ///Resets parent progress.
+    func resetProgress() {
+        progress.removeObserver(self, forKeyPath: "fractionCompleted")
+        progress = Progress(totalUnitCount: 0)
+        progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
     }
 
-    var fileToDownload: URL {
-        if largeImageSwitch.isOn {
-            return bigRemoteFileUrl
-        } else {
-            return smallRemoteFileUrl
+    ///Shows response of request.
+    func display(_ response: String?, and image: UIImage? = nil) {
+        DispatchQueue.main.async {
+            self.textView.setContentOffset(.zero, animated: false)
+            self.textView.text = response
+            self.imageView.image = image
         }
     }
 
-    var completionHandler: ApiResponseCompletionHandler {
-        return {[weak self] (response: ApiResponse?, error: Error?) in
+    ///Completion handler for *apiManager*.
+    var apiCompletionHandler: ApiManagerCompletionHandler {
+        return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
                 return
             }
             if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
-                strongSelf.reserProgress()
+                strongSelf.resetProgress()
             }
             if let error = error {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = "Error ocured during request:\n\(error.localizedDescription)"
-                }
-            } else if let response = response {
-                var readable = ""
-                if let url = response.url {
-                    readable.append("URL: \(url)\n")
-                }
-                readable.append("Status code: \(response.statusCode.rawValue) \(response.statusCode.description)\n")
-                if let mime = response.mimeType {
-                    readable.append("MIME Type: \(mime)\n")
-                }
-                if let headers = response.allHeaderFields {
-                    readable.append("Headers:\n")
-                    for header in headers {
-                        readable.append("   \(header.key) : \(header.value)\n")
-                    }
-                }
-                if let body = response.body, let json = String(data: body, encoding: .utf8){
-                    readable.append("Body:\n")
-                    readable.append(json)
-                }
+                strongSelf.display("Error ocured during request:\n\(error.localizedDescription)")
+            } else {
                 var image: UIImage?
-                if let imageUrl = response.resourceUrl {
+                if let imageUrl = resourceUrl {
                     image = UIImage(contentsOfFile: imageUrl.path)
                 }
-                DispatchQueue.main.async {
-                    strongSelf.imageView.image = image
-                    strongSelf.textView.text = readable
-                    strongSelf.textView.setContentOffset(.zero, animated: false)
+                strongSelf.display(readableResponse, and: image)
+            }
+        }
+    }
+
+    ///Completion handler for *restManager*.
+    var restCompletionHandler: RestManagerFileCompletionHandler {
+        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
+                strongSelf.resetProgress()
+            }
+            if let errorString = readableError {
+                strongSelf.display(errorString)
+            } else {
+                var image: UIImage?
+                if let imageUrl = resource?.location {
+                    image = UIImage(contentsOfFile: imageUrl.path)
                 }
+                strongSelf.display(resource?.readableDescription, and: image)
             }
         }
     }

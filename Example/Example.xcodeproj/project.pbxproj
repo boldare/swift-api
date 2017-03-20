@@ -16,8 +16,10 @@
 		EA56C23B1E40991D00068B9E /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2361E40991D00068B9E /* DownloadViewController.swift */; };
 		EA56C23C1E40991D00068B9E /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2371E40991D00068B9E /* RequestViewController.swift */; };
 		EA56C23D1E40991D00068B9E /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2381E40991D00068B9E /* UploadViewController.swift */; };
+		EA6175F01E4DAC1F00A9CDE4 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */; };
 		EA745C601E432AFA00A65CB6 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; };
 		EA745C611E432AFA00A65CB6 /* SwiftAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAC61D541E4DA40C00ED6CA1 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +48,9 @@
 		EA56C2361E40991D00068B9E /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		EA56C2371E40991D00068B9E /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		EA56C2381E40991D00068B9E /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestManager.swift; path = Controllers/RestManager.swift; sourceTree = "<group>"; };
 		EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiManager.swift; path = Controllers/ApiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				EA56C22F1E4098DA00068B9E /* Views */,
+				EAC61D551E4DA41000ED6CA1 /* Controllers */,
 				EA56C2351E40991D00068B9E /* ViewControllers */,
 				EA56C2311E4098FF00068B9E /* AppDelegate */,
 				EA56C2321E40991D00068B9E /* Resources */,
@@ -141,6 +146,15 @@
 				EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */,
 			);
 			name = EmbededFrameworks;
+			sourceTree = "<group>";
+		};
+		EAC61D551E4DA41000ED6CA1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */,
+				EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +235,8 @@
 			files = (
 				EA56C23B1E40991D00068B9E /* DownloadViewController.swift in Sources */,
 				EA56C23D1E40991D00068B9E /* UploadViewController.swift in Sources */,
+				EAC61D541E4DA40C00ED6CA1 /* ApiManager.swift in Sources */,
+				EA6175F01E4DAC1F00A9CDE4 /* RestManager.swift in Sources */,
 				EA56C21E1E40977800068B9E /* AppDelegate.swift in Sources */,
 				EA56C23C1E40991D00068B9E /* RequestViewController.swift in Sources */,
 			);
