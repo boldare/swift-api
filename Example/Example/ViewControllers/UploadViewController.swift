@@ -7,17 +7,28 @@
 //
 
 import UIKit
-import SwiftAPI
 
 class UploadViewController: UIViewController {
 
+    ///Switch to decide if *resetService* or *apiService* should be used.
+    @IBOutlet var restServiceSwitch: UISwitch!
+
+    ///Switch to decide if large or small image should be used.
     @IBOutlet var largeImageSwitch: UISwitch!
+
+    ///Switch to decide if request should run in background or foreground.
     @IBOutlet var backgroundSwitch: UISwitch!
+
+    ///Progress bar to show progress of request.
     @IBOutlet var progressBar: UIProgressView!
+
+    ///TextView to show output.
     @IBOutlet var textView: UITextView!
 
+    ///Parent of all current progresses.
     fileprivate var progress = Progress(totalUnitCount: 0)
 
+    //MARK: ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,51 +41,43 @@ class UploadViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        apiService.cancellAllRequests()
+        
+        apiManager.cancelAllRequests()
+        restManager.cancelAllRequests()
     }
 
-    func prepareForRequest() {
-        textView.text = ""
-    }
-
-    func startProgress(with request: ApiRequest) {
-        if let p = request.progress {
-            progress.totalUnitCount += 1
-            progress.addChild(p, withPendingUnitCount: 1)
-        }
-        progressBar.progress = Float(progress.fractionCompleted)
-    }
-
-    func reserProgress() {
-        progress.removeObserver(self, forKeyPath: "fractionCompleted")
-        progress = Progress(totalUnitCount: 0)
-        progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
-    }
-
+    //MARK: Actions
     @IBAction func postRequestButtonDidPush() {
-        let destinationUrl = apiRootURL.appendingPathComponent("post")
-
         prepareForRequest()
-        let request = apiService.postFile(from: fileToUpload, to: destinationUrl, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
-        startProgress(with: request)
+
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.postFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
+        } else {
+            startProgress(with: apiManager.postFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        }
     }
 
     @IBAction func putRequestButtonDidPush() {
-        let destinationUrl = apiRootURL.appendingPathComponent("put")
-
         prepareForRequest()
-        let request = apiService.putFile(from: fileToUpload, to: destinationUrl, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
-        startProgress(with: request)
+
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.putFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
+        } else {
+            startProgress(with: apiManager.putFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        }
     }
 
     @IBAction func patchRequestButtonDidPush() {
-        let destinationUrl = apiRootURL.appendingPathComponent("patch")
-
         prepareForRequest()
-        let request = apiService.patchFile(from: fileToUpload, to: destinationUrl, inBackground: backgroundSwitch.isOn, completionHandler: completionHandler)
-        startProgress(with: request)
+
+        if restServiceSwitch.isOn {
+            startProgress(with: restManager.patchFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: restCompletionHandler))
+        } else {
+            startProgress(with: apiManager.patchFile(large: largeImageSwitch.isOn, inBackground: backgroundSwitch.isOn, completion: apiCompletionHandler))
+        }
     }
 
+    ///Observes progress changes and displays it on progress bar.
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "fractionCompleted", let p = object as? Progress {
             DispatchQueue.main.async {
@@ -84,67 +87,78 @@ class UploadViewController: UIViewController {
     }
 }
 
+//MARK: Private helpers
 fileprivate extension UploadViewController {
 
-    var apiService: ApiService {
-        return (UIApplication.shared.delegate as! AppDelegate).apiService
+    ///Gets *ApiManager* instance from *AppDelegate*.
+    var apiManager: ApiManager {
+        return (UIApplication.shared.delegate as! AppDelegate).apiManager
     }
 
-    var apiRootURL: URL {
-        return URL(string: "https://httpbin.org")!
+    ///Gets *RestManager* instance from *AppDelegate*.
+    var restManager: RestManager {
+        return (UIApplication.shared.delegate as! AppDelegate).restManager
     }
 
-    var smallLocalFileURL: URL {
-        return Bundle(for: type(of: self)).url(forResource: "smallImage", withExtension: "jpg")!
+    ///Prepares UI to request.
+    func prepareForRequest() {
+        textView.text = ""
     }
 
-    var bigLocalFileURL: URL {
-        return Bundle(for: type(of: self)).url(forResource: "bigImage", withExtension: "jpg")!
+    ///Starts new progress.
+    func startProgress(with subProgress: Progress?) {
+        if let p = subProgress {
+            progress.totalUnitCount += 1
+            progress.addChild(p, withPendingUnitCount: 1)
+        }
+        progressBar.progress = Float(progress.fractionCompleted)
     }
 
-    var fileToUpload: URL {
-        if largeImageSwitch.isOn {
-            return bigLocalFileURL
-        } else {
-            return smallLocalFileURL
+    ///Resets parent progress.
+    func resetProgress() {
+        progress.removeObserver(self, forKeyPath: "fractionCompleted")
+        progress = Progress(totalUnitCount: 0)
+        progress.addObserver(self, forKeyPath: "fractionCompleted", options: .new, context: nil)
+    }
+
+    ///Shows response of request.
+    func display(_ response: String?) {
+        DispatchQueue.main.async {
+            self.textView.setContentOffset(.zero, animated: false)
+            self.textView.text = response
         }
     }
 
-    var completionHandler: ApiResponseCompletionHandler {
-        return {[weak self] (response: ApiResponse?, error: Error?) in
+    ///Completion handler for *apiManager*.
+    var apiCompletionHandler: ApiManagerCompletionHandler {
+        return {[weak self] (readableResponse: String?, resourceUrl: URL?, error: Error?) in
             guard let strongSelf = self else {
                 return
             }
             if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
-                strongSelf.reserProgress()
+                strongSelf.resetProgress()
             }
             if let error = error {
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = "Error ocured during request:\n\(error.localizedDescription)"
-                }
-            } else if let response = response {
-                var readable = ""
-                if let url = response.url {
-                    readable.append("URL: \(url)\n")
-                }
-                readable.append("Status code: \(response.statusCode.rawValue) \(response.statusCode.description)\n")
-                if let mime = response.mimeType {
-                    readable.append("MIME Type: \(mime)\n")
-                }
-                if let headers = response.allHeaderFields {
-                    readable.append("Headers:\n")
-                    for header in headers {
-                        readable.append("   \(header.key) : \(header.value)\n")
-                    }
-                }
-                if let body = response.body, let json = String(data: body, encoding: .utf8){
-                    readable.append("Body:\n")
-                    readable.append(json)
-                }
-                DispatchQueue.main.async {
-                    strongSelf.textView.text = readable
-                    strongSelf.textView.setContentOffset(.zero, animated: false)
-                }
+                strongSelf.display("Error ocured during request:\n\(error.localizedDescription)")
+            } else {
+                strongSelf.display(readableResponse)
+            }
+        }
+    }
+
+    ///Completion handler for *restManager*.
+    var restCompletionHandler: RestManagerFileCompletionHandler {
+        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.progress.completedUnitCount == strongSelf.progress.totalUnitCount {
+                strongSelf.resetProgress()
+            }
+            if let errorString = readableError {
+                strongSelf.display(errorString)
+            } else {
+                strongSelf.display(resource?.readableDescription)
             }
         }
     }
