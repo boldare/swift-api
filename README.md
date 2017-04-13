@@ -1,6 +1,5 @@
 # SwiftAPI
 
-[![CI Status](http://img.shields.io/travis/Marek Kojder/SwiftAPI.svg?style=flat)](https://travis-ci.org/Marek Kojder/SwiftAPI)
 [![Version](https://img.shields.io/cocoapods/v/SwiftAPI.svg?style=flat)](http://cocoapods.org/pods/SwiftAPI)
 [![License](https://img.shields.io/cocoapods/l/SwiftAPI.svg?style=flat)](http://cocoapods.org/pods/SwiftAPI)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftAPI.svg?style=flat)](http://cocoapods.org/pods/SwiftAPI)
@@ -29,4 +28,3 @@ pod "SwiftAPI"
 ## License
 
 SwiftAPI is available under the MIT license. See the LICENSE file for more info.
-
