@@ -7,7 +7,7 @@ before_script: true
 script: "./scripts/test.sh"
 after_success: sleep 5
 xcode_workspace: SwiftAPI.xcworkspace
-xcode_scheme: SwiftAPI
+xcode_scheme: SwiftAPI iOS
 env:
   global:
   - PODSPEC="SwiftAPI.podspec"
