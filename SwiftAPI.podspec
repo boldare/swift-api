@@ -50,7 +50,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform = :ios, "8.0"
+  s.platform = { :ios => "8.0", :osx => "10.10", :watchos => "2.0", :tvos => "9.0" }
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -59,7 +59,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "git@github.com:xsolve-pl/swift-api.git", :branch => "master", :tag => s.version.to_s }
+  s.source = { :git => "https://github.com/xsolve-pl/swift-api.git", :branch => "master", :tag => s.version.to_s }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -71,20 +71,6 @@ Pod::Spec.new do |s|
   #
 
   s.source_files = "Sources/**/*.{h,swift}"
-  #s.exclude_files = "Classes/Exclude"
-
-
-  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  A list of resources included with the Pod. These are copied into the
-  #  target bundle with a build phase script. Anything else will be cleaned.
-  #  You can preserve files from being cleaned, please don't preserve
-  #  non-essential files like tests, examples and documentation.
-  #
-
-  # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -103,6 +89,5 @@ Pod::Spec.new do |s|
   #  you can include multiple dependencies to ensure it works.
 
   s.requires_arc = true
-  # s.dependency "JSONKit", "~> 1.4"
 
 end
