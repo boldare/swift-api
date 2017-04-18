@@ -36,11 +36,11 @@ pod install
 
 ## Usage
 
-First of all import library by adding
+At the beginning, import library by adding
 ```swift
 import SwiftAPI
 ```
-than you can create instance of ApiService
+then you can create instance of ApiService
 ```swift
 let apiService = ApiService()
 ```
