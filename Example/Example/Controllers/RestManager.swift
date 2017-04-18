@@ -92,7 +92,7 @@ struct RestManager {
             rootURL = URL(string: "https://httpbin.org")!
             headers = [ApiHeader(name: "User-Agent", value: "SwiftApiExample")]
         }
-        self.restService = RestService(baseUrl: rootURL, apiPath: apiPath, headerFields: headers, fileManager: FileCommander())
+        self.restService = RestService(baseUrl: rootURL, apiPath: apiPath, headerFields: headers)
     }
 
     ///Cancels all currently running requests.

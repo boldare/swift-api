@@ -15,7 +15,7 @@ typealias ApiManagerCompletionHandler = (_ readableResponse: String?, _ resource
 struct ApiManager {
 
     ///ApiService for request managing.
-    fileprivate let apiService = ApiService(fileManager: FileCommander())
+    fileprivate let apiService = ApiService()
 
     ///Cancels all currently running requests.
     func cancelAllRequests() {

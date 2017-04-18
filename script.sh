@@ -55,14 +55,17 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 last_commit=$(git log --pretty=format:"%H" -1)
 last_tag=""
 spec_file=""
+is_beta=true
 
 #Checking if used branch is correct
 if [ "$current_branch" = "master" ]; then
     last_tag=$(git tag -l | sed -e '/beta/d' | tail -1)
     spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/d' | sed -n 1p)
+    is_beta=false
 elif [ "$current_branch" = "develop" ]; then
     last_tag=$(git tag -l | sed -e '/beta/!d' | tail -1)
     spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/!d' | sed -n 1p)
+    is_beta=true
 else
     echo "${red}${current_branch} does not match to any of release branches! Checkout to master or develop.${endColor}"
     exit 1
@@ -120,8 +123,15 @@ fi
 
 words=($(echo "$validation" | tail -1))
 if [ "${words[1]}" = "passed" ]; then
-    echo "${yellow}Pushing pod repo...${endColor}"
-    pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries)
+    pushing=""
+    if [ "$is_beta" = true ] ; then
+        echo "${yellow}Pushing beta pod as private repo...${endColor}"
+        pushing=$(pod repo push $spec_branch_name $spec_file $use_libraries)
+    else
+        echo "${yellow}Pushing pod as public repo...${endColor}"
+        pushing=$(pod trunk push $spec_file $use_libraries)
+    fi
+
     if [ -n "$verbosed" ]; then
         echo "$pushing"
     fi
@@ -140,12 +150,14 @@ if [ "${words[1]}" = "passed" ]; then
     fi
 
     if [ -d "Example/" ]; then
-        echo "${yellow}Updating pods...${endColor}"
         cd Example/
-        if [ -n "$verbosed" ]; then
-            pod update
-        else
-            pod update &> /dev/null
+        if [ -f "Podfile" ]; then
+            echo "${yellow}Updating pods...${endColor}"
+            if [ -n "$verbosed" ]; then
+                pod update
+            else
+                pod update &> /dev/null
+            fi
         fi
         cd ../
     fi

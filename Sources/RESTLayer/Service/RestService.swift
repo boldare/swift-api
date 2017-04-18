@@ -81,7 +81,7 @@ public class RestService {
        - headerFields: Array of HTTP header fields which will be added to all requests.
        - fileManager: Object of class implementing *FileManagerProtocol*.
      */
-    public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol) {
+    public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol = FileCommander()) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
         self.headerFields = headerFields

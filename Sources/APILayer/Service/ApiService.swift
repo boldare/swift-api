@@ -61,7 +61,7 @@ final public class ApiService {
     /**
      - Parameter fileManager: Object of class implementing *FileManagerProtocol*.
      */
-    public init(fileManager: FileManagerProtocol) {
+    public init(fileManager: FileManagerProtocol = FileCommander()) {
         self.requestService = RequestService(fileManager: fileManager)
     }
 

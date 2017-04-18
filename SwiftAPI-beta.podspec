@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.name         = "SwiftAPI-beta"
   s.version      = "1.1.0"
-  s.summary      = "SwiftAPI XSolve module. Beta version may not be stable."
+  s.summary      = "SwiftAPI XSolve module."
   s.description  = "SwiftAPI - internal XSolve library for API, written in Swift 3."
   s.homepage     = "https://github.com/xsolve-pl/"
 
