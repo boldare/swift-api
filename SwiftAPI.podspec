@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.version      = "1.1.0"
   s.summary      = "SwiftAPI XSolve module."
   s.description  = "SwiftAPI - XSolve library for API, written in Swift 3."
-  s.homepage     = "https://github.com/xsolve-pl/"
+  s.homepage     = "https://github.com/xsolve-pl/swift-api"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
