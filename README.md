@@ -26,7 +26,7 @@
 
 Swift-API is available through [CocoaPods](http://cocoapods.org/pods/SwiftAPI). To install it, simply add the following line to your Podfile
 ```
-pod "SwiftAPI"
+pod 'SwiftAPI'
 ```
 and run
 ```
