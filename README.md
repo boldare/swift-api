@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/cocoapods/p/SwiftAPI.svg?style=flat" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI">
-    <img src="https://img.shields.io/badge/compatible-swift%203.0%20-orange.svg" />
+    <img src="https://img.shields.io/badge/swift-3.0-brightgreen.svg" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI" target="blank">
     <img src="https://img.shields.io/cocoapods/l/SwiftAPI.svg?style=flat" />
@@ -25,11 +25,11 @@
 ## Installation
 
 Swift-API is available through [CocoaPods](http://cocoapods.org/pods/SwiftAPI). To install it, simply add the following line to your Podfile
-```
+```ruby
 pod 'SwiftAPI'
 ```
 and run
-```
+```ruby
 pod install
 ```
 
