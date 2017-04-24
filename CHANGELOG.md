@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.1.2](https://github.com/xsolve-pl/swift-api/tree/1.1.2) (2017-04-24)
+- Updated readme.
+
 ## [v1.1.1](https://github.com/xsolve-pl/swift-api/tree/1.1.1) (2017-04-19)
   - Updated pod homepage url.
   - Updated readme.
