@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.1.3](https://github.com/xsolve-pl/swift-api/tree/1.1.3) (2017-04-26)
+- Updated description to make library easier to find.
+
 ## [v1.1.2](https://github.com/xsolve-pl/swift-api/tree/1.1.2) (2017-04-24)
 - Updated readme.
 

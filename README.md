@@ -19,7 +19,14 @@
   <br>
 </div>
 
-**Swift API** was born as idea of having very light, very fast, written in swift, easy to update and ready to use out of the box library for communication through network. Now that idea is real as cocoapod library.
+**Swift API** was born as idea of having very light, very fast, written in swift, easy to update and ready to use out of the box library for communication through network. Now that idea is real as cocoapod library. Main features of library:
+- Written in Swift 3
+- Ready to use out of the box
+- Using URLSession for managing requests
+- Allows sending requests in foreground or background
+- Supports connection with REST and non-REST APIs
+- Introduces easy to use wrapper for status codes
+- Is available for iOS, macOS, watchOS and tvOS
 
 
 ## Installation
