@@ -13,7 +13,7 @@ public class RestService {
     public let baseUrl: URL
 
     ///Path of API on server. May be used for versioning. Remember to star it with */* sign.
-    public let apiPath: String
+    public let apiPath: String?
 
     ///Array of aditional HTTP header fields.
     private let headerFields: [ApiHeader]?
@@ -23,7 +23,10 @@ public class RestService {
 
     ///Creates full url by joining *baseUrl* and *apiPath*.
     fileprivate func requestUrl(for resourceName: String) -> URL {
-        return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
+        if let apiPath = apiPath {
+            return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
+        }
+        return baseUrl.appendingPathComponent(resourceName)
     }
 
     ///Merges *headerFields* with aditional headers.
@@ -81,7 +84,7 @@ public class RestService {
        - headerFields: Array of HTTP header fields which will be added to all requests.
        - fileManager: Object of class implementing *FileManagerProtocol*.
      */
-    public init(baseUrl: URL, apiPath: String, headerFields: [ApiHeader]?, fileManager: FileManagerProtocol = FileCommander()) {
+    public init(baseUrl: URL, apiPath: String? = nil, headerFields: [ApiHeader]? = nil, fileManager: FileManagerProtocol = FileCommander()) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
         self.headerFields = headerFields
