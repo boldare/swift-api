@@ -213,6 +213,7 @@
 		67A68FE868B6B6DEA0948996 /* Pods_SwiftAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F758214662673A40D981E2 /* Pods-SwiftAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPITests/Pods-SwiftAPITests.release.xcconfig"; sourceTree = "<group>"; };
 		9E7D820679C817FD6EF3F97F /* Pods-SwiftAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.release.xcconfig"; sourceTree = "<group>"; };
+		EA01F3FE1F0E511E001EC5B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Unit/Info.plist; sourceTree = SOURCE_ROOT; };
 		EA9125761E5ED391006A2801 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCommanderTests.swift; sourceTree = "<group>"; };
 		EA93FE2F1E5EC42A00A82381 /* UnitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA93FE3D1E5EC4C700A82381 /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeaderTests.swift; sourceTree = "<group>"; };
@@ -236,7 +237,6 @@
 		EA93FE581E5EC4C700A82381 /* ResponseActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseActionTests.swift; sourceTree = "<group>"; };
 		EA93FE5A1E5EC4C700A82381 /* RequestServiceConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServiceConfigurationTests.swift; sourceTree = "<group>"; };
 		EA93FE5B1E5EC4C700A82381 /* RequestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServiceTests.swift; sourceTree = "<group>"; };
-		EA93FE5C1E5EC4C700A82381 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		EA93FE5F1E5EC4C700A82381 /* RestErrorResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestErrorResponseTests.swift; sourceTree = "<group>"; };
 		EA93FE601E5EC4C700A82381 /* RestResponseHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestResponseHeaderTests.swift; sourceTree = "<group>"; };
 		EA93FE621E5EC4C700A82381 /* RestServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestServiceTests.swift; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 		EA93FE631E5EC4C700A82381 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				EA93FE5C1E5EC4C700A82381 /* Info.plist */,
+				EA01F3FE1F0E511E001EC5B6 /* Info.plist */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
