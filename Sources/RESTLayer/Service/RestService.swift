@@ -23,6 +23,9 @@ public class RestService {
 
     ///Creates full url by joining *baseUrl* and *apiPath*.
     fileprivate func requestUrl(for resourceName: String) -> URL {
+        if apiPath.isEmpty {
+            return baseUrl.appendingPathComponent(resourceName)
+        }
         return baseUrl.appendingPathComponent(apiPath).appendingPathComponent(resourceName)
     }
 
