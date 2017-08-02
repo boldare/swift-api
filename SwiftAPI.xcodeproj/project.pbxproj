@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA88CEB51F30AC6C0036F8AE /* ApiMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88CEB41F30AC6C0036F8AE /* ApiMethod.swift */; };
+		EA88CEB71F30AE080036F8AE /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88CEB61F30AE080036F8AE /* HttpMethod.swift */; };
 		EA9125781E5ED3B1006A2801 /* FileCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9125761E5ED391006A2801 /* FileCommanderTests.swift */; };
 		EA93FE341E5EC42A00A82381 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
 		EA93FE831E5EC64100A82381 /* RestErrorResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5F1E5EC4C700A82381 /* RestErrorResponseTests.swift */; };
@@ -39,6 +41,7 @@
 		EA93FEC31E5ECAF800A82381 /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEB51E5ECAB400A82381 /* RestServiceTests.swift */; };
 		EA93FEC41E5ECAFC00A82381 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBC1E5ECAE200A82381 /* Resources.xcassets */; };
 		EA93FEC51E5ECB0000A82381 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBD1E5ECAE200A82381 /* testImage.png */; };
+		EA9C72B21F31A720005DC978 /* ApiMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */; };
 		EAA0E2181E5DB9B800A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E2191E5DB9B900A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA0E21A1E5DB9BA00A7AA3A /* SwiftAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA0E2161E5DB9A100A7AA3A /* SwiftAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -159,10 +162,6 @@
 		EAA0E2911E5DBB5000A7AA3A /* HttpFailureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1F81E5DB16500A7AA3A /* HttpFailureResponse.swift */; };
 		EAA0E2921E5DBB5000A7AA3A /* HttpFailureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1F81E5DB16500A7AA3A /* HttpFailureResponse.swift */; };
 		EAA0E2931E5DBB5100A7AA3A /* HttpFailureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1F81E5DB16500A7AA3A /* HttpFailureResponse.swift */; };
-		EAA0E2941E5DBB5300A7AA3A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */; };
-		EAA0E2951E5DBB5400A7AA3A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */; };
-		EAA0E2961E5DBB5500A7AA3A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */; };
-		EAA0E2971E5DBB5500A7AA3A /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */; };
 		EAA0E2981E5DBB5700A7AA3A /* RequestServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FE1E5DB16500A7AA3A /* RequestServiceConfiguration.swift */; };
 		EAA0E2991E5DBB5800A7AA3A /* RequestServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FE1E5DB16500A7AA3A /* RequestServiceConfiguration.swift */; };
 		EAA0E29A1E5DBB5800A7AA3A /* RequestServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0E1FE1E5DB16500A7AA3A /* RequestServiceConfiguration.swift */; };
@@ -214,6 +213,8 @@
 		91F758214662673A40D981E2 /* Pods-SwiftAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPITests/Pods-SwiftAPITests.release.xcconfig"; sourceTree = "<group>"; };
 		9E7D820679C817FD6EF3F97F /* Pods-SwiftAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.release.xcconfig"; sourceTree = "<group>"; };
 		EA01F3FE1F0E511E001EC5B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Unit/Info.plist; sourceTree = SOURCE_ROOT; };
+		EA88CEB41F30AC6C0036F8AE /* ApiMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiMethod.swift; sourceTree = "<group>"; };
+		EA88CEB61F30AE080036F8AE /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		EA9125761E5ED391006A2801 /* FileCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCommanderTests.swift; sourceTree = "<group>"; };
 		EA93FE2F1E5EC42A00A82381 /* UnitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA93FE3D1E5EC4C700A82381 /* ApiHeaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiHeaderTests.swift; sourceTree = "<group>"; };
@@ -250,6 +251,7 @@
 		EA992AA31E56FA2F007E7222 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		EA992AA71E56FB4D007E7222 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		EA992AA81E56FB4D007E7222 /* script.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = script.sh; sourceTree = SOURCE_ROOT; };
+		EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiMethodTests.swift; sourceTree = "<group>"; };
 		EAA0E18E1E5D9A7400A7AA3A /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA0E19B1E5D9B0700A7AA3A /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA0E1A81E5D9B6B00A7AA3A /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,7 +285,6 @@
 		EAA0E1F81E5DB16500A7AA3A /* HttpFailureResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpFailureResponse.swift; sourceTree = "<group>"; };
 		EAA0E1F91E5DB16500A7AA3A /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
 		EAA0E1FA1E5DB16500A7AA3A /* ResponseAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseAction.swift; sourceTree = "<group>"; };
-		EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		EAA0E1FD1E5DB16500A7AA3A /* RequestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		EAA0E1FE1E5DB16500A7AA3A /* RequestServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServiceConfiguration.swift; sourceTree = "<group>"; };
 		EAA0E20A1E5DB1F200A7AA3A /* FileCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCommander.swift; path = Sources/Dependencies/FileManager/FileCommander.swift; sourceTree = SOURCE_ROOT; };
@@ -506,6 +507,7 @@
 		EA93FE411E5EC4C700A82381 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */,
 				EA93FE421E5EC4C700A82381 /* ApiServiceTests.swift */,
 			);
 			path = Service;
@@ -721,6 +723,7 @@
 		EAA0E1D71E5DB0C200A7AA3A /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA88CEB41F30AC6C0036F8AE /* ApiMethod.swift */,
 				EAA0E1D81E5DB0C200A7AA3A /* ApiService.swift */,
 				EAA0E2B31E5DD28300A7AA3A /* ApiService+BackgroundEvents.swift */,
 			);
@@ -778,7 +781,7 @@
 		EAA0E1FB1E5DB16500A7AA3A /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				EAA0E1FC1E5DB16500A7AA3A /* HttpMethod.swift */,
+				EA88CEB61F30AE080036F8AE /* HttpMethod.swift */,
 				EAA0E1FE1E5DB16500A7AA3A /* RequestServiceConfiguration.swift */,
 				EAA0E1FD1E5DB16500A7AA3A /* RequestService.swift */,
 				EAA0E2AF1E5DCB6B00A7AA3A /* RequestService+BackgroundEvents.swift */,
@@ -1078,6 +1081,7 @@
 				EA93FE991E5EC69700A82381 /* RequestServiceConfigurationTests.swift in Sources */,
 				EA93FE931E5EC68200A82381 /* HttpDataRequestTests.swift in Sources */,
 				EA93FE841E5EC64500A82381 /* RestResponseHeaderTests.swift in Sources */,
+				EA9C72B21F31A720005DC978 /* ApiMethodTests.swift in Sources */,
 				EA93FE831E5EC64100A82381 /* RestErrorResponseTests.swift in Sources */,
 				EA93FE921E5EC67F00A82381 /* HttpRequestTests.swift in Sources */,
 				EA93FE8F1E5EC67200A82381 /* ApiResponseTests.swift in Sources */,
@@ -1127,7 +1131,6 @@
 				EAA0E28A1E5DBB4800A7AA3A /* ResponseAction.swift in Sources */,
 				EAA0E22A1E5DBADD00A7AA3A /* RestResponseCompletion.swift in Sources */,
 				EAA0E26E1E5DBB2900A7AA3A /* ApiResponse.swift in Sources */,
-				EAA0E2961E5DBB5500A7AA3A /* HttpMethod.swift in Sources */,
 				EAA0E25A1E5DBB1300A7AA3A /* StatusCode.swift in Sources */,
 				EAA0E2261E5DBAD900A7AA3A /* RestErrorResponse.swift in Sources */,
 				EAA0E25E1E5DBB1800A7AA3A /* ApiHeader.swift in Sources */,
@@ -1171,7 +1174,6 @@
 				EAA0E2291E5DBADC00A7AA3A /* RestResponseCompletion.swift in Sources */,
 				EAA0E26D1E5DBB2800A7AA3A /* ApiResponse.swift in Sources */,
 				EAA0E2B51E5DD28300A7AA3A /* ApiService+BackgroundEvents.swift in Sources */,
-				EAA0E2951E5DBB5400A7AA3A /* HttpMethod.swift in Sources */,
 				EAA0E2591E5DBB1300A7AA3A /* StatusCode.swift in Sources */,
 				EAA0E2251E5DBAD800A7AA3A /* RestErrorResponse.swift in Sources */,
 				EAA0E25D1E5DBB1700A7AA3A /* ApiHeader.swift in Sources */,
@@ -1215,7 +1217,6 @@
 				EAA0E22B1E5DBADD00A7AA3A /* RestResponseCompletion.swift in Sources */,
 				EAA0E26F1E5DBB2900A7AA3A /* ApiResponse.swift in Sources */,
 				EAA0E2B61E5DD28300A7AA3A /* ApiService+BackgroundEvents.swift in Sources */,
-				EAA0E2971E5DBB5500A7AA3A /* HttpMethod.swift in Sources */,
 				EAA0E25B1E5DBB1400A7AA3A /* StatusCode.swift in Sources */,
 				EAA0E2271E5DBAD900A7AA3A /* RestErrorResponse.swift in Sources */,
 				EAA0E25F1E5DBB1800A7AA3A /* ApiHeader.swift in Sources */,
@@ -1255,16 +1256,17 @@
 				EAA0E2901E5DBB4F00A7AA3A /* HttpFailureResponse.swift in Sources */,
 				EAA0E2781E5DBB3900A7AA3A /* HttpRequest.swift in Sources */,
 				EAA0E2B81E5DD31500A7AA3A /* RestService+BackgroundEvents.swift in Sources */,
+				EA88CEB71F30AE080036F8AE /* HttpMethod.swift in Sources */,
 				EAA0E2881E5DBB4700A7AA3A /* ResponseAction.swift in Sources */,
 				EAA0E2281E5DBADC00A7AA3A /* RestResponseCompletion.swift in Sources */,
 				EAA0E26C1E5DBB2800A7AA3A /* ApiResponse.swift in Sources */,
 				EAA0E2B41E5DD28300A7AA3A /* ApiService+BackgroundEvents.swift in Sources */,
-				EAA0E2941E5DBB5300A7AA3A /* HttpMethod.swift in Sources */,
 				EAA0E2581E5DBB1200A7AA3A /* StatusCode.swift in Sources */,
 				EAA0E2241E5DBAD800A7AA3A /* RestErrorResponse.swift in Sources */,
 				EAA0E25C1E5DBB1700A7AA3A /* ApiHeader.swift in Sources */,
 				EAA0E2981E5DBB5700A7AA3A /* RequestServiceConfiguration.swift in Sources */,
 				EAA0E2441E5DBB0000A7AA3A /* SuccessStatusCodeType.swift in Sources */,
+				EA88CEB51F30AC6C0036F8AE /* ApiMethod.swift in Sources */,
 				EAA0E2A01E5DBB6300A7AA3A /* FileManagerProtocol.swift in Sources */,
 				EAA0E22C1E5DBAE200A7AA3A /* RestResource.swift in Sources */,
 				EAA0E2741E5DBB3300A7AA3A /* HttpHeader.swift in Sources */,

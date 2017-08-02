@@ -17,6 +17,13 @@ class RequestServiceConfigurationTests: XCTestCase {
 
         XCTAssertNil(sessionConfig.identifier)
     }
+
+    func testEphemeralConfiguration() {
+        let config = RequestServiceConfiguration.ephemeral
+        let sessionConfig = config.urlSessionConfiguration
+
+        XCTAssertNil(sessionConfig.identifier)
+    }
     
     func testBackgroundConfiguration() {
         let config = RequestServiceConfiguration.background
@@ -24,5 +31,12 @@ class RequestServiceConfigurationTests: XCTestCase {
 
         XCTAssertNotNil(sessionConfig.identifier)
     }
-    
+
+    func testCustomConfiguration() {
+        let sessionConfiguration = URLSessionConfiguration()
+        let config = RequestServiceConfiguration.custom(with: sessionConfiguration)
+        let sessionConfig = config.urlSessionConfiguration
+
+        XCTAssertEqual(sessionConfiguration, sessionConfig)
+    }
 }

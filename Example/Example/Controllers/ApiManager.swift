@@ -63,6 +63,13 @@ struct ApiManager {
         _ = apiService.delete(at: url, completionHandler: completionHandler(for: completion))
     }
 
+    ///Perform custom request
+    func customRequest(_ completion: @escaping ApiManagerCompletionHandler) {
+        let url = apiRootURL.appendingPathComponent("get")
+
+        _ = apiService.performRequest(to: url, with: .get, configuration: customConfiguration, completionHandler: completionHandler(for: completion))
+    }
+
     //MARK: Uploading files
     ///Sends file using POST request.
     func postFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
@@ -85,10 +92,24 @@ struct ApiManager {
         return apiService.patchFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
     }
 
+    ///Sends file using custom request.
+    func customUploadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
+        let destinationUrl = apiRootURL.appendingPathComponent("put")
+
+        return apiService.uploadFile(from: fileToUpload(large: large), to: destinationUrl, with: .put, configuration: customConfiguration, completionHandler:  completionHandler(for: completion)).progress
+    }
+
     //MARK: Downloading files
     ///Downloads file.
     func downloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
+
         return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+    }
+
+    ///Downloads file using custom request.
+    func customDownloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
+
+        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), configuration: customConfiguration, completionHandler: completionHandler(for: completion)).progress
     }
 }
 
@@ -110,6 +131,16 @@ fileprivate extension ApiManager {
     ///Example HTTP header.
     var exampleHeaders: [ApiHeader] {
         return [ApiHeader(name: "User-Agent", value: "SwiftApiExample")]
+    }
+
+    ///Example custom configuration
+    var customConfiguration: RequestServiceConfiguration {
+        let sessionConfigutration = URLSessionConfiguration.default
+        sessionConfigutration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        sessionConfigutration.timeoutIntervalForRequest = 100
+        sessionConfigutration.timeoutIntervalForResource = 3600
+
+        return RequestServiceConfiguration.custom(with: sessionConfigutration)
     }
 
     ///Example JSON body converted to *Data* object.

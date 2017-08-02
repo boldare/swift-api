@@ -9,11 +9,32 @@
 import Foundation
 
 ///Available session configurations using while sending requests.
-struct RequestServiceConfiguration {
+public struct RequestServiceConfiguration {
+
+    ///*URLSessionConfiguration* object for current session.
+    internal private(set) var urlSessionConfiguration: URLSessionConfiguration
+
+    ///Initializer without parameters is not allowed for this struct.
+    private init() {
+        self.urlSessionConfiguration = .default
+    }
+
+    ///Initializing with configuration.
+    internal init(urlSessionConfiguration: URLSessionConfiguration) {
+        self.urlSessionConfiguration = urlSessionConfiguration
+    }
+}
+
+public extension RequestServiceConfiguration {
 
     ///Indicates sending request only when app is running.
     static var foreground: RequestServiceConfiguration {
         return RequestServiceConfiguration(urlSessionConfiguration: .default)
+    }
+
+    ///Indicates sending request only when app is running.
+    static var ephemeral: RequestServiceConfiguration {
+        return RequestServiceConfiguration(urlSessionConfiguration: .ephemeral)
     }
 
     ///Indicates sending request also when app is not running or when is terminated by system.
@@ -28,27 +49,9 @@ struct RequestServiceConfiguration {
         return RequestServiceConfiguration(urlSessionConfiguration: .background(withIdentifier: identifier))
     }
 
-    ///*URLSessionConfiguration* object for current session.
-    private(set) var urlSessionConfiguration: URLSessionConfiguration
-
-    ///Initializer without parameters is not allowed for this struct.
-    private init() {
-        self.urlSessionConfiguration = .default
-    }
-
-    ///Initializing with configuration.
-    private init(urlSessionConfiguration: URLSessionConfiguration) {
-        self.urlSessionConfiguration = urlSessionConfiguration
-    }
-
-    ///Initializing with custom settings
-    init(cellularAccess: Bool = true, requestTimeout: TimeInterval = 60, useCookies: Bool = true) {
-        let config = URLSessionConfiguration.default
-        config.allowsCellularAccess = cellularAccess
-        config.timeoutIntervalForRequest = requestTimeout
-        config.httpShouldSetCookies = useCookies
-
-        self.urlSessionConfiguration = config
+    ///Creates custom configuration based on URLSessionConfiguration.
+    static func custom(with urlSessionConfiguration: URLSessionConfiguration) -> RequestServiceConfiguration {
+        return RequestServiceConfiguration(urlSessionConfiguration: urlSessionConfiguration)
     }
 }
 
