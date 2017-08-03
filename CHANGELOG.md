@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+
+## [v1.1.5](https://github.com/xsolve-pl/swift-api/tree/1.1.5) (2017-08-03)
 - Allowed to change configuration of every api request (Issue #17)
 
 ## [v1.1.4](https://github.com/xsolve-pl/swift-api/tree/1.1.4) (2017-07-18)
