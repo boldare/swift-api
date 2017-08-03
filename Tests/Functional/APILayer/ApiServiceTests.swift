@@ -266,6 +266,78 @@ extension ApiServiceTests {
         }
     }
 
+    //MARK: Methods with configuration tests
+    func testDataRequest() {
+        let url = rootURL.appendingPathComponent("get")
+        let headers = exampleHeaders
+        let responseExpectation = expectation(description: "Expect GET response")
+        var responseError: Error?
+        let completion = { (r: ApiResponse?, e: Error?) in
+            if let response = r, let responseUrl = response.url {
+                print("--------------------")
+                print("Request to URL \(responseUrl) finished with status code \(response.statusCode.rawValue).")
+                print("--------------------")
+            }
+            responseError = e
+            responseExpectation.fulfill()
+        }
+        _ = apiService.performRequest(to: url, with: .get, aditionalHeaders: headers, configuration: .ephemeral, completionHandler: completion)
+
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertNil(responseError, "Custom data request failed with error: \(responseError!.localizedDescription)")
+        }
+    }
+
+    func testUploadRequest() {
+        let resourceUrl = localImageURL
+        let destinationUrl = rootURL.appendingPathComponent("put")
+        let headers = exampleHeaders
+
+        let responseExpectation = expectation(description: "Expect PUT response")
+        var responseError: Error?
+        let completion = { (r: ApiResponse?, e: Error?) in
+            if let response = r, let responseUrl = response.url {
+                print("--------------------")
+                print("Request to URL \(responseUrl) finished with status code \(response.statusCode.rawValue).")
+                print("--------------------")
+            }
+            responseError = e
+            responseExpectation.fulfill()
+        }
+        _ = apiService.uploadFile(from: resourceUrl, to: destinationUrl, with: .put, aditionalHeaders: headers, configuration: .ephemeral, progress: false, completionHandler: completion)
+
+        waitForExpectations(timeout: 300) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertNil(responseError, "Custom PUT request failed with error: \(responseError!.localizedDescription)")
+        }
+    }
+
+    func testDownloadRequest() {
+        let remoteResourceUrl = smallFileUrl
+        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let headers = exampleHeaders
+
+        let responseExpectation = expectation(description: "Expect download response")
+        var responseError: Error?
+        let completion = { (r: ApiResponse?, e: Error?) in
+            if let response = r, let responseUrl = response.url {
+                print("--------------------")
+                print("Request to URL \(responseUrl) finished with status code \(response.statusCode.rawValue).")
+                print("--------------------")
+            }
+            responseError = e
+            responseExpectation.fulfill()
+        }
+        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, with: headers, configuration: .ephemeral, progress: false, completionHandler: completion)
+        waitForExpectations(timeout: 300) { error in
+            XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
+            XCTAssertNil(responseError, "Custom download request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertNotNil(request.uuid)
+            XCTAssertNil(request.progress)
+        }
+    }
+
     //MARK: Request managing tests
     func testCancelRequest() {
         let remoteResourceUrl = smallFileUrl

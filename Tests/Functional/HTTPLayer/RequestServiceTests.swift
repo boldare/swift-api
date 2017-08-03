@@ -127,7 +127,7 @@ class RequestServiceTests: XCTestCase {
         }
 
         let request = HttpDownloadRequest(url: fileUrl, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
-        requestService.sendHTTPRequest(request, in: .foreground)
+        requestService.sendHTTPRequest(request, with: .foreground)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Download request test failed with error: \(error!.localizedDescription)")
@@ -157,7 +157,7 @@ class RequestServiceTests: XCTestCase {
         }
 
         let request = HttpDownloadRequest(url: fileUrl, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
-        requestService.sendHTTPRequest(request, in: .foreground)
+        requestService.sendHTTPRequest(request, with: .foreground)
         requestService.cancel(request)
 
         waitForExpectations(timeout: 10) { error in
@@ -190,8 +190,8 @@ class RequestServiceTests: XCTestCase {
         let request1 = HttpDownloadRequest(url: fileUrl1, destinationUrl: destinationUrl, useProgress: false)
         let request2 = HttpDownloadRequest(url: fileUrl2, destinationUrl: destinationUrl, onSuccess: success, onFailure: failure, useProgress: false)
 
-        requestService.sendHTTPRequest(request1, in: .foreground)
-        requestService.sendHTTPRequest(request2, in: .foreground)
+        requestService.sendHTTPRequest(request1, with: .foreground)
+        requestService.sendHTTPRequest(request2, with: .foreground)
         requestService.cancelAllRequests()
 
         waitForExpectations(timeout: 10) { error in
@@ -304,7 +304,7 @@ extension RequestServiceTests {
         }
 
         let request = HttpUploadRequest(url: url, method: method, resourceUrl: resourceUrl, onSuccess: success, onFailure: failure, useProgress: false)
-        requestService.sendHTTPRequest(request, in: .foreground)
+        requestService.sendHTTPRequest(request, with: .foreground)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "\(method.rawValue) request test failed with error: \(error!.localizedDescription)", file: file, line: line)

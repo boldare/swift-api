@@ -1,7 +1,7 @@
 # Change Log
 
 ## Upcoming
-- Possibility of modifying URLSessionConfiguration
+- Allowed to change configuration of every api request (Issue #17)
 
 ## [v1.1.4](https://github.com/xsolve-pl/swift-api/tree/1.1.4) (2017-07-18)
 - Fixed issue with wrong rest api url when apiPath was empty.

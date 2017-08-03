@@ -113,12 +113,14 @@ extension RequestService {
     /**
      Sends given HTTP request.
 
-     - Parameter request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
-     
+     - Parameters:
+       - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
+       - configuration: RequestServiceConfiguration indicates request configuration.
+
      HttpDataRequest may run only with foreground configuration.
      */
-    func sendHTTPRequest(_ request: HttpDataRequest) {
-        let session = currentSession(for: .foreground)
+    func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
+        let session = currentSession(for: configuration)
         let task = session.dataTask(with: request.urlRequest)
         setCurrent(request, for: task)
         task.resume()
@@ -129,9 +131,9 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
-       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
+       - configuration: RequestServiceConfiguration indicates upload request configuration.
      */
-    func sendHTTPRequest(_ request: HttpUploadRequest, in configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
         setCurrent(request, for: task)
@@ -143,9 +145,9 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
-       - configuration: RequestServiceConfiguration indicates if request should be sent in foreground or background.
+       - configuration: RequestServiceConfiguration indicates download request configuration.
      */
-    func sendHTTPRequest(_ request: HttpDownloadRequest, in configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
         let session = currentSession(for: configuration)
         let task = session.downloadTask(with: request.urlRequest)
         setCurrent(request, for: task)
