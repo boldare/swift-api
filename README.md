@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/cocoapods/p/SwiftAPI.svg?style=flat" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI">
-    <img src="https://img.shields.io/badge/swift-3.0-brightgreen.svg" />
+    <img src="https://img.shields.io/badge/swift-4.0-brightgreen.svg" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI" target="blank">
     <img src="https://img.shields.io/cocoapods/l/SwiftAPI.svg?style=flat" />
@@ -20,7 +20,7 @@
 </div>
 
 **Swift API** was born as idea of having very light, very fast, written in swift, easy to update and ready to use out of the box library for communication through network. Now that idea is real as cocoapod library. Main features of library:
-- Written in Swift 3
+- Written using Swift 4
 - Ready to use out of the box
 - Using URLSession for managing requests
 - Allows sending requests in foreground or background
