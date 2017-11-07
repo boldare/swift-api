@@ -16,10 +16,10 @@
 		EA56C23B1E40991D00068B9E /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2361E40991D00068B9E /* DownloadViewController.swift */; };
 		EA56C23C1E40991D00068B9E /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2371E40991D00068B9E /* RequestViewController.swift */; };
 		EA56C23D1E40991D00068B9E /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56C2381E40991D00068B9E /* UploadViewController.swift */; };
-		EA6175F01E4DAC1F00A9CDE4 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */; };
 		EA745C601E432AFA00A65CB6 /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; };
 		EA745C611E432AFA00A65CB6 /* SwiftAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EAC61D541E4DA40C00ED6CA1 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */; };
+		EA8966571FB190CE00F4F425 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8966551FB190CD00F4F425 /* ApiManager.swift */; };
+		EA8966581FB190CE00F4F425 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8966561FB190CE00F4F425 /* RestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,9 +48,9 @@
 		EA56C2361E40991D00068B9E /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		EA56C2371E40991D00068B9E /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		EA56C2381E40991D00068B9E /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
-		EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestManager.swift; path = Controllers/RestManager.swift; sourceTree = "<group>"; };
 		EA745C5F1E432AFA00A65CB6 /* SwiftAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiManager.swift; path = Controllers/ApiManager.swift; sourceTree = "<group>"; };
+		EA8966551FB190CD00F4F425 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		EA8966561FB190CE00F4F425 /* RestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +110,7 @@
 				EA56C2241E40977800068B9E /* Assets.xcassets */,
 				EA56C2291E40977800068B9E /* Info.plist */,
 			);
-			name = SupportingFiles;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		EA56C2311E4098FF00068B9E /* AppDelegate */ = {
@@ -151,10 +151,10 @@
 		EAC61D551E4DA41000ED6CA1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EAC61D531E4DA40C00ED6CA1 /* ApiManager.swift */,
-				EA6175EF1E4DAC1F00A9CDE4 /* RestManager.swift */,
+				EA8966551FB190CD00F4F425 /* ApiManager.swift */,
+				EA8966561FB190CE00F4F425 /* RestManager.swift */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +185,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = XSolve;
 				TargetAttributes = {
 					EA56C2191E40977800068B9E = {
@@ -235,8 +235,8 @@
 			files = (
 				EA56C23B1E40991D00068B9E /* DownloadViewController.swift in Sources */,
 				EA56C23D1E40991D00068B9E /* UploadViewController.swift in Sources */,
-				EAC61D541E4DA40C00ED6CA1 /* ApiManager.swift in Sources */,
-				EA6175F01E4DAC1F00A9CDE4 /* RestManager.swift in Sources */,
+				EA8966571FB190CE00F4F425 /* ApiManager.swift in Sources */,
+				EA8966581FB190CE00F4F425 /* RestManager.swift in Sources */,
 				EA56C21E1E40977800068B9E /* AppDelegate.swift in Sources */,
 				EA56C23C1E40991D00068B9E /* RequestViewController.swift in Sources */,
 			);
@@ -273,7 +273,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -281,7 +283,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -323,7 +330,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -331,7 +340,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -362,11 +376,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MHNNR8L946;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = Example/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.xsolve.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -375,11 +389,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MHNNR8L946;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = Example/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.xsolve.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

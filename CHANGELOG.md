@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+## [v1.1.6](https://github.com/xsolve-pl/swift-api/tree/1.1.6) (2017-11-07)
+- Updated project settings to Xcode 9.
+- Updated library to use Swift 4.
+
 ## [v1.1.5](https://github.com/xsolve-pl/swift-api/tree/1.1.5) (2017-08-03)
 - Allowed to change configuration of every api request (Issue [#17](https://github.com/xsolve-pl/swift-api/issues/17))
 
