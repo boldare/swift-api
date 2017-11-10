@@ -104,11 +104,12 @@ public extension RestService {
        - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
+    @discardableResult
     func get(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.getData(from: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.getData(from: url, with: headers, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -120,11 +121,12 @@ public extension RestService {
        - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
+    @discardableResult
     func post(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.post(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.post(data: resource.data, at: url, with: headers, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -136,11 +138,12 @@ public extension RestService {
        - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
+    @discardableResult
     func put(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.put(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.put(data: resource.data, at: url, with: headers, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -152,11 +155,12 @@ public extension RestService {
        - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
+    @discardableResult
     func patch(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.patch(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.patch(data: resource.data, at: url, with: headers, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -168,11 +172,12 @@ public extension RestService {
        - completion: Closure called when request is finished.
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
+    @discardableResult
     func delete(resource: RestDataResource, aditionalHeaders: [ApiHeader]? = nil, useProgress: Bool = false, completion: RestDataResponseCompletionHandler? = nil) -> ApiRequest {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.delete(data: resource.data, at: url, with: headers, useProgress: useProgress, completionHandler: handler)
+        return apiService.delete(data: resource.data, at: url, with: headers, useProgress: useProgress, completion: handler)
     }
 }
 
@@ -192,7 +197,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.downloadFile(from: url, to: resource.location, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+        return apiService.downloadFile(from: url, to: resource.location, with: headers, inBackground: inBackground, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -208,7 +213,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.postFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+        return apiService.postFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -224,7 +229,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.putFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+        return apiService.putFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completion: handler)
     }
 
     /**
@@ -240,7 +245,7 @@ public extension RestService {
         let url = requestUrl(for: resource.name)
         let headers = apiHeaders(adding: aditionalHeaders)
         let handler = completionHandler(for: resource, with: completion)
-        return apiService.patchFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completionHandler: handler)
+        return apiService.patchFile(from: resource.location, to: url, with: headers, inBackground: inBackground, useProgress: useProgress, completion: handler)
     }
 }
 
