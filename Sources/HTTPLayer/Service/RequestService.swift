@@ -239,7 +239,7 @@ extension RequestService: URLSessionTaskDelegate {
 
 extension RequestService: URLSessionDataDelegate {
 
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler completion: @escaping (URLSession.ResponseDisposition) -> Void) {
         var httpResponse: HttpResponse
         if let resp = currentResponse(for: dataTask) {
             httpResponse = resp
@@ -249,9 +249,9 @@ extension RequestService: URLSessionDataDelegate {
         }
 
         if setCurrent(httpResponse, for: dataTask) {
-            completionHandler(.allow)
+            completion(.allow)
         } else {
-            completionHandler(.cancel)
+            completion(.cancel)
         }
     }
 

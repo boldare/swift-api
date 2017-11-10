@@ -15,10 +15,10 @@ public extension RestService {
      Handle events for background session with identifier.
      - Parameters:
      - identifier: The identifier of the URL session requiring attention.
-     - completionHandler: The completion handler to call when you finish processing the events.
+     - completion: The completion handler to call when you finish processing the events.
      This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
      */
-    func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+    func handleEventsForBackgroundSession(with identifier: String, completion: @escaping () -> Void) {
+        apiService.handleEventsForBackgroundSession(with: identifier, completion: completion)
     }
 }

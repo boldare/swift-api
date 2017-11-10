@@ -65,7 +65,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.getData(from: url, with: headers, completionHandler: completion)
+        _ = apiService.getData(from: url, with: headers, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -89,7 +89,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.post(data: data, at: url, with: headers, completionHandler: completion)
+        _ = apiService.post(data: data, at: url, with: headers, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -113,7 +113,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.put(data: data,at: url, with: headers, completionHandler: completion)
+        _ = apiService.put(data: data,at: url, with: headers, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -137,7 +137,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.patch(data: data, at: url, with: headers, completionHandler: completion)
+        _ = apiService.patch(data: data, at: url, with: headers, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -158,7 +158,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.delete(at: url, completionHandler: completion)
+        _ = apiService.delete(at: url, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -183,7 +183,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.postFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
+        _ = apiService.postFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completion: completion)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -207,7 +207,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.putFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
+        _ = apiService.putFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completion: completion)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -231,7 +231,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.patchFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completionHandler: completion)
+        _ = apiService.patchFile(from: resourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: false, completion: completion)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -256,7 +256,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: true, completionHandler: completion)
+        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, with: headers, inBackground: false, useProgress: true, completion: completion)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -281,7 +281,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.performRequest(to: url, with: .get, aditionalHeaders: headers, configuration: .ephemeral, completionHandler: completion)
+        _ = apiService.performRequest(to: url, with: .get, aditionalHeaders: headers, configuration: .ephemeral, completion: completion)
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -305,7 +305,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        _ = apiService.uploadFile(from: resourceUrl, to: destinationUrl, with: .put, aditionalHeaders: headers, configuration: .ephemeral, progress: false, completionHandler: completion)
+        _ = apiService.uploadFile(from: resourceUrl, to: destinationUrl, with: .put, aditionalHeaders: headers, configuration: .ephemeral, progress: false, completion: completion)
 
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
@@ -329,7 +329,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, with: headers, configuration: .ephemeral, progress: false, completionHandler: completion)
+        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, with: headers, configuration: .ephemeral, progress: false, completion: completion)
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "Custom download request failed with error: \(responseError!.localizedDescription)")
@@ -351,7 +351,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, inBackground: false, useProgress: false, completionHandler: completion)
+        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, inBackground: false, useProgress: false, completion: completion)
         request.cancel()
 
         waitForExpectations(timeout: 30) { error in
@@ -376,7 +376,7 @@ extension ApiServiceTests {
             responseError = e
             responseExpectation.fulfill()
         }
-        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, inBackground: false, useProgress: false, completionHandler: completion)
+        let request = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl, inBackground: false, useProgress: false, completion: completion)
         request.suspend()
         request.resume()
 
@@ -400,7 +400,7 @@ extension ApiServiceTests {
             responseExpectation.fulfill()
         }
         _ = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl1, inBackground: false, useProgress: false)
-        _ = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl2, inBackground: false, useProgress: false, completionHandler: completion)
+        _ = apiService.downloadFile(from: remoteResourceUrl, to: destinationUrl2, inBackground: false, useProgress: false, completion: completion)
         apiService.cancelAllRequests()
 
         waitForExpectations(timeout: 10) { error in

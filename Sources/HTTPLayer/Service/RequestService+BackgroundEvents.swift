@@ -16,18 +16,18 @@ extension RequestService {
 
      - Parameters:
      - identifier: The identifier of the URL session requiring attention.
-     - completionHandler: The completion handler to call when you finish processing the events.
+     - completion: The completion handler to call when you finish processing the events.
 
      This method have to be used in `application(UIApplication, handleEventsForBackgroundURLSession: String, completionHandler: () -> Void)` method of AppDelegate.
      */
-    func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        backgroundSessionCompletionHandler[identifier] = completionHandler
+    func handleEventsForBackgroundSession(with identifier: String, completion: @escaping () -> Void) {
+        backgroundSessionCompletionHandler[identifier] = completion
     }
 
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-        for (_, completionHandler) in backgroundSessionCompletionHandler {
+        for (_, completion) in backgroundSessionCompletionHandler {
             DispatchQueue.main.async {
-                completionHandler()
+                completion()
             }
         }
         backgroundSessionCompletionHandler.removeAll()

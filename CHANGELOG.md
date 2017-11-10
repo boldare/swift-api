@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+- Renamed `completionHandler` parameter to `completion`.
+- Added `@discardableResult` annotation to methods in which `useProgress` is set by default to false.
 
 ## [v1.1.6](https://github.com/xsolve-pl/swift-api/tree/1.1.6) (2017-11-07)
 - Updated project settings to Xcode 9.
