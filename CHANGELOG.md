@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+- Moved invalidating `URLSession`'s to deinit of `RequestService`.
+- Updated example to work with new completion parameter name.
 
 ## [v1.1.7](https://github.com/xsolve-pl/swift-api/tree/1.1.7) (2017-11-10)
 - Renamed `completionHandler` parameter to `completion`.

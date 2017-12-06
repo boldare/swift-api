@@ -59,15 +59,6 @@ final class RequestService: NSObject {
     ///Removes given task from queue.
     fileprivate func removeCurrent(_ task: URLSessionTask) {
         currentTasks.removeValue(forKey: task)
-
-        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
-        if currentTasks.isEmpty {
-            for (_, session) in currentSessions {
-                session.finishTasksAndInvalidate()
-            }
-            //After invalidation, session objects cannot be reused, so we can remove all sessions.
-            currentSessions.removeAll()
-        }
     }
 
     ///Removes all tasks from queue.
@@ -105,6 +96,14 @@ final class RequestService: NSObject {
     ///Initializes service with given file manager.
     init(fileManager: FileManagerProtocol) {
         self.fileManager = fileManager
+    }
+
+    ///Class deinitializer
+    deinit {
+        ///We need to invalidate all sessions to break strong reference with delegate and prevent memory leaks.
+        for (_, session) in currentSessions {
+            session.invalidateAndCancel()
+        }
     }
 }
 
