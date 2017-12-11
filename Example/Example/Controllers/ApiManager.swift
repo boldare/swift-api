@@ -24,7 +24,7 @@ struct ApiManager {
 
     ///Method to run in *AppDelegate* to manage background tasks
     func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        apiService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+        apiService.handleEventsForBackgroundSession(with: identifier, completion: completionHandler)
     }
 
     //MARK: Data requests
@@ -32,42 +32,42 @@ struct ApiManager {
     func getRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("get")
 
-        _ = apiService.getData(from: url, completionHandler: completionHandler(for: completion))
+        _ = apiService.getData(from: url, completion: completionHandler(for: completion))
     }
 
     ///Performs POST request.
     func postRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("post")
 
-        _ = apiService.post(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
+        _ = apiService.post(data: exampleBody, at: url, with: exampleHeaders, completion: completionHandler(for: completion))
     }
 
     ///Performs PUT request.
     func putRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("put")
 
-        _ = apiService.put(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
+        _ = apiService.put(data: exampleBody, at: url, with: exampleHeaders, completion: completionHandler(for: completion))
     }
 
     ///Performs PATCH request.
     func patchRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("patch")
 
-        _ = apiService.patch(data: exampleBody, at: url, with: exampleHeaders, completionHandler: completionHandler(for: completion))
+        _ = apiService.patch(data: exampleBody, at: url, with: exampleHeaders, completion: completionHandler(for: completion))
     }
 
     ///Performs DELETE request.
     func deleteRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("delete")
 
-        _ = apiService.delete(at: url, completionHandler: completionHandler(for: completion))
+        _ = apiService.delete(at: url, completion: completionHandler(for: completion))
     }
 
     ///Perform custom request
     func customRequest(_ completion: @escaping ApiManagerCompletionHandler) {
         let url = apiRootURL.appendingPathComponent("get")
 
-        _ = apiService.performRequest(to: url, with: .get, configuration: customConfiguration, completionHandler: completionHandler(for: completion))
+        _ = apiService.performRequest(to: url, with: .get, configuration: customConfiguration, completion: completionHandler(for: completion))
     }
 
     //MARK: Uploading files
@@ -75,41 +75,41 @@ struct ApiManager {
     func postFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
         let destinationUrl = apiRootURL.appendingPathComponent("post")
 
-        return apiService.postFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.postFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completion: completionHandler(for: completion)).progress
     }
 
     ///Sends file using PUT request.
     func putFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
         let destinationUrl = apiRootURL.appendingPathComponent("put")
 
-        return apiService.putFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.putFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completion: completionHandler(for: completion)).progress
     }
 
     ///Sends file using PATCH request.
     func patchFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
         let destinationUrl = apiRootURL.appendingPathComponent("patch")
 
-        return apiService.patchFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.patchFile(from: fileToUpload(large: large), to: destinationUrl, inBackground: inBackground, completion: completionHandler(for: completion)).progress
     }
 
     ///Sends file using custom request.
     func customUploadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
         let destinationUrl = apiRootURL.appendingPathComponent("put")
 
-        return apiService.uploadFile(from: fileToUpload(large: large), to: destinationUrl, with: .put, configuration: customConfiguration, completionHandler:  completionHandler(for: completion)).progress
+        return apiService.uploadFile(from: fileToUpload(large: large), to: destinationUrl, with: .put, configuration: customConfiguration, completion:  completionHandler(for: completion)).progress
     }
 
     //MARK: Downloading files
     ///Downloads file.
     func downloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
 
-        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completionHandler: completionHandler(for: completion)).progress
+        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), inBackground: inBackground, completion: completionHandler(for: completion)).progress
     }
 
     ///Downloads file using custom request.
     func customDownloadFile(large: Bool, inBackground: Bool, completion: @escaping ApiManagerCompletionHandler) -> Progress? {
 
-        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), configuration: customConfiguration, completionHandler: completionHandler(for: completion)).progress
+        return apiService.downloadFile(from: fileToDownload(large: large), to: downloadedFileURL(large: large), configuration: customConfiguration, completion: completionHandler(for: completion)).progress
     }
 }
 

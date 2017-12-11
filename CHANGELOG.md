@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+## [v1.1.8](https://github.com/xsolve-pl/swift-api/tree/1.1.8) (2017-12-11)
+- Added protesction before creating task using invalidated session.
+- Updated example to work with new completion parameter name.
+
 ## [v1.1.7](https://github.com/xsolve-pl/swift-api/tree/1.1.7) (2017-11-10)
 - Renamed `completionHandler` parameter to `completion`.
 - Added `@discardableResult` annotation to methods in which `useProgress` is set by default to false.
