@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+
+## [v1.1.8](https://github.com/xsolve-pl/swift-api/tree/1.1.8) (2017-12-11)
 - Added protesction before creating task using invalidated session.
 - Updated example to work with new completion parameter name.
 
