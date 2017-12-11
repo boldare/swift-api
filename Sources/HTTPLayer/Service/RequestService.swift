@@ -8,9 +8,31 @@
 
 import Foundation
 
+private struct SessionContainer {
+    let configuration: RequestServiceConfiguration
+    let session: URLSession
+    private(set) var isValid: Bool
+
+    init(configuration: RequestServiceConfiguration, session: URLSession) {
+        self.configuration = configuration
+        self.session = session
+        isValid = true
+    }
+
+    mutating func finishTasksAndInvalidate() {
+        session.finishTasksAndInvalidate()
+        isValid = false
+    }
+
+    mutating func invalidateAndCancel() {
+        session.invalidateAndCancel()
+        isValid = false
+    }
+}
+
 final class RequestService: NSObject {
 
-    fileprivate var fileManager: FileManagerProtocol
+    fileprivate let fileManager: FileManagerProtocol
 
     //MARK: - Handling multiple tasks
     private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
@@ -59,6 +81,13 @@ final class RequestService: NSObject {
     ///Removes given task from queue.
     fileprivate func removeCurrent(_ task: URLSessionTask) {
         currentTasks.removeValue(forKey: task)
+
+        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
+        if currentTasks.isEmpty {
+            for var session in currentSessions {
+                session.finishTasksAndInvalidate()
+            }
+        }
     }
 
     ///Removes all tasks from queue.
@@ -68,24 +97,23 @@ final class RequestService: NSObject {
         }
 
         //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
-        for (_, session) in currentSessions {
+        for var session in currentSessions {
             session.invalidateAndCancel()
         }
-        //After invalidation, session objects cannot be reused, so we can remove all sessions.
-        currentSessions.removeAll()
     }
 
     //MARK: - Handling multiple sessions
-    private var currentSessions = [RequestServiceConfiguration : URLSession]()
+    private var currentSessions = [SessionContainer]()
 
     ///Returns URLSession for given configuration. If session does not exist, it creates one.
     fileprivate func currentSession(for configuration: RequestServiceConfiguration) -> URLSession {
-        if let session = currentSessions[configuration] {
-            return session
+        if let active = currentSessions.first(where: { $0.configuration == configuration }), active.isValid {
+            return active.session
         }
         let session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: self, delegateQueue: nil)
-        currentSessions[configuration] = session
-        return session
+        let active = SessionContainer(configuration: configuration, session: session)
+        currentSessions.append(active)
+        return active.session
     }
 
     //MARK: - Handling background sessions
@@ -96,14 +124,6 @@ final class RequestService: NSObject {
     ///Initializes service with given file manager.
     init(fileManager: FileManagerProtocol) {
         self.fileManager = fileManager
-    }
-
-    ///Class deinitializer
-    deinit {
-        ///We need to invalidate all sessions to break strong reference with delegate and prevent memory leaks.
-        for (_, session) in currentSessions {
-            session.invalidateAndCancel()
-        }
     }
 }
 
@@ -198,11 +218,16 @@ extension RequestService {
 
 extension RequestService: URLSessionDelegate {
 
+    //Informs that finishTasksAndInvalidate() or invalidateAndCancel() method was call on session object.
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        //Informs that finishTasksAndInvalidate() or invalidateAndCancel() method was call on session object.
+        let indexes = currentSessions.enumerated().flatMap { index, container in
+            return container.session == session ? index : nil
+        }
+        for index in indexes {
+            currentSessions.remove(at: index)
+        }
     }
 }
-
 
 extension RequestService: URLSessionTaskDelegate {
 
