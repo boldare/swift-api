@@ -102,7 +102,7 @@ struct RestManager {
 
     ///Method to run in *AppDelegate* to manage background tasks
     func handleEventsForBackgroundSession(with identifier: String, completionHandler: @escaping () -> Void) {
-        restService.handleEventsForBackgroundSession(with: identifier, completionHandler: completionHandler)
+        restService.handleEventsForBackgroundSession(with: identifier, completion: completionHandler)
     }
 
     //MARK: Data requests
