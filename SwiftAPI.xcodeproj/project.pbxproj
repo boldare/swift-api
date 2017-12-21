@@ -740,7 +740,7 @@
 			children = (
 				EA01F3FE1F0E511E001EC5B6 /* Info.plist */,
 			);
-			path = SupportingFiles;
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		EA93FE821E5EC5C300A82381 /* Functional */ = {
