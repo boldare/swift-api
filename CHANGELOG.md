@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.1.10](https://github.com/xsolve-pl/swift-api/tree/1.1.10) (2018-01-03)
+- Changed session queue to serial.
+
 ## [v1.1.9](https://github.com/xsolve-pl/swift-api/tree/1.1.9) (2017-12-21)
 - Moved session management to one synchronous queue.
 

@@ -34,7 +34,7 @@ final class RequestService: NSObject {
 
     private let fileManager: FileManagerProtocol
 
-    private let sessionQueue = DispatchQueue.global(qos: .background)
+    private let sessionQueue = DispatchQueue(label: "SwiftAPI.RequestService.sessionQueue", qos: .background)
 
     //MARK: - Handling multiple tasks
     private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
