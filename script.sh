@@ -59,11 +59,11 @@ is_beta=true
 
 #Checking if used branch is correct
 if [ "$current_branch" = "master" ]; then
-    last_tag=$(git tag -l | sed -e '/beta/d' | tail -1)
+    last_tag=$(git tag --sort=version:refname | sed -e '/beta/d' | tail -1)
     spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/d' | sed -n 1p)
     is_beta=false
 elif [ "$current_branch" = "develop" ]; then
-    last_tag=$(git tag -l | sed -e '/beta/!d' | tail -1)
+    last_tag=$(git tag --sort=version:refname | sed -e '/beta/!d' | tail -1)
     spec_file=$(ls | grep '\.podspec$' | sed -e '/beta/!d' | sed -n 1p)
     is_beta=true
 else
