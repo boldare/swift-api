@@ -32,7 +32,7 @@ private struct SessionContainer {
 
 final class RequestService: NSObject {
 
-    private let fileManager: FileManagerProtocol
+    private let fileManager: FileManager
 
     private let sessionQueue = DispatchQueue(label: "SwiftAPI.RequestService.sessionQueue", qos: .background)
 
@@ -132,7 +132,7 @@ final class RequestService: NSObject {
 
     //MARK: Initialization
     ///Initializes service with given file manager.
-    init(fileManager: FileManagerProtocol) {
+    init(fileManager: FileManager) {
         self.fileManager = fileManager
     }
 }
