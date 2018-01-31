@@ -42,7 +42,7 @@ private struct ApiArray<T: Decodable>: Decodable {
     init(from decoder: Decoder) throws {
         let dataArray = try [FailableData<T>](from: decoder)
         array = dataArray.flatMap({ $0.value })
-        failedItemsCoint = dataArray.flatMap({ $0.failed }).count
+        failedItemsCoint = dataArray.filter({ $0.failed == true }).count
     }
 }
 

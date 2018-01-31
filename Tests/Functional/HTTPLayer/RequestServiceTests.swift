@@ -36,7 +36,7 @@ class RequestServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        requestService = RequestService(fileManager: FileCommander())
+        requestService = RequestService(fileManager: DefaultFileManager())
     }
 
     override func tearDown() {
@@ -104,7 +104,7 @@ class RequestServiceTests: XCTestCase {
     //MARK: DownloadRequest tests
     func testHttpDownloadRequest() {
         let fileUrl = smallFileUrl
-        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let destinationUrl = documentsUrl
         let responseExpectation = expectation(description: "Expect response from \(fileUrl)")
 
         var successPerformed = false
@@ -169,9 +169,9 @@ class RequestServiceTests: XCTestCase {
     }
 
     func testHttpRequestCancelAll() {
-        let fileUrl1 = smallFileUrl
+        let fileUrl1 = bigFileUrl
         let fileUrl2 = bigFileUrl
-        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let destinationUrl = documentsUrl
         let responseExpectation = expectation(description: "Expect file")
 
         var successPerformed = false
