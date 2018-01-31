@@ -128,15 +128,15 @@ fileprivate extension RequestViewController {
     }
 
     ///Completion handler for *restManager*.
-    var restCompletionHandler: RestManagerSimpleCompletionHandler {
-        return {[weak self] (resource: SimpleDataResource?, readableError: String?) in
+    var restCompletionHandler: RestManagerCompletionHandler {
+        return {[weak self] (data: ResponseData?, readableError: String?) in
             guard let strongSelf = self else {
                 return
             }
             if let errorString = readableError {
                 strongSelf.display(errorString)
             } else {
-                strongSelf.display(resource?.readableDescription)
+                strongSelf.display(data?.readableDescription)
             }
         }
     }

@@ -178,6 +178,12 @@
 		EA93FEC51E5ECB0000A82381 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBD1E5ECAE200A82381 /* testImage.png */; };
 		EA9C72B21F31A720005DC978 /* ApiMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */; };
 		EA9F374B20218FED008DEFF3 /* FailableDecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B9120211B04004662B1 /* FailableDecodableTests.swift */; };
+		EA9F374C20219179008DEFF3 /* ResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8720209D1D004662B1 /* ResourcePath.swift */; };
+		EA9F374D20219179008DEFF3 /* ResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8720209D1D004662B1 /* ResourcePath.swift */; };
+		EA9F374E2021917A008DEFF3 /* ResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8720209D1D004662B1 /* ResourcePath.swift */; };
+		EA9F374F20219180008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
+		EA9F375020219180008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
+		EA9F375120219181008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
 		EAC18313201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
 		EAC18314201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
 		EAC18315201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
@@ -1104,11 +1110,13 @@
 				EA8A7F5F1FB18ACB00088163 /* RedirectionStatusCodeType.swift in Sources */,
 				EA8A7F971FB18ACB00088163 /* HttpResponse.swift in Sources */,
 				EA8A7FA71FB18ACB00088163 /* RequestService.swift in Sources */,
+				EA9F374D20219179008DEFF3 /* ResourcePath.swift in Sources */,
 				EA8A7F9F1FB18ACB00088163 /* HttpMethod.swift in Sources */,
 				EA8A7F931FB18ACB00088163 /* HttpFailureResponse.swift in Sources */,
 				EA8A7F631FB18ACB00088163 /* ServerErrorStatusCodeType.swift in Sources */,
 				EA8A7F371FB18ACB00088163 /* ApiHeader.swift in Sources */,
 				EA8A7FAB1FB18ACB00088163 /* RequestServiceConfiguration.swift in Sources */,
+				EA9F375020219180008DEFF3 /* FailableDecodable.swift in Sources */,
 				EA8A7F4B1FB18ACB00088163 /* ApiMethod.swift in Sources */,
 				EA8A7F731FB18ACB00088163 /* UnknownStatusCodeType.swift in Sources */,
 				EA8A7F531FB18ACB00088163 /* ApiService.swift in Sources */,
@@ -1144,6 +1152,7 @@
 				EA8A7FCA1FB18ACB00088163 /* RestService.swift in Sources */,
 				EA8A7F721FB18ACB00088163 /* UnknownStatusCodeType.swift in Sources */,
 				EA8A7FC61FB18ACB00088163 /* RestService+BackgroundEvents.swift in Sources */,
+				EA9F374F20219180008DEFF3 /* FailableDecodable.swift in Sources */,
 				EA8A7F921FB18ACB00088163 /* HttpFailureResponse.swift in Sources */,
 				EA8A7F7E1FB18ACB00088163 /* HttpDataRequest.swift in Sources */,
 				EA8A7FA21FB18ACB00088163 /* RequestService+BackgroundEvents.swift in Sources */,
@@ -1152,6 +1161,7 @@
 				EA8A7F3A1FB18ACB00088163 /* ApiRequest.swift in Sources */,
 				EA8A7FA61FB18ACB00088163 /* RequestService.swift in Sources */,
 				EA8A7F8E1FB18ACB00088163 /* HttpUploadRequest.swift in Sources */,
+				EA9F374C20219179008DEFF3 /* ResourcePath.swift in Sources */,
 				EA8A7F9A1FB18ACB00088163 /* ResponseAction.swift in Sources */,
 				EA8A7F661FB18ACB00088163 /* StatusCode.swift in Sources */,
 				EA8A7F6E1FB18ACB00088163 /* SuccessStatusCodeType.swift in Sources */,
@@ -1186,6 +1196,7 @@
 				EA8A7FCC1FB18ACB00088163 /* RestService.swift in Sources */,
 				EA8A7F741FB18ACB00088163 /* UnknownStatusCodeType.swift in Sources */,
 				EA8A7FC81FB18ACB00088163 /* RestService+BackgroundEvents.swift in Sources */,
+				EA9F375120219181008DEFF3 /* FailableDecodable.swift in Sources */,
 				EA8A7F941FB18ACB00088163 /* HttpFailureResponse.swift in Sources */,
 				EA8A7F801FB18ACB00088163 /* HttpDataRequest.swift in Sources */,
 				EA8A7FA41FB18ACB00088163 /* RequestService+BackgroundEvents.swift in Sources */,
@@ -1194,6 +1205,7 @@
 				EA8A7F3C1FB18ACB00088163 /* ApiRequest.swift in Sources */,
 				EA8A7FA81FB18ACB00088163 /* RequestService.swift in Sources */,
 				EA8A7F901FB18ACB00088163 /* HttpUploadRequest.swift in Sources */,
+				EA9F374E2021917A008DEFF3 /* ResourcePath.swift in Sources */,
 				EA8A7F9C1FB18ACB00088163 /* ResponseAction.swift in Sources */,
 				EA8A7F681FB18ACB00088163 /* StatusCode.swift in Sources */,
 				EA8A7F701FB18ACB00088163 /* SuccessStatusCodeType.swift in Sources */,

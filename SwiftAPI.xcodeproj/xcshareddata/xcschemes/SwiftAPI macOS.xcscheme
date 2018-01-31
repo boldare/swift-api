@@ -29,7 +29,36 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA93FE2E1E5EC42A00A82381"
+               BuildableName = "UnitTests iOS.xctest"
+               BlueprintName = "UnitTests iOS"
+               ReferencedContainer = "container:SwiftAPI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA93FEA21E5EC87500A82381"
+               BuildableName = "FunctionalTests iOS.xctest"
+               BlueprintName = "FunctionalTests iOS"
+               ReferencedContainer = "container:SwiftAPI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EAA0E18D1E5D9A7400A7AA3A"
+            BuildableName = "SwiftAPI.framework"
+            BlueprintName = "SwiftAPI macOS"
+            ReferencedContainer = "container:SwiftAPI.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
