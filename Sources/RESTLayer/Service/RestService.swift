@@ -292,11 +292,14 @@ private extension RestService {
 
     ///Merges `headerFields` with giver aditional `headers`.
     func apiHeaders(adding headers: [ApiHeader]?) -> [ApiHeader]? {
+        guard let headerFields = headerFields else {
+            return headers
+        }
         guard let headers = headers else {
             return headerFields
         }
         var mergedHeders = headerFields
-        mergedHeders?.append(contentsOf: headers)
+        mergedHeders.append(contentsOf: headers)
         return mergedHeders
     }
 
