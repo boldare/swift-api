@@ -12,7 +12,7 @@ import XCTest
 class RequestServiceTests: XCTestCase {
 
     func testConstructor() {
-        let service = RequestService(fileManager: FileCommander())
+        let service = RequestService(fileManager: DefaultFileManager())
 
         XCTAssertNotNil(service)
     }

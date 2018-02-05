@@ -1,5 +1,5 @@
 //
-//  FileManagerProtocol.swift
+//  FileManager.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 16.01.2017.
@@ -8,10 +8,7 @@
 
 import Foundation
 
-public protocol FileManagerProtocol {
-
-    ///Public class initializer
-    init()
+public protocol FileManager {
 
     /**
      Copies the file at the specified URL to a new location synchronously.

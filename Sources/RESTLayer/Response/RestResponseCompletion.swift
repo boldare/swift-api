@@ -11,15 +11,15 @@ import Foundation
 /**
  Closure called when api request is finished.
  - Parameters:
-   - resource: Resource returned from server if there is any.
-   - errorResponse: Error which occurred while processing request.
+   - data: Decoded data returned from server if there were any.
+   - error: Error which occurred while processing request or decoding response if there was any.
  */
-public typealias RestDataResponseCompletionHandler = (_ resource: RestDataResource, _ errorResponse: RestErrorResponse?) -> ()
+public typealias RestResponseCompletionHandler<ResponseType: Decodable> = (_ data: ResponseType?, _ error: Error?) -> ()
 
 /**
- Closure called when file request is finished.
+ Closure called when api request is finished.
  - Parameters:
-   - resource: Resource returned from server if there is any.
-   - errorResponse: Error which occurred while processing request.
+   - success: Flag indicates if request finished with success.
+   - error: Error which occurred while processing request if there was any.
  */
-public typealias RestFileResponseCompletionHandler = (_ resource: RestFileResource, _ errorResponse: RestErrorResponse?) -> ()
+public typealias RestSimpleResponseCompletionHandler = (_ success: Bool, _ error: Error?) -> ()

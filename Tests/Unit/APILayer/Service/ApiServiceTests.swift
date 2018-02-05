@@ -12,7 +12,7 @@ import XCTest
 class ApiServiceTests: XCTestCase {
 
     func testConstructor() {
-        let service = ApiService(fileManager: FileCommander())
+        let service = ApiService(fileManager: DefaultFileManager())
 
         XCTAssertNotNil(service)
     }

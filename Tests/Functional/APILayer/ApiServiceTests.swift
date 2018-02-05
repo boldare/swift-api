@@ -41,7 +41,7 @@ class ApiServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        apiService = ApiService(fileManager: FileCommander())
+        apiService = ApiService(fileManager: DefaultFileManager())
     }
 
     override func tearDown() {
@@ -242,7 +242,7 @@ extension ApiServiceTests {
     //MARK: Downloading tests
     func testDownloadFile() {
         let remoteResourceUrl = smallFileUrl
-        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let destinationUrl = documentsUrl
         let headers = exampleHeaders
 
         let responseExpectation = expectation(description: "Expect download response")
@@ -315,7 +315,7 @@ extension ApiServiceTests {
 
     func testDownloadRequest() {
         let remoteResourceUrl = smallFileUrl
-        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let destinationUrl = documentsUrl
         let headers = exampleHeaders
 
         let responseExpectation = expectation(description: "Expect download response")
@@ -363,7 +363,7 @@ extension ApiServiceTests {
 
     func testSuspendAndResume() {
         let remoteResourceUrl = smallFileUrl
-        let destinationUrl = documentsUrl.appendingPathComponent("file.jpg")
+        let destinationUrl = documentsUrl
 
         let responseExpectation = expectation(description: "Expect download response")
         var responseError: Error?

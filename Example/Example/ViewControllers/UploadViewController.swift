@@ -148,7 +148,7 @@ fileprivate extension UploadViewController {
 
     ///Completion handler for *restManager*.
     var restCompletionHandler: RestManagerFileCompletionHandler {
-        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
+        return {[weak self] (url: URL?, readableError: String?) in
             guard let strongSelf = self else {
                 return
             }
@@ -158,7 +158,7 @@ fileprivate extension UploadViewController {
             if let errorString = readableError {
                 strongSelf.display(errorString)
             } else {
-                strongSelf.display(resource?.readableDescription)
+                strongSelf.display("Success!")
             }
         }
     }

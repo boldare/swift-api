@@ -1,5 +1,5 @@
 //
-//  FileCommanderTests.swift
+//  DefaultFileManagerTests.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 19.01.2017.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import SwiftAPI
 
-class FileCommanderTests: XCTestCase {
+class DefaultFileManagerTests: XCTestCase {
 
     fileprivate var documentsUrl: URL {
         return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0], isDirectory: true)
@@ -20,25 +20,25 @@ class FileCommanderTests: XCTestCase {
     }
 
     var exampleDestination: URL {
-        return documentsUrl.appendingPathComponent("file.jpg")
+        return documentsUrl
     }
 
 
     func testCoppyFileWithSuccess() {
-        let commander = FileCommander()
+        let manager = DefaultFileManager()
         let source = imageURL
         let destination = exampleDestination
 
-        let error = commander.copyFile(from: source, to: destination)
+        let error = manager.copyFile(from: source, to: destination)
 
         XCTAssertNil(error)
     }
     
     func testCoppyFileWithError() {
-        let commander = FileCommander()
+        let manager = DefaultFileManager()
         let destination = exampleDestination
 
-        let error = commander.copyFile(from: destination, to: destination)
+        let error = manager.copyFile(from: destination, to: destination)
 
         XCTAssertNotNil(error)
     }
