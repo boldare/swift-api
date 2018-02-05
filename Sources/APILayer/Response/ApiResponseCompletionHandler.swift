@@ -15,7 +15,7 @@ extension ResponseAction {
     /**
      Creates success and failure action for single completion handler.
 
-     - Parameter completion: WebResponseCompletionHandler for which actions should be created.
+     - Parameter completion: ApiResponseCompletionHandler for which actions should be created.
 
      - Returns: Response anction for success and failure.
      */

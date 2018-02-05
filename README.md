@@ -27,6 +27,7 @@
 - Supports connection with REST and non-REST APIs
 - Introduces easy to use wrapper for status codes
 - Is available for iOS, macOS, watchOS and tvOS
+- Supports Codable protocol
 
 
 ## Installation
@@ -55,7 +56,7 @@ or RestService
 ```swift
 let rootURL = URL(string:"https://API.SERVER.ADDRESS.COM")
 let apiPath = "/v1.0"
-let restService = RestService(baseUrl: rootURL, apiPath: apiPath, headerFields: nil)
+let restService = RestService(baseUrl: rootURL, apiPath: apiPath)
 ```
 and now you can start sending requests.
 

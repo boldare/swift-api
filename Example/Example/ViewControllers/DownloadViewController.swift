@@ -138,7 +138,7 @@ fileprivate extension DownloadViewController {
 
     ///Completion handler for *restManager*.
     var restCompletionHandler: RestManagerFileCompletionHandler {
-        return {[weak self] (resource: SimpleFileResource?, readableError: String?) in
+        return {[weak self] (url: URL?, readableError: String?) in
             guard let strongSelf = self else {
                 return
             }
@@ -149,10 +149,10 @@ fileprivate extension DownloadViewController {
                 strongSelf.display(errorString)
             } else {
                 var image: UIImage?
-                if let imageUrl = resource?.location {
+                if let imageUrl = url {
                     image = UIImage(contentsOfFile: imageUrl.path)
                 }
-                strongSelf.display(resource?.readableDescription, and: image)
+                strongSelf.display("Success!", and: image)
             }
         }
     }

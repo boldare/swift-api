@@ -11,10 +11,10 @@ import Foundation
 protocol StatusCodeType: Equatable {
 
     ///Raw value of status code
-    var value: Int{get}
+    var value: Int { get }
 
     ///Human readable description of status code value
-    var description: String{get}
+    var description: String { get }
 
     /**
      Type initializer.

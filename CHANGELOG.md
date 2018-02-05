@@ -1,6 +1,7 @@
 # Change Log
 
 ## Upcoming
+- Added `Codable` protocol support.
 
 ## [v1.1.10](https://github.com/xsolve-pl/swift-api/tree/1.1.10) (2018-01-03)
 - Changed session queue to serial.

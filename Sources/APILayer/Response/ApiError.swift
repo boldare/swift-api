@@ -28,8 +28,8 @@ struct ApiError {
 
      - Parameter statusCode: StatusCode for which should be created Error.
      */
-    static func error(for statusCode: StatusCode) -> Error? {
-        if statusCode.isSuccess {
+    static func error(for statusCode: StatusCode?) -> Error? {
+        guard let statusCode = statusCode, !statusCode.isSuccess else {
             return nil
         }
         return errorWith(code: statusCode.rawValue * 10, description: statusCode.description)
