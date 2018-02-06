@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+
+## [v1.2.0](https://github.com/xsolve-pl/swift-api/tree/1.2.0) (2018-02-05)
 - Added `Codable` protocol support.
 
 ## [v1.1.10](https://github.com/xsolve-pl/swift-api/tree/1.1.10) (2018-01-03)
