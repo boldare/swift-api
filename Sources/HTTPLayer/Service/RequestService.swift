@@ -13,20 +13,20 @@ private struct SessionContainer {
     let session: URLSession
     private(set) var isValid: Bool
 
-    init(configuration: RequestServiceConfiguration, session: URLSession) {
+    init(configuration: RequestServiceConfiguration, delegate: URLSessionDelegate) {
         self.configuration = configuration
-        self.session = session
+        session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: delegate, delegateQueue: nil)
         isValid = true
     }
 
     mutating func finishTasksAndInvalidate() {
-        session.finishTasksAndInvalidate()
         isValid = false
+        session.finishTasksAndInvalidate()
     }
 
     mutating func invalidateAndCancel() {
-        session.invalidateAndCancel()
         isValid = false
+        session.invalidateAndCancel()
     }
 }
 
@@ -119,10 +119,9 @@ final class RequestService: NSObject {
                 completion(active.session)
                 return
             }
-            let session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: self, delegateQueue: nil)
-            let active = SessionContainer(configuration: configuration, session: session)
-            currentSessions.append(active)
-            completion(active.session)
+            let container = SessionContainer(configuration: configuration, delegate: self)
+            currentSessions.append(container)
+            completion(container.session)
         }
     }
 

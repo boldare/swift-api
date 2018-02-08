@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.2.1](https://github.com/xsolve-pl/swift-api/tree/1.2.1) (2018-02-08)
+- Added updating session flag before invalidating it, this should finally fix "Task created in a session that has been invalidated" error.
+
 ## [v1.2.0](https://github.com/xsolve-pl/swift-api/tree/1.2.0) (2018-02-05)
 - Added `Codable` protocol support.
 
