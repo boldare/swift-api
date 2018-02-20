@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+## [v1.2.2](https://github.com/xsolve-pl/swift-api/tree/1.2.2) (2018-02-20)
+- Removed initializer from `ResourcePath` protocol.
+- Added `prettyPrintedBody` property to `ApiResponse` to simplify response debugging.
+
 ## [v1.2.1](https://github.com/xsolve-pl/swift-api/tree/1.2.1) (2018-02-08)
 - Added updating session flag before invalidating it, this should finally fix "Task created in a session that has been invalidated" error.
 
