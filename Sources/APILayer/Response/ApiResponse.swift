@@ -56,4 +56,22 @@ public struct ApiResponse {
         self.body = response.body
         self.resourceUrl = response.resourceUrl
     }
+
+    ///Returns pretty printed JSON docoded from body.
+    public var prettyPrintedBody: String? {
+        guard let body = body else {
+            debugPrint("Body is nil.")
+            return nil
+        }
+        do {
+            guard let jsonObject = try JSONSerialization.jsonObject(with: body) as? [String: Any] else {
+                debugPrint("Body could not be read as dictionary.")
+                return nil
+            }
+            return String(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: .utf8)
+        } catch {
+            debugPrint(error.localizedDescription)
+            return nil
+        }
+    }
 }

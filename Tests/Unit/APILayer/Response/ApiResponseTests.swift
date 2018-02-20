@@ -32,4 +32,31 @@ class ApiResponseTests: XCTestCase {
         XCTAssertEqual(response?.expectedContentLength, -1)
         XCTAssertEqual(response?.body, data)
     }
+
+    func testPrettyPrinter() {
+        let data = "{ \"number\": 10}".data(using: .utf8)!
+        let httpResponse = HttpResponse(body: data)
+        let response = ApiResponse(httpResponse)
+
+        XCTAssertEqual(response?.body, data)
+        XCTAssertNotNil(response?.prettyPrintedBody)
+    }
+
+    func testPrettyPrinterFailure1() {
+        let url = URL(string:"https://www.google.com")!
+        let httpResponse = HttpResponse(resourceUrl: url)
+        let response = ApiResponse(httpResponse)
+
+        XCTAssertNil(response?.body)
+        XCTAssertNil(response?.prettyPrintedBody)
+    }
+
+    func testPrettyPrinterFailure2() {
+        let data = Data(count: 10)
+        let httpResponse = HttpResponse(body: data)
+        let response = ApiResponse(httpResponse)
+
+        XCTAssertEqual(response?.body, data)
+        XCTAssertNil(response?.prettyPrintedBody)
+    }
 }
