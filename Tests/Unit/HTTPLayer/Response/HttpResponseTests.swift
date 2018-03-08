@@ -1,5 +1,5 @@
 //
-//  HttpFailureResponseTests.swift
+//  HttpResponseTests.swift
 //  SwiftAPI
 //
 //  Created by Marek Kojder on 18.01.2017.

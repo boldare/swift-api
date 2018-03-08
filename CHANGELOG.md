@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+- Refactored `RequestService` and updated `URLSesion` management.
+- Fixed typos.
 
 ## [v1.2.2](https://github.com/xsolve-pl/swift-api/tree/1.2.2) (2018-02-20)
 - Removed initializer from `ResourcePath` protocol.
