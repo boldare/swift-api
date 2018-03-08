@@ -47,10 +47,19 @@ class HttpResponse {
     /**
      Creates object and sets its downloaded resource URL.
 
-     - Parameter resourceUrl: URP of downloaded resource.
+     - Parameter resourceUrl: URL of downloaded resource.
      */
     init(resourceUrl: URL) {
         self.expectedContentLength = -1
+        self.resourceUrl = resourceUrl
+    }
+
+    /**
+     Updates response with given resource URL.
+
+     - Parameter resourceUrl: URL of downloaded resource.
+     */
+    func update(with resourceUrl: URL) {
         self.resourceUrl = resourceUrl
     }
 

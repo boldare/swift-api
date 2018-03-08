@@ -28,21 +28,21 @@ public extension KeyedDecodingContainer {
      */
     public func decodeArray<T: Decodable>(of type: T.Type, forKey key: KeyedDecodingContainer.Key) throws -> (array: [T], failedCount: Int) {
         let decoded = try decode(ApiArray<T>.self, forKey: key)
-        if decoded.array.isEmpty, decoded.failedItemsCoint > 0 {
+        if decoded.array.isEmpty, decoded.failedItemsCount > 0 {
             throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: [key], debugDescription: "Parsing failed for all elements of array."))
         }
-        return (decoded.array, decoded.failedItemsCoint)
+        return (decoded.array, decoded.failedItemsCount)
     }
 }
 
 private struct ApiArray<T: Decodable>: Decodable {
     let array: [T]
-    let failedItemsCoint: Int
+    let failedItemsCount: Int
 
     init(from decoder: Decoder) throws {
         let dataArray = try [FailableData<T>](from: decoder)
         array = dataArray.flatMap({ $0.value })
-        failedItemsCoint = dataArray.filter({ $0.failed == true }).count
+        failedItemsCount = dataArray.filter({ $0.failed == true }).count
     }
 }
 

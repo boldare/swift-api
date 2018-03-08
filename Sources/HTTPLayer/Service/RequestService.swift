@@ -8,121 +8,22 @@
 
 import Foundation
 
-private struct SessionContainer {
-    let configuration: RequestServiceConfiguration
-    let session: URLSession
-    private(set) var isValid: Bool
-
-    init(configuration: RequestServiceConfiguration, delegate: URLSessionDelegate) {
-        self.configuration = configuration
-        session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: delegate, delegateQueue: nil)
-        isValid = true
-    }
-
-    mutating func finishTasksAndInvalidate() {
-        isValid = false
-        session.finishTasksAndInvalidate()
-    }
-
-    mutating func invalidateAndCancel() {
-        isValid = false
-        session.invalidateAndCancel()
-    }
-}
-
 final class RequestService: NSObject {
 
     private let fileManager: FileManager
 
-    private let sessionQueue = DispatchQueue(label: "SwiftAPI.RequestService.sessionQueue", qos: .background)
-
-    //MARK: - Handling multiple tasks
-    private var currentTasks = [URLSessionTask: (request: HttpRequest, response: HttpResponse?)]()
-
-    ///Sets request for current task
-    private func set(_ request: HttpRequest, for task: URLSessionTask) {
-        currentTasks[task] = (request, nil)
-    }
-
-    ///Sets response for current task but only when request already exists
-    @discardableResult
-    private func set(_ response: HttpResponse, for task: URLSessionTask) -> Bool {
-        guard var httpFunctions = currentTasks[task] else {
-            debugPrint("Cannod add response when there is no request!")
-            return false
-        }
-        httpFunctions.response = response
-        currentTasks[task] = httpFunctions
-        return true
-    }
-
-    ///Returns request for currently running task if exists.
-    private func request(for task: URLSessionTask) -> HttpRequest? {
-        return currentTasks[task]?.request
-    }
-
-    ///Returns response for currently running task if exists.
-    private func response(for task: URLSessionTask) -> HttpResponse? {
-        return currentTasks[task]?.response
-    }
-
-    ///Returns request and response for currently running task if exists.
-    private func httpFunctions(for task: URLSessionTask) -> (request: HttpRequest, response: HttpResponse?)? {
-        return currentTasks[task]
-    }
-
-    ///Returns all currently running task with given request.
-    private func tasks(for request: HttpRequest) -> [URLSessionTask] {
-        return currentTasks.filter{ return $0.value.request == request }.flatMap({ return $0.key })
-    }
-
-    ///Returns all currently running task with given request.
-    private var allTasks: [URLSessionTask] {
-        return currentTasks.flatMap({ return $0.key })
-    }
-
-    ///Removes given task from queue.
-    private func remove(_ task: URLSessionTask) {
-        currentTasks.removeValue(forKey: task)
-
-        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
-        if currentTasks.isEmpty {
-            sessionQueue.sync {
-                for var session in currentSessions {
-                    session.finishTasksAndInvalidate()
-                }
-            }
-        }
-    }
-
-    ///Removes all tasks from queue.
-    private func cancelAllTasks() {
-        for task in allTasks {
-            task.cancel()
-        }
-
-        //If there is no working task, we need to invalidate all sessions to break strong reference with delegate
-        sessionQueue.sync {
-            for var session in currentSessions {
-                session.invalidateAndCancel()
-            }
-        }
-    }
-
     //MARK: - Handling multiple sessions
-    private var currentSessions = [SessionContainer]()
+    private var activeSessions = [RequestServiceConfiguration: SessionService]()
 
     ///Returns URLSession for given configuration. If session does not exist, it creates one.
-    private func session(for configuration: RequestServiceConfiguration, completion: @escaping (URLSession) -> Void) {
-        sessionQueue.sync {
-            if let active = currentSessions.first(where: { $0.configuration == configuration }), active.isValid {
-                completion(active.session)
-                return
-            }
-            let container = SessionContainer(configuration: configuration, delegate: self)
-            currentSessions.append(container)
-            completion(container.session)
+    private func activeSession(for configuration: RequestServiceConfiguration) -> SessionService {
+        if let session = activeSessions[configuration], session.isValid {
+            return session
         }
+        activeSessions.removeValue(forKey: configuration)
+        let service = SessionService(configuration: configuration)
+        activeSessions[configuration] = service
+        return service
     }
 
     //MARK: - Handling background sessions
@@ -134,10 +35,15 @@ final class RequestService: NSObject {
     init(fileManager: FileManager) {
         self.fileManager = fileManager
     }
+
+    deinit {
+        activeSessions.forEach { $0.value.invalidateAndCancel() }
+    }
 }
 
 //MARK: - Managing requests
 extension RequestService {
+
     /**
      Sends given HTTP request.
 
@@ -148,13 +54,8 @@ extension RequestService {
      HttpDataRequest may run only with foreground configuration.
      */
     func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
-        session(for: configuration) { [weak self] (session) in
-            let task = session.dataTask(with: request.urlRequest)
-            self?.set(request, for: task)
-            DispatchQueue.global().async {
-                task.resume()
-            }
-        }
+        let session = activeSession(for: configuration)
+        session.data(request: request.urlRequest, progress: progress(for: request), success: success(for: request), failure: failure(for: request))
     }
 
     /**
@@ -165,13 +66,8 @@ extension RequestService {
        - configuration: RequestServiceConfiguration indicates upload request configuration.
      */
     func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
-        session(for: configuration) { [weak self] (session) in
-            let task = session.uploadTask(with: request.urlRequest, fromFile: request.resourceUrl)
-            self?.set(request, for: task)
-            DispatchQueue.global().async {
-                task.resume()
-            }
-        }
+        let session = activeSession(for: configuration)
+        session.upload(request: request.urlRequest, file: request.resourceUrl, progress: progress(for: request), success: success(for: request), failure: failure(for: request))
     }
 
     /**
@@ -182,13 +78,8 @@ extension RequestService {
        - configuration: RequestServiceConfiguration indicates download request configuration.
      */
     func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
-        session(for: configuration) { [weak self] (session) in
-            let task = session.downloadTask(with: request.urlRequest)
-            self?.set(request, for: task)
-            DispatchQueue.global().async {
-                task.resume()
-            }
-        }
+        let session = activeSession(for: configuration)
+        session.download(request: request.urlRequest, progress: progress(for: request), success: success(forDownload: request), failure: failure(for: request))
     }
 
     /**
@@ -197,9 +88,7 @@ extension RequestService {
      - Parameter request: An HttpUploadRequest to suspend.
      */
     func suspend(_ request: HttpRequest) {
-        for task in tasks(for: request) {
-            task.suspend()
-        }
+        activeSessions.forEach{ $0.value.suspend(request.urlRequest) }
         request.progress?.pause()
     }
 
@@ -210,9 +99,7 @@ extension RequestService {
      */
     @available(iOS 9.0, OSX 10.11, *)
     func resume(_ request: HttpRequest) {
-        for task in tasks(for: request) {
-            task.resume()
-        }
+        activeSessions.forEach{ $0.value.resume(request.urlRequest) }
         request.progress?.resume()
     }
 
@@ -222,116 +109,47 @@ extension RequestService {
      - Parameter request: An HttpUploadRequest to cancel.
      */
     func cancel(_ request: HttpRequest) {
-        for task in tasks(for: request) {
-            task.cancel()
-        }
+        activeSessions.forEach{ $0.value.cancel(request.urlRequest) }
         request.progress?.cancel()
     }
 
     ///Cancels all currently running HTTP requests.
     func cancelAllRequests() {
-        cancelAllTasks()
+        activeSessions.forEach{ $0.value.cancelAllRequests() }
     }
 }
 
-extension RequestService: URLSessionDelegate {
+private extension RequestService {
 
-    //Informs that finishTasksAndInvalidate() or invalidateAndCancel() method was call on session object.
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        sessionQueue.sync {
-            let indexes = currentSessions.enumerated().flatMap { index, container in
-                return container.session == session ? index : nil
+    func progress(for request: HttpRequest) -> SessionServiceProgressHandler {
+        return { (totalBytesProcessed, totalBytesExpectedToProcess) in
+            request.progress?.completedUnitCount = totalBytesProcessed
+            request.progress?.totalUnitCount = totalBytesExpectedToProcess
+        }
+    }
+
+    func success(for request: HttpRequest) -> SessionServiceSuccessHandler {
+        return { (response) in
+            request.successAction?.perform(with: response)
+        }
+    }
+
+    func success(forDownload request: HttpDownloadRequest) -> SessionServiceSuccessHandler {
+        return { [weak self] (response) in
+            if let location = response.resourceUrl {
+                if let error = self?.fileManager.copyFile(from: location, to: request.destinationUrl) {
+                    request.failureAction?.perform(with: error)
+                    return
+                }
+                response.update(with: request.destinationUrl)
             }
-            for index in indexes {
-                currentSessions.remove(at: index)
-            }
-        }
-    }
-}
-
-extension RequestService: URLSessionTaskDelegate {
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-        guard let request = request(for: task) else {
-            return
-        }
-        request.progress?.totalUnitCount = totalBytesExpectedToSend
-        request.progress?.completedUnitCount = totalBytesSent
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let (request, response) = httpFunctions(for: task) else {
-            return
-        }
-        if let error = error ?? (response as? HttpFailureResponse)?.error {
-            //Action should run on other thread to not block delegate.
-            DispatchQueue.global(qos: .background).async {
-                request.failureAction?.perform(with: error)
-            }
-        } else {
-            if let taskResponse = task.response {
-                response?.update(with: taskResponse)
-            }
-            //Action should run on other thread to not block delegate.
-            DispatchQueue.global(qos: .background).async {
-                request.successAction?.perform(with: response)
-            }
-        }
-        remove(task)
-    }
-}
-
-extension RequestService: URLSessionDataDelegate {
-
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler completion: @escaping (URLSession.ResponseDisposition) -> Void) {
-        var httpResponse: HttpResponse
-        if let resp = self.response(for: dataTask) {
-            httpResponse = resp
-            httpResponse.update(with: response)
-        } else {
-            httpResponse = HttpResponse(urlResponse: response)
-        }
-
-        if set(httpResponse, for: dataTask) {
-            completion(.allow)
-        } else {
-            completion(.cancel)
+            request.successAction?.perform(with: response)
         }
     }
 
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        if let response = response(for: dataTask) {
-            response.appendBody(data)
-        } else {
-            let response = HttpResponse(body: data)
-            set(response, for: dataTask)
+    func failure(for request: HttpRequest) -> SessionServiceFailureHandler {
+        return { (error) in
+            request.failureAction?.perform(with: error)
         }
-    }
-}
-
-extension RequestService: URLSessionDownloadDelegate {
-
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        guard let (httpRequest, httpResponse) = httpFunctions(for: downloadTask), let request = httpRequest as? HttpDownloadRequest else {
-            return
-        }
-
-        var response: HttpResponse
-        if let error = fileManager.copyFile(from: location, to: request.destinationUrl) {
-            response = HttpFailureResponse(url: request.url, error: error)
-        } else if let resp = httpResponse {
-            response = resp
-        } else {
-            response = HttpResponse(resourceUrl: request.destinationUrl)
-        }
-        set(response, for: downloadTask)
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        guard let request = request(for: downloadTask) else {
-            return
-        }
-        request.progress?.totalUnitCount = totalBytesExpectedToWrite
-        request.progress?.completedUnitCount = totalBytesWritten
     }
 }
