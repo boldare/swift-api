@@ -68,7 +68,7 @@ public struct ApiResponse {
                 debugPrint("Body could not be read as dictionary.")
                 return nil
             }
-            return String(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: .utf8)
+            return NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) as String?
         } catch {
             debugPrint(error.localizedDescription)
             return nil
