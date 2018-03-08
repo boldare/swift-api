@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SwiftAPI"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
   s.summary      = "Simple networking library based on URLSession with REST API support."
   s.description  = "SwiftAPI is simple networking library created by XSolve which allows easy connection with server out of the box. It's written in Swift 4, using URLSession for managing requests."
   s.homepage     = "https://github.com/xsolve-pl/swift-api"

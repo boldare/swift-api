@@ -1,6 +1,8 @@
 # Change Log
 
 ## Upcoming
+
+## [v1.2.3](https://github.com/xsolve-pl/swift-api/tree/1.2.3) (2018-03-08)
 - Refactored `RequestService` and updated `URLSesion` management.
 - Fixed typos.
 
