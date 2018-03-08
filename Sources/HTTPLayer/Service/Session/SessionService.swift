@@ -13,16 +13,6 @@ final class SessionService: NSObject {
     private var session: URLSession!
     private var activeCalls = [URLSessionTask: HttpCall]()
 
-    private var invalidSessionError: Error {
-        let description = "Attempted to create task in a session that has been invalidated."
-        return NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: [NSLocalizedDescriptionKey : description])
-    }
-
-    private var lostReferenceError: Error {
-        let description = "Lost reference to self."
-        return NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: [NSLocalizedDescriptionKey : description])
-    }
-
     init(configuration: RequestServiceConfiguration) {
         super.init()
         self.session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: self, delegateQueue: nil)
@@ -35,60 +25,85 @@ final class SessionService: NSObject {
 
 extension SessionService {
 
+    /**
+     Sends given URLRequest.
+
+     - Parameters:
+       - request: An URLRequest object to send in download task.
+       - progress: Block for hangling request progress.
+       - success: Block for hangling request success.
+       - failure: Block for hangling request failure.
+     */
     func data(request: URLRequest, progress: @escaping SessionServiceProgressHandler, success: @escaping SessionServiceSuccessHandler, failure: @escaping SessionServiceFailureHandler) {
-        sessionQueue.sync { [weak self] in
-            guard let strongSelf = self else {
-                failure(invalidSessionError)
-                return
-            }
-            guard strongSelf.isValid else {
-                failure(lostReferenceError)
-                return
-            }
-            let task = strongSelf.session.dataTask(with: request)
-            strongSelf.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
+        performInSesionQueue(failure: failure) { [unowned self] in
+            let task = self.session.dataTask(with: request)
+            self.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
             DispatchQueue.global().async {
                 task.resume()
             }
         }
     }
 
+    /**
+     Sends given URLRequest.
+
+     - Parameters:
+       - request: An URLRequest object to send in download task.
+       - progress: Block for hangling request progress.
+       - success: Block for hangling request success.
+       - failure: Block for hangling request failure.
+     */
     func upload(request: URLRequest, file: URL, progress: @escaping SessionServiceProgressHandler, success: @escaping SessionServiceSuccessHandler, failure: @escaping SessionServiceFailureHandler) {
-        sessionQueue.sync { [weak self] in
-            guard let strongSelf = self else {
-                failure(invalidSessionError)
-                return
-            }
-            guard strongSelf.isValid else {
-                failure(lostReferenceError)
-                return
-            }
-            let task = strongSelf.session.uploadTask(with: request, fromFile: file)
-            strongSelf.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
+        performInSesionQueue(failure: failure) { [unowned self] in
+            let task = self.session.uploadTask(with: request, fromFile: file)
+            self.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
             DispatchQueue.global().async {
                 task.resume()
             }
         }
     }
 
+    /**
+     Sends given URLRequest.
+
+     - Parameters:
+       - request: An URLRequest object to send in download task.
+       - progress: Block for hangling request progress.
+       - success: Block for hangling request success.
+       - failure: Block for hangling request failure.
+     */
     func download(request: URLRequest, progress: @escaping SessionServiceProgressHandler, success: @escaping SessionServiceSuccessHandler, failure: @escaping SessionServiceFailureHandler) {
-        sessionQueue.sync { [weak self] in
-            guard let strongSelf = self else {
-                failure(invalidSessionError)
-                return
-            }
-            guard strongSelf.isValid else {
-                failure(lostReferenceError)
-                return
-            }
-            let task = strongSelf.session.downloadTask(with: request)
-            strongSelf.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
+        performInSesionQueue(failure: failure) { [unowned self] in
+            let task = self.session.downloadTask(with: request)
+            self.activeCalls[task] = HttpCall(progressBlock: progress, successBlock: success, failureBlock: failure)
             DispatchQueue.global().async {
                 task.resume()
             }
         }
     }
 
+    ///Validates self and performs given block in session queue.
+    private func performInSesionQueue(failure: @escaping SessionServiceFailureHandler, block: () -> Void) {
+        sessionQueue.sync { [weak self] in
+            guard let strongSelf = self else {
+                let description = "Attempted to create task in a session that has been invalidated."
+                failure(NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: [NSLocalizedDescriptionKey : description]))
+                return
+            }
+            guard strongSelf.isValid else {
+                let description = "Lost reference to self."
+                failure(NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: [NSLocalizedDescriptionKey : description]))
+                return
+            }
+            block()
+        }
+    }
+
+    /**
+     Temporarily suspends given HTTP request.
+
+     - Parameter request: An URLRequest to suspend.
+     */
     func suspend(_ request: URLRequest) {
         activeCalls.forEach { (task, _) in
             guard task.currentRequest == request else { return }
@@ -96,6 +111,11 @@ extension SessionService {
         }
     }
 
+    /**
+     Resumes given HTTP request, if it is suspended.
+
+     - Parameter request: An URLRequest to resume.
+     */
     @available(iOS 9.0, OSX 10.11, *)
     func resume(_ request: URLRequest) {
         activeCalls.forEach { (task, _) in
@@ -104,6 +124,11 @@ extension SessionService {
         }
     }
 
+    /**
+     Cancels given HTTP request.
+
+     - Parameter request: An URLRequest to cancel.
+     */
     func cancel(_ request: URLRequest) {
         activeCalls.forEach { (task, _) in
             guard task.currentRequest == request else { return }
@@ -111,10 +136,12 @@ extension SessionService {
         }
     }
 
+    ///Cancels all currently running HTTP requests.
     func cancelAllRequests() {
         activeCalls.forEach { $0.key.cancel() }
     }
 
+    ///Cancels all currently running HTTP requests and invalidates session.
     func invalidateAndCancel() {
         sessionQueue.sync { [weak self] in
             self?.isValid = false

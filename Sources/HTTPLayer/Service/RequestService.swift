@@ -85,7 +85,7 @@ extension RequestService {
     /**
      Temporarily suspends given HTTP request.
 
-     - Parameter request: An HttpUploadRequest to suspend.
+     - Parameter request: An HttpRequest to suspend.
      */
     func suspend(_ request: HttpRequest) {
         activeSessions.forEach{ $0.value.suspend(request.urlRequest) }
@@ -95,7 +95,7 @@ extension RequestService {
     /**
      Resumes given HTTP request, if it is suspended.
 
-     - Parameter request: An HttpUploadRequest to resume.
+     - Parameter request: An HttpRequest to resume.
      */
     @available(iOS 9.0, OSX 10.11, *)
     func resume(_ request: HttpRequest) {
@@ -106,7 +106,7 @@ extension RequestService {
     /**
      Cancels given HTTP request.
 
-     - Parameter request: An HttpUploadRequest to cancel.
+     - Parameter request: An HttpRequest to cancel.
      */
     func cancel(_ request: HttpRequest) {
         activeSessions.forEach{ $0.value.cancel(request.urlRequest) }
@@ -121,6 +121,7 @@ extension RequestService {
 
 private extension RequestService {
 
+    ///Creates progress block for given request
     func progress(for request: HttpRequest) -> SessionServiceProgressHandler {
         return { (totalBytesProcessed, totalBytesExpectedToProcess) in
             request.progress?.completedUnitCount = totalBytesProcessed
@@ -128,12 +129,14 @@ private extension RequestService {
         }
     }
 
+    ///Creates success block for given request
     func success(for request: HttpRequest) -> SessionServiceSuccessHandler {
         return { (response) in
             request.successAction?.perform(with: response)
         }
     }
 
+    ///Creates success block for given download request
     func success(forDownload request: HttpDownloadRequest) -> SessionServiceSuccessHandler {
         return { [weak self] (response) in
             if let location = response.resourceUrl {
@@ -147,6 +150,7 @@ private extension RequestService {
         }
     }
 
+    ///Creates failure block for given request
     func failure(for request: HttpRequest) -> SessionServiceFailureHandler {
         return { (error) in
             request.failureAction?.perform(with: error)

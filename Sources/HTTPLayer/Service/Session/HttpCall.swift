@@ -45,11 +45,11 @@ final class HttpCall {
         }
     }
 
-    func update(with url: URL) {
+    func update(with resourceUrl: URL) {
         if response == nil {
-            response = HttpResponse(resourceUrl: url)
+            response = HttpResponse(resourceUrl: resourceUrl)
         } else {
-            response?.update(with: url)
+            response?.update(with: resourceUrl)
         }
     }
 

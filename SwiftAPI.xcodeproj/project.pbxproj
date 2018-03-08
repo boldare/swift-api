@@ -187,6 +187,7 @@
 		EABDA7B620513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
 		EABDA7B720513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
 		EABDA7B820513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
+		EABDA7BA20515B210019DE47 /* HttpCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B920515B210019DE47 /* HttpCallTests.swift */; };
 		EAC18313201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
 		EAC18314201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
 		EAC18315201B6E5500767037 /* CoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC18312201B6E5500767037 /* CoderProvider.swift */; };
@@ -301,6 +302,7 @@
 		EAA0E2AA1E5DC4AA00A7AA3A /* SwiftAPI-beta.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "SwiftAPI-beta.podspec"; sourceTree = "<group>"; };
 		EAA0E2AB1E5DC4AA00A7AA3A /* SwiftAPI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftAPI.podspec; sourceTree = "<group>"; };
 		EABDA7B420513E950019DE47 /* HttpCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpCall.swift; sourceTree = "<group>"; };
+		EABDA7B920515B210019DE47 /* HttpCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpCallTests.swift; sourceTree = "<group>"; };
 		EAC18312201B6E5500767037 /* CoderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoderProvider.swift; sourceTree = "<group>"; };
 		FBAA4505EBDB06395103B642 /* Pods-SwiftAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -523,6 +525,7 @@
 		EA8A7F141FB18ACB00088163 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				EA8A7F1F1FB18ACB00088163 /* HttpMethod.swift */,
 				EA8A7F171FB18ACB00088163 /* HttpHeader.swift */,
 				EA8A7F181FB18ACB00088163 /* HttpRequest.swift */,
 				EA8A7F151FB18ACB00088163 /* HttpDataRequest.swift */,
@@ -545,7 +548,6 @@
 			isa = PBXGroup;
 			children = (
 				EABDA7B320513E740019DE47 /* Session */,
-				EA8A7F1F1FB18ACB00088163 /* HttpMethod.swift */,
 				EA8A7F221FB18ACB00088163 /* RequestServiceConfiguration.swift */,
 				EA8A7F211FB18ACB00088163 /* RequestService.swift */,
 				EA8A7F201FB18ACB00088163 /* RequestService+BackgroundEvents.swift */,
@@ -705,6 +707,7 @@
 		EA93FE591E5EC4C700A82381 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EABDA7B920515B210019DE47 /* HttpCallTests.swift */,
 				EA93FE5A1E5EC4C700A82381 /* RequestServiceConfigurationTests.swift */,
 				EA93FE5B1E5EC4C700A82381 /* RequestServiceTests.swift */,
 			);
@@ -1082,6 +1085,7 @@
 				EA93FE891E5EC65D00A82381 /* ClientErrorStatusCodeTypeTests.swift in Sources */,
 				EA93FE981E5EC69300A82381 /* ResponseActionTests.swift in Sources */,
 				EA93FE8C1E5EC66700A82381 /* StatusCodeTests.swift in Sources */,
+				EABDA7BA20515B210019DE47 /* HttpCallTests.swift in Sources */,
 				EA93FE941E5EC68500A82381 /* HttpUploadRequestTests.swift in Sources */,
 				EA93FE991E5EC69700A82381 /* RequestServiceConfigurationTests.swift in Sources */,
 				EA93FE931E5EC68200A82381 /* HttpDataRequestTests.swift in Sources */,
