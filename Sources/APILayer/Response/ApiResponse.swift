@@ -58,7 +58,7 @@ public struct ApiResponse {
     }
 
     ///Returns pretty printed JSON docoded from body.
-    public var prettyPrintedBody: String? {
+    public var prettyPrintedBody: NSString? {
         guard let body = body else {
             debugPrint("Body is nil.")
             return nil
@@ -68,7 +68,7 @@ public struct ApiResponse {
                 debugPrint("Body could not be read as dictionary.")
                 return nil
             }
-            return NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) as String?
+            return NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue)!
         } catch {
             debugPrint(error.localizedDescription)
             return nil
