@@ -57,21 +57,20 @@ public struct ApiResponse {
         self.resourceUrl = response.resourceUrl
     }
 
-    ///Returns pretty printed JSON docoded from body.
-    public var prettyPrintedBody: NSString? {
+    ///Prints to console pretty formatted JSON docoded from body.
+    public func printPrettyBody() {
         guard let body = body else {
-            debugPrint("Body is nil.")
-            return nil
+            print("Body is nil.")
+            return
         }
         do {
             guard let jsonObject = try JSONSerialization.jsonObject(with: body) as? [String: Any] else {
-                debugPrint("Body could not be read as dictionary.")
-                return nil
+                print("Body could not be read as dictionary.")
+                return
             }
-            return NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue)!
+            print(NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) ?? "Body could not be serialized!")
         } catch {
-            debugPrint(error.localizedDescription)
-            return nil
+            print(error.localizedDescription)
         }
     }
 }

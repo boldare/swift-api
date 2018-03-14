@@ -39,7 +39,6 @@ class ApiResponseTests: XCTestCase {
         let response = ApiResponse(httpResponse)
 
         XCTAssertEqual(response?.body, data)
-        XCTAssertNotNil(response?.prettyPrintedBody)
     }
 
     func testPrettyPrinterFailure1() {
@@ -48,7 +47,6 @@ class ApiResponseTests: XCTestCase {
         let response = ApiResponse(httpResponse)
 
         XCTAssertNil(response?.body)
-        XCTAssertNil(response?.prettyPrintedBody)
     }
 
     func testPrettyPrinterFailure2() {
@@ -57,6 +55,5 @@ class ApiResponseTests: XCTestCase {
         let response = ApiResponse(httpResponse)
 
         XCTAssertEqual(response?.body, data)
-        XCTAssertNil(response?.prettyPrintedBody)
     }
 }
