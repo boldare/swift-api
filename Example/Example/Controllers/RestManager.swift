@@ -46,7 +46,7 @@ struct RequestData: Codable {
     let value2: String
 }
 
-private enum Path: String, ResourcePath {
+fileprivate enum Path: String, ResourcePath {
     case get
     case post
     case patch
@@ -163,7 +163,7 @@ fileprivate extension RestManager {
 
     ///Example Basic Auth header.
     var authHeader: [ApiHeader]? {
-        if let header = ApiHeader(login: "admin", password: "admin1") {
+        if let header = ApiHeader.Authorization.basic(login: "admin", password: "admin1") {
             return [header]
         }
         return nil
