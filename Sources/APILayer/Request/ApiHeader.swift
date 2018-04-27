@@ -35,12 +35,79 @@ public struct ApiHeader {
 
      - Returns: Ready to use Basic Auth header, or nil when credentials encoding went wrong.
      */
+    @available(*, deprecated, message: "Use Authorization.basic(login:password:) enum instad.")
     public init?(login: String, password: String) {
         guard let credentials = "\(login):\(password)".data(using: .utf8)?.base64EncodedString(options: .init(rawValue: 0)) else {
             return nil
         }
         self.name = "Authorization"
         self.value = "Basic \(credentials)"
+    }
+}
+
+extension ApiHeader {
+
+    public enum Authorization {
+
+        private static let name = "Authorization"
+
+        /**
+         Creates authorization header.
+
+         - Parameters:
+           - value: String value of authorizaton header.
+
+         - Returns: Ready to use Authorization header with given value.
+         */
+        static func with(_ value: String) -> ApiHeader {
+            return ApiHeader(name: name, value: value)
+        }
+
+        /**
+         Creates Basic Auth header.
+
+         - Parameters:
+           - login: String which should be used as login while authorizaton.
+           - password: String which should be used as password while authorizaton.
+
+         - Returns: Ready to use Basic Auth header, or nil when credentials encoding went wrong.
+         */
+        static func basic(login: String, password: String) -> ApiHeader? {
+            guard let credentials = "\(login):\(password)".data(using: .utf8)?.base64EncodedString(options: .init(rawValue: 0)) else {
+                return nil
+            }
+            return ApiHeader(name: name, value: "Basic \(credentials)")
+        }
+    }
+
+    public enum ContentType {
+
+        private static let name = "Content-Type"
+
+        ///*Content-Type: text/plain* api header.
+        static var plainText: ApiHeader {
+            return ApiHeader(name: name, value: "text/plain")
+        }
+
+        ///*Content-Type: application/json* api header.
+        static var json: ApiHeader {
+            return ApiHeader(name: name, value: "application/json")
+        }
+
+        ///*Content-Type: application/x-www-form-urlencoded* api header.
+        static var urlEncoded: ApiHeader {
+            return ApiHeader(name: name, value: "application/x-www-form-urlencoded")
+        }
+
+        /**
+         - Parameters:
+           - boundary: Custom boundary to be used in header.
+
+         - Returns: *Content-Type: multipart/form-data* header with given boundary.
+         */
+        static func multipart(with boundary: String) -> ApiHeader {
+            return ApiHeader(name: name, value: "multipart/form-data; boundary=\(boundary)")
+        }
     }
 }
 
