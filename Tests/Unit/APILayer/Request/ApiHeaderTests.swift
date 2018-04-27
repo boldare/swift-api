@@ -41,7 +41,7 @@ class ApiHeaderTests: XCTestCase {
         XCTAssertTrue(header.value == httpHeader.value)
     }
 
-    func testBasicAuthHeader() {
+    func testBasicAuthConstructorHeader() {
         let login = "admin"
         let password = "admin1"
         let header = ApiHeader(login: login, password: password)
@@ -49,5 +49,52 @@ class ApiHeaderTests: XCTestCase {
 
         XCTAssertEqual(header?.name, "Authorization")
         XCTAssertEqual(header?.value, "Basic \(credentials!)")
+    }
+
+    func testBasicAuthHeader() {
+        let login = "admin"
+        let password = "admin1"
+        let header = ApiHeader.Authorization.basic(login: login, password: password)
+        let credentials = "\(login):\(password)".data(using: .utf8)?.base64EncodedString(options: .init(rawValue: 0))
+
+        XCTAssertEqual(header?.name, "Authorization")
+        XCTAssertEqual(header?.value, "Basic \(credentials!)")
+    }
+
+    func testCustomAuthHeader() {
+        let value = "32f45b55nynh6u6n7j6j786b47ub67jb67jb5"
+        let header = ApiHeader.Authorization.with(value)
+
+        XCTAssertEqual(header.name, "Authorization")
+        XCTAssertEqual(header.value, value)
+    }
+
+    func testPlainTextHeader() {
+        let header = ApiHeader.ContentType.plainText
+
+        XCTAssertEqual(header.name, "Content-Type")
+        XCTAssertEqual(header.value, "text/plain")
+    }
+
+    func testJsonHeader() {
+        let header = ApiHeader.ContentType.json
+
+        XCTAssertEqual(header.name, "Content-Type")
+        XCTAssertEqual(header.value, "application/json")
+    }
+
+    func testUrlEncodedHeader() {
+        let header = ApiHeader.ContentType.urlEncoded
+
+        XCTAssertEqual(header.name, "Content-Type")
+        XCTAssertEqual(header.value, "application/x-www-form-urlencoded")
+    }
+
+    func testMultipartHeader() {
+        let boundary = "v867fvi82374nr347by57t0234tb2"
+        let header = ApiHeader.ContentType.multipart(with: boundary)
+
+        XCTAssertEqual(header.name, "Content-Type")
+        XCTAssertEqual(header.value, "multipart/form-data; boundary=\(boundary)")
     }
 }
