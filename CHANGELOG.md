@@ -3,7 +3,7 @@
 ## Upcoming
 
 ## [v1.3.0](https://github.com/xsolve-pl/swift-api/tree/1.3.0) (2018-04-27)
-- Added predefined api geaders.
+- Added predefined api headers.
 - Migrated to swift 4.1
 
 ## [v1.2.3](https://github.com/xsolve-pl/swift-api/tree/1.2.3) (2018-03-08)
