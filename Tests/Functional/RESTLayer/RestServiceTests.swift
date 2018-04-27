@@ -8,15 +8,15 @@
 import XCTest
 @testable import SwiftAPI
 
-private struct ExampleData: Codable {
+struct ExampleData: Codable {
     let url: URL
 }
 
-private struct ExampleFailData: Codable {
+struct ExampleFailData: Codable {
     let notExistingProperty: Int
 }
 
-private enum ExamplePath: String, ResourcePath {
+enum ExamplePath: String, ResourcePath {
     case get
     case post
     case patch
@@ -55,7 +55,7 @@ class RestServiceTests: XCTestCase {
     }
 
     private var exampleAuthHeader: [ApiHeader] {
-        return [ApiHeader(login: "admin", password: "admin1")!]
+        return [ApiHeader.Authorization.basic(login: "admin", password: "admin1")!]
     }
 
     private func log(_ error: Error?, for path: ResourcePath, and resource: Codable? = nil) {
