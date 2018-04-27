@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/cocoapods/p/SwiftAPI.svg?style=flat" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI">
-    <img src="https://img.shields.io/badge/swift-4.0-brightgreen.svg" />
+    <img src="https://img.shields.io/badge/swift-4.1-brightgreen.svg" />
   </a>
   <a href="http://cocoapods.org/pods/SwiftAPI" target="blank">
     <img src="https://img.shields.io/cocoapods/l/SwiftAPI.svg?style=flat" />
