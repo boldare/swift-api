@@ -134,13 +134,13 @@ fileprivate extension ApiManager {
     }
 
     ///Example custom configuration
-    var customConfiguration: RequestServiceConfiguration {
+    var customConfiguration: ApiService.Configuration {
         let sessionConfigutration = URLSessionConfiguration.default
         sessionConfigutration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         sessionConfigutration.timeoutIntervalForRequest = 100
         sessionConfigutration.timeoutIntervalForResource = 3600
 
-        return RequestServiceConfiguration.custom(with: sessionConfigutration)
+        return ApiService.Configuration.custom(sessionConfigutration)
     }
 
     ///Example JSON body converted to *Data* object.

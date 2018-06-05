@@ -13,10 +13,10 @@ final class RequestService: NSObject {
     private let fileManager: FileManager
 
     //MARK: - Handling multiple sessions
-    private var activeSessions = [RequestServiceConfiguration: SessionService]()
+    private var activeSessions = [Configuration: SessionService]()
 
     ///Returns URLSession for given configuration. If session does not exist, it creates one.
-    private func activeSession(for configuration: RequestServiceConfiguration) -> SessionService {
+    private func activeSession(for configuration: Configuration) -> SessionService {
         if let session = activeSessions[configuration], session.isValid {
             return session
         }
@@ -49,11 +49,11 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpDataRequest object provides request-specific information such as the URL, HTTP method or body data.
-       - configuration: RequestServiceConfiguration indicates request configuration.
+       - configuration: RequestService.Configuration indicates request configuration.
 
      HttpDataRequest may run only with foreground configuration.
      */
-    func sendHTTPRequest(_ request: HttpDataRequest, with configuration: RequestServiceConfiguration = .foreground) {
+    func sendHTTPRequest(_ request: HttpDataRequest, with configuration: Configuration = .foreground) {
         let session = activeSession(for: configuration)
         session.data(request: request.urlRequest, progress: progress(for: request), success: success(for: request), failure: failure(for: request))
     }
@@ -63,9 +63,9 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the file to upload.
-       - configuration: RequestServiceConfiguration indicates upload request configuration.
+       - configuration: RequestService.Configuration indicates upload request configuration.
      */
-    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpUploadRequest, with configuration: Configuration = .background) {
         let session = activeSession(for: configuration)
         session.upload(request: request.urlRequest, file: request.resourceUrl, progress: progress(for: request), success: success(for: request), failure: failure(for: request))
     }
@@ -75,9 +75,9 @@ extension RequestService {
 
      - Parameters:
        - request: An HttpUploadRequest object provides request-specific information such as the URL, HTTP method or URL of the place on disc for downloading file.
-       - configuration: RequestServiceConfiguration indicates download request configuration.
+       - configuration: RequestService.Configuration indicates download request configuration.
      */
-    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: RequestServiceConfiguration = .background) {
+    func sendHTTPRequest(_ request: HttpDownloadRequest, with configuration: Configuration = .background) {
         let session = activeSession(for: configuration)
         session.download(request: request.urlRequest, progress: progress(for: request), success: success(forDownload: request), failure: failure(for: request))
     }
