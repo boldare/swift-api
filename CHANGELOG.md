@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.4.0](https://github.com/xsolve-pl/swift-api/tree/1.4.0) (2018-06-05)
+- Updated `RestService` url managing to allow parameters in paths.
+
 ## [v1.3.0](https://github.com/xsolve-pl/swift-api/tree/1.3.0) (2018-04-27)
 - Added predefined api headers.
 - Migrated to swift 4.1

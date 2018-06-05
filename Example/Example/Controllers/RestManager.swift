@@ -47,14 +47,22 @@ struct RequestData: Codable {
 }
 
 fileprivate enum Path: String, ResourcePath {
-    case get
-    case post
-    case patch
-    case put
-    case delete
 
-    case largeFileToDownload = "wikipedia/commons/3/3f/Fronalpstock_big.jpg"
-    case smallFileToDownload = "wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg"
+    fileprivate struct Get: ResourcePath {
+        let rawValue: String
+
+        init(someValue: String) {
+            rawValue = "/get".appending("?someParameter=\(someValue)")
+        }
+    }
+
+    case post = "/post"
+    case patch = "/patch"
+    case put = "/put"
+    case delete = "/delete"
+
+    case largeFileToDownload = "/wikipedia/commons/3/3f/Fronalpstock_big.jpg"
+    case smallFileToDownload = "/wikipedia/commons/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg"
 }
 
 ///Completion type for data requests.
@@ -69,14 +77,14 @@ struct RestManager {
     fileprivate let restService: RestService
 
     init(forFileDownload: Bool) {
-        let rootURL: URL
+        let rootURL: String
         let apiPath = ""
         let headers: [ApiHeader]?
         if forFileDownload {
-            rootURL = URL(string: "https://upload.wikimedia.org/")!
+            rootURL = "https://upload.wikimedia.org"
             headers = nil
         } else {
-            rootURL = URL(string: "https://httpbin.org")!
+            rootURL = "https://httpbin.org"
             headers = [ApiHeader(name: "User-Agent", value: "SwiftApiExample")]
         }
         self.restService = RestService(baseUrl: rootURL, apiPath: apiPath, headerFields: headers)
@@ -95,27 +103,49 @@ struct RestManager {
     //MARK: Data requests
     ///Performs GET request.
     func getResource(_ completion: @escaping RestManagerCompletionHandler) {
-        restService.get(type: ResponseData.self, from: Path.get, with: authHeader, completion: completionHandler(for: completion))
+        do {
+            let path = Path.Get(someValue: "someParameterValue")
+            try restService.get(type: ResponseData.self, from: path, with: authHeader, completion: completionHandler(for: completion))
+        } catch {
+            completion(nil, error.localizedDescription)
+        }
+
     }
 
     ///Performs POST request.
     func postResource(_ completion: @escaping RestManagerCompletionHandler) {
-        restService.post(exampleData, at: Path.post, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        do {
+            try restService.post(exampleData, at: Path.post, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        } catch {
+            completion(nil, error.localizedDescription)
+        }
     }
 
     ///Performs PUT request.
     func putResource(_ completion: @escaping RestManagerCompletionHandler) {
-        restService.put(exampleData, at: Path.put, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        do {
+            try restService.put(exampleData, at: Path.put, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        } catch {
+            completion(nil, error.localizedDescription)
+        }
     }
 
     ///Performs PATCH request.
     func patchResource(_ completion: @escaping RestManagerCompletionHandler) {
-        restService.patch(exampleData, at: Path.patch, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        do {
+            try restService.patch(exampleData, at: Path.patch, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        } catch {
+            completion(nil, error.localizedDescription)
+        }
     }
 
     ///Performs DELETE request.
     func deleteResource(_ completion: @escaping RestManagerCompletionHandler) {
-        restService.delete(exampleData, at: Path.delete, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        do {
+            try restService.delete(exampleData, at: Path.delete, aditionalHeaders: authHeader, responseType: ResponseData.self, completion: completionHandler(for: completion))
+        } catch {
+            completion(nil, error.localizedDescription)
+        }
     }
 
     //MARK: Downloading files
@@ -124,7 +154,12 @@ struct RestManager {
         let path = fileToDownload(large: large)
         let location = downloadedFileURL(large: large)
         let completion = completionHandler(for: location, with: completion)
-        return restService.getFile(at: path, saveAt: location, inBackground: inBackground, completion: completion).progress
+        do {
+            return try restService.getFile(at: path, saveAt: location, inBackground: inBackground, completion: completion).progress
+        } catch {
+            completion(false, error)
+            return nil
+        }
     }
 
     //MARK: Uploading files
@@ -132,21 +167,36 @@ struct RestManager {
     func postFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let location = fileToUpload(large: large)
         let completion = completionHandler(for: location, with: completion)
-        return restService.postFile(from: location, at: Path.post, inBackground: inBackground, completion: completion).progress
+        do {
+            return try restService.postFile(from: location, at: Path.post, inBackground: inBackground, completion: completion).progress
+        } catch {
+            completion(false, error)
+            return nil
+        }
     }
 
     ///Sends file using PUT request.
     func putFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let location = fileToUpload(large: large)
         let completion = completionHandler(for: location, with: completion)
-        return restService.putFile(from: location, at: Path.put, inBackground: inBackground, completion: completion).progress
+        do {
+            return try restService.putFile(from: location, at: Path.put, inBackground: inBackground, completion: completion).progress
+        } catch {
+            completion(false, error)
+            return nil
+        }
     }
 
     ///Sends file using PATCH request.
     func patchFile(large: Bool, inBackground: Bool, completion: @escaping RestManagerFileCompletionHandler) -> Progress? {
         let location = fileToUpload(large: large)
         let completion = completionHandler(for: location, with: completion)
-        return restService.patchFile(from: location, at: Path.patch, inBackground: inBackground, completion: completion).progress
+        do {
+            return try restService.patchFile(from: location, at: Path.patch, inBackground: inBackground, completion: completion).progress
+        } catch {
+            completion(false, error)
+            return nil
+        }
     }
 }
 
