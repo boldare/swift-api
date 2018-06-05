@@ -30,12 +30,12 @@ enum ExamplePath: String, ResourcePath {
 
 class RestServiceTests: XCTestCase {
 
-    private var rootURL: URL {
-        return URL(string: "https://httpbin.org/")!
+    private var rootURL: String {
+        return "https://httpbin.org/"
     }
 
-    private var downloadRootURL: URL {
-        return URL(string: "https://upload.wikimedia.org/")!
+    private var downloadRootURL: String {
+        return "https://upload.wikimedia.org/"
     }
 
     private var uploadingFileURL: URL {
@@ -47,7 +47,7 @@ class RestServiceTests: XCTestCase {
     }
 
     private var exampleData: ExampleData {
-        return ExampleData(url: rootURL)
+        return ExampleData(url: URL(string: rootURL)!)
     }
 
     private var exampleHeaders: [ApiHeader] {
@@ -101,8 +101,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.get(type: type, from: path, completion: completion)
-
+        do {
+            try restService.get(type: type, from: path, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "GET request failed with error: \(responseError!.localizedDescription)")
@@ -119,8 +122,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.get(type: type, from: path, completion: completion)
-
+        do {
+            try restService.get(type: type, from: path, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNotNil(responseError, "GET request should fail")
@@ -137,11 +143,26 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.get(type: type, from: path, completion: completion)
-
+        do {
+            try restService.get(type: type, from: path, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNotNil(responseError, "GET request should fail")
+        }
+    }
+
+    func testUrlFailureGet() {
+        let service = RestService(baseUrl: "")
+        let type = ExampleData.self
+        let path = ExamplePath.none
+        do {
+            try service.get(type: type, from: path)
+            XCTFail("Request should throw an exception")
+        } catch {
+            XCTAssertEqual(error.localizedDescription, RestService.Error.url.localizedDescription)
         }
     }
 
@@ -155,8 +176,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.post(value, at: path, aditionalHeaders: exampleAuthHeader, useProgress: false, completion: completion)
-
+        do {
+            try restService.post(value, at: path, aditionalHeaders: exampleAuthHeader, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
@@ -173,8 +197,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.post(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.post(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
@@ -191,8 +218,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.put(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.put(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
@@ -209,8 +239,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.put(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.put(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
@@ -227,8 +260,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.patch(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.patch(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
@@ -245,8 +281,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.patch(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.patch(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
@@ -263,8 +302,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.delete(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.delete(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "DELETE request failed with error: \(responseError!.localizedDescription)")
@@ -281,8 +323,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        restService.delete(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
-
+        do {
+            try restService.delete(value, at: path, aditionalHeaders: exampleAuthHeader, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "DELETE request failed with error: \(responseError!.localizedDescription)")
@@ -300,8 +345,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = downloadRestService.getFile(at: path, saveAt: location, inBackground: false, useProgress: false, completion: completion)
-
+        do {
+            try _ = downloadRestService.getFile(at: path, saveAt: location, inBackground: false, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "GET request failed with error: \(responseError!.localizedDescription)")
@@ -318,8 +366,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = restService.getFile(at: path, saveAt: location, inBackground: false, useProgress: false, completion: completion)
-
+        do {
+            try _ = restService.getFile(at: path, saveAt: location, inBackground: false, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 60) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNotNil(responseError, "GET request should fail")
@@ -336,8 +387,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = restService.postFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
-
+        do {
+            try _ = restService.postFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
@@ -354,8 +408,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = restService.putFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
-
+        do {
+            try _ = restService.putFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
@@ -372,8 +429,11 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = restService.patchFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
-
+        do {
+            try _ = restService.patchFile(from: location, at: path, inBackground: false, useProgress: false, completion: completion)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
             XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
@@ -392,9 +452,13 @@ extension RestServiceTests {
             responseError = error
             responseExpectation.fulfill()
         }
-        _ = restService.putFile(from: location, at: path1, inBackground: false, useProgress: false)
-        _ = restService.patchFile(from: location, at: path2, inBackground: false, useProgress: false, completion: completion)
-        restService.get(type: ExampleData.self, from: path3)
+        do {
+            try _ = restService.putFile(from: location, at: path1, inBackground: false, useProgress: false)
+            try _ = restService.patchFile(from: location, at: path2, inBackground: false, useProgress: false, completion: completion)
+            try restService.get(type: ExampleData.self, from: path3)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
         restService.cancelAllRequests()
 
         waitForExpectations(timeout: 30) { error in

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		EA2A8F8F201B9FD8003721F0 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
+		EA54E3C620C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
+		EA54E3C720C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
+		EA54E3C820C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
+		EA54E3C920C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
 		EA695B8820209D1D004662B1 /* ResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8720209D1D004662B1 /* ResourcePath.swift */; };
 		EA695B8B2020B48A004662B1 /* DefaultCoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8A2020B48A004662B1 /* DefaultCoderProvider.swift */; };
 		EA695B8C2020B48A004662B1 /* DefaultCoderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B8A2020B48A004662B1 /* DefaultCoderProvider.swift */; };
@@ -219,6 +223,7 @@
 		9E7D820679C817FD6EF3F97F /* Pods-SwiftAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftAPI/Pods-SwiftAPI.release.xcconfig"; sourceTree = "<group>"; };
 		EA01F3FE1F0E511E001EC5B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Unit/Info.plist; sourceTree = SOURCE_ROOT; };
 		EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodable.swift; sourceTree = "<group>"; };
+		EA54E3C520C535CF0096D989 /* RestServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceError.swift; sourceTree = "<group>"; };
 		EA695B8720209D1D004662B1 /* ResourcePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePath.swift; sourceTree = "<group>"; };
 		EA695B8A2020B48A004662B1 /* DefaultCoderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCoderProvider.swift; sourceTree = "<group>"; };
 		EA695B9120211B04004662B1 /* FailableDecodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodableTests.swift; sourceTree = "<group>"; };
@@ -578,6 +583,7 @@
 			children = (
 				EA8A7F2E1FB18ACB00088163 /* RestService.swift */,
 				EA8A7F2D1FB18ACB00088163 /* RestService+BackgroundEvents.swift */,
+				EA54E3C520C535CF0096D989 /* RestServiceError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1149,6 +1155,7 @@
 				EA8A7F9B1FB18ACB00088163 /* ResponseAction.swift in Sources */,
 				EA8A7F8B1FB18ACB00088163 /* HttpRequest.swift in Sources */,
 				EA8A7F471FB18ACB00088163 /* ApiResponseCompletionHandler.swift in Sources */,
+				EA54E3C820C535CF0096D989 /* RestServiceError.swift in Sources */,
 				EA8A7FCB1FB18ACB00088163 /* RestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1158,6 +1165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8A7F761FB18ACB00088163 /* DefaultFileManager.swift in Sources */,
+				EA54E3C720C535CF0096D989 /* RestServiceError.swift in Sources */,
 				EA8A7F7A1FB18ACB00088163 /* FileManager.swift in Sources */,
 				EA8A7F961FB18ACB00088163 /* HttpResponse.swift in Sources */,
 				EA8A7F8A1FB18ACB00088163 /* HttpRequest.swift in Sources */,
@@ -1203,6 +1211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8A7F781FB18ACB00088163 /* DefaultFileManager.swift in Sources */,
+				EA54E3C920C535CF0096D989 /* RestServiceError.swift in Sources */,
 				EA8A7F7C1FB18ACB00088163 /* FileManager.swift in Sources */,
 				EA8A7F981FB18ACB00088163 /* HttpResponse.swift in Sources */,
 				EA8A7F8C1FB18ACB00088163 /* HttpRequest.swift in Sources */,
@@ -1248,6 +1257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8A7F4D1FB18ACB00088163 /* ApiService+BackgroundEvents.swift in Sources */,
+				EA54E3C620C535CF0096D989 /* RestServiceError.swift in Sources */,
 				EA8A7F391FB18ACB00088163 /* ApiRequest.swift in Sources */,
 				EA8A7FB11FB18ACB00088163 /* RestResponseCompletion.swift in Sources */,
 				EA8A7F551FB18ACB00088163 /* ClientErrorStatusCodeType.swift in Sources */,

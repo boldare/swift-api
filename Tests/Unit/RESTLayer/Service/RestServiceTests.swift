@@ -12,7 +12,7 @@ import XCTest
 class RestServiceTests: XCTestCase {
 
     func testConstructor() {
-        let url = URL(string: "https://www.google.com")!
+        let url = "https://www.google.com"
         let path = "search"
         let service = RestService(baseUrl: url, apiPath: path, headerFields: nil, coderProvider: DefaultCoderProvider(), fileManager: DefaultFileManager())
 
