@@ -10,18 +10,11 @@ import Foundation
 
 extension RequestService {
 
-    typealias CachePolicy = NSURLRequest.CachePolicy
-
     ///Available session configurations using while sending requests.
-    struct Configuration {
+    final class Configuration {
 
         ///*URLSessionConfiguration* object for current session.
         let urlSessionConfiguration: URLSessionConfiguration
-
-        ///Initializer without parameters is not allowed for this struct.
-        private init() {
-            self.urlSessionConfiguration = .default
-        }
 
         ///Initializing with configuration.
         private init(urlSessionConfiguration: URLSessionConfiguration) {
@@ -34,7 +27,7 @@ extension RequestService.Configuration {
 
     ///Indicates sending request only when app is running.
     static var foreground: RequestService.Configuration {
-        return RequestService.Configuration()
+        return RequestService.Configuration(urlSessionConfiguration: .default)
     }
 
     ///Indicates sending request only when app is running.
@@ -62,12 +55,6 @@ extension RequestService.Configuration {
 
 extension RequestService.Configuration {
 
-    ///A dictionary of additional headers to send with requests. The default value is an empty array.
-    var additionalHeaders: [AnyHashable : Any]? {
-        get { return urlSessionConfiguration.httpAdditionalHeaders }
-        set { urlSessionConfiguration.httpAdditionalHeaders = newValue }
-    }
-
     ///A Boolean value that determines whether connections should be made over a cellular network. The default value is true.
     var allowsCellularAccess: Bool {
         get { return urlSessionConfiguration.allowsCellularAccess }
@@ -93,7 +80,7 @@ extension RequestService.Configuration {
     }
 
     ///A predefined constant that determines when to return a response from the cache. The default value is *.useProtocolCachePolicy*.
-    var cachePolicy: RequestService.CachePolicy {
+    var cachePolicy: NSURLRequest.CachePolicy {
         get { return urlSessionConfiguration.requestCachePolicy }
         set { urlSessionConfiguration.requestCachePolicy = newValue }
     }

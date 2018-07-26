@@ -22,7 +22,7 @@ public class RestService {
     private let coder: CoderProvider
 
     ///Service for managing request with REST server.
-    internal let apiService: ApiService
+    let apiService: ApiService
 
     /**
      - Parameters:

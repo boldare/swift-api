@@ -25,7 +25,7 @@ public enum ApiMethod {
     case delete
 }
 
-internal extension ApiMethod {
+extension ApiMethod {
 
     ///Returns HttpMethod corresponding to current ApiMethod
     var httpMethod: HttpMethod {

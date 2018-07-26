@@ -40,17 +40,9 @@ class RequestServiceConfigurationTests: XCTestCase {
         XCTAssertEqual(sessionConfiguration, sessionConfig)
     }
 
-    func testAdditionalHeaders() {
-        let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
-        config.additionalHeaders = ["test" : "test"]
-
-        XCTAssertEqual(sessionConfiguration.httpAdditionalHeaders as? [String : String], config.additionalHeaders as? [String : String])
-    }
-
     func testAllowsCellularAccess() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.allowsCellularAccess = false
 
         XCTAssertEqual(sessionConfiguration.allowsCellularAccess, config.allowsCellularAccess)
@@ -58,7 +50,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testTimeoutForRequest() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.timeoutForRequest = 9999
 
         XCTAssertEqual(sessionConfiguration.timeoutIntervalForRequest, config.timeoutForRequest)
@@ -66,7 +58,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testTimeoutForResource() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.timeoutForResource = 7777
 
         XCTAssertEqual(sessionConfiguration.timeoutIntervalForResource, config.timeoutForResource)
@@ -74,7 +66,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testMaximumConnectionsPerHost() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.maximumConnectionsPerHost = 1234
 
         XCTAssertEqual(sessionConfiguration.httpMaximumConnectionsPerHost, config.maximumConnectionsPerHost)
@@ -82,7 +74,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testCachePolicy() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
         XCTAssertEqual(sessionConfiguration.requestCachePolicy, config.cachePolicy)
@@ -90,7 +82,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testShouldSetCookies() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.shouldSetCookies = false
 
         XCTAssertEqual(sessionConfiguration.httpShouldSetCookies, config.shouldSetCookies)
@@ -98,7 +90,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testCookieAcceptPolicy() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.cookieAcceptPolicy = .onlyFromMainDocumentDomain
 
         XCTAssertEqual(sessionConfiguration.httpCookieAcceptPolicy, config.cookieAcceptPolicy)
@@ -106,7 +98,7 @@ class RequestServiceConfigurationTests: XCTestCase {
 
     func testCookieStorage() {
         let sessionConfiguration = URLSessionConfiguration.default
-        var config = RequestService.Configuration.custom(with: sessionConfiguration)
+        let config = RequestService.Configuration.custom(with: sessionConfiguration)
         config.cookieStorage = HTTPCookieStorage.shared
 
         XCTAssertEqual(sessionConfiguration.httpCookieStorage, config.cookieStorage)
