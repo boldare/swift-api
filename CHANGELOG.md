@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.5.0](https://github.com/xsolve-pl/swift-api/tree/1.4.0) (2018-07-26)
+- Improved `ApiService.Configuration` to be able to change most common settings.
+
 ## [v1.4.0](https://github.com/xsolve-pl/swift-api/tree/1.4.0) (2018-06-05)
 - Updated `RestService` url managing to allow parameters in paths.
 

@@ -187,6 +187,11 @@
 		EA9F374F20219180008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
 		EA9F375020219180008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
 		EA9F375120219181008DEFF3 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */; };
+		EAB1479720C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */; };
+		EAB1479820C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */; };
+		EAB1479920C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */; };
+		EAB1479A20C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */; };
+		EAB1479C20C7146C009E1358 /* ApiServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479B20C7146C009E1358 /* ApiServiceConfigurationTests.swift */; };
 		EABDA7B520513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
 		EABDA7B620513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
 		EABDA7B720513E950019DE47 /* HttpCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B420513E950019DE47 /* HttpCall.swift */; };
@@ -306,6 +311,8 @@
 		EAA0E2A91E5DC4AA00A7AA3A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EAA0E2AA1E5DC4AA00A7AA3A /* SwiftAPI-beta.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "SwiftAPI-beta.podspec"; sourceTree = "<group>"; };
 		EAA0E2AB1E5DC4AA00A7AA3A /* SwiftAPI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftAPI.podspec; sourceTree = "<group>"; };
+		EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceConfiguration.swift; sourceTree = "<group>"; };
+		EAB1479B20C7146C009E1358 /* ApiServiceConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceConfigurationTests.swift; sourceTree = "<group>"; };
 		EABDA7B420513E950019DE47 /* HttpCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpCall.swift; sourceTree = "<group>"; };
 		EABDA7B920515B210019DE47 /* HttpCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpCallTests.swift; sourceTree = "<group>"; };
 		EAC18312201B6E5500767037 /* CoderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoderProvider.swift; sourceTree = "<group>"; };
@@ -478,6 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				EA8A7F031FB18ACB00088163 /* ApiMethod.swift */,
+				EAB1479620C70DF5009E1358 /* ApiServiceConfiguration.swift */,
 				EA8A7F051FB18ACB00088163 /* ApiService.swift */,
 				EA8A7F041FB18ACB00088163 /* ApiService+BackgroundEvents.swift */,
 			);
@@ -660,6 +668,7 @@
 			isa = PBXGroup;
 			children = (
 				EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */,
+				EAB1479B20C7146C009E1358 /* ApiServiceConfigurationTests.swift */,
 				EA93FE421E5EC4C700A82381 /* ApiServiceTests.swift */,
 			);
 			path = Service;
@@ -1086,6 +1095,7 @@
 				EA93FE9A1E5EC69B00A82381 /* RequestServiceTests.swift in Sources */,
 				EA93FE8E1E5EC66F00A82381 /* ApiErrorTests.swift in Sources */,
 				EA93FE961E5EC68C00A82381 /* HttpResponseTests.swift in Sources */,
+				EAB1479C20C7146C009E1358 /* ApiServiceConfigurationTests.swift in Sources */,
 				EA93FE861E5EC64C00A82381 /* InfoStatusCodeTypeTests.swift in Sources */,
 				EA93FE8D1E5EC66B00A82381 /* ApiHeaderTests.swift in Sources */,
 				EA93FE891E5EC65D00A82381 /* ClientErrorStatusCodeTypeTests.swift in Sources */,
@@ -1151,6 +1161,7 @@
 				EA8A7F3B1FB18ACB00088163 /* ApiRequest.swift in Sources */,
 				EA8A7F771FB18ACB00088163 /* DefaultFileManager.swift in Sources */,
 				EA8A7F671FB18ACB00088163 /* StatusCode.swift in Sources */,
+				EAB1479920C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */,
 				EA8A7F6B1FB18ACB00088163 /* StatusCodeType.swift in Sources */,
 				EA8A7F9B1FB18ACB00088163 /* ResponseAction.swift in Sources */,
 				EA8A7F8B1FB18ACB00088163 /* HttpRequest.swift in Sources */,
@@ -1175,6 +1186,7 @@
 				EA8A7FCA1FB18ACB00088163 /* RestService.swift in Sources */,
 				EA8A7F721FB18ACB00088163 /* UnknownStatusCodeType.swift in Sources */,
 				EA8A7FC61FB18ACB00088163 /* RestService+BackgroundEvents.swift in Sources */,
+				EAB1479820C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */,
 				EA9F374F20219180008DEFF3 /* FailableDecodable.swift in Sources */,
 				EA8A7F7E1FB18ACB00088163 /* HttpDataRequest.swift in Sources */,
 				EA8A7FA21FB18ACB00088163 /* RequestService+BackgroundEvents.swift in Sources */,
@@ -1221,6 +1233,7 @@
 				EA8A7FCC1FB18ACB00088163 /* RestService.swift in Sources */,
 				EA8A7F741FB18ACB00088163 /* UnknownStatusCodeType.swift in Sources */,
 				EA8A7FC81FB18ACB00088163 /* RestService+BackgroundEvents.swift in Sources */,
+				EAB1479A20C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */,
 				EA9F375120219181008DEFF3 /* FailableDecodable.swift in Sources */,
 				EA8A7F801FB18ACB00088163 /* HttpDataRequest.swift in Sources */,
 				EA8A7FA41FB18ACB00088163 /* RequestService+BackgroundEvents.swift in Sources */,
@@ -1267,6 +1280,7 @@
 				EAC18313201B6E5500767037 /* CoderProvider.swift in Sources */,
 				EA8A7F751FB18ACB00088163 /* DefaultFileManager.swift in Sources */,
 				EA8A7F5D1FB18ACB00088163 /* RedirectionStatusCodeType.swift in Sources */,
+				EAB1479720C70DF5009E1358 /* ApiServiceConfiguration.swift in Sources */,
 				EA8A7FC91FB18ACB00088163 /* RestService.swift in Sources */,
 				EA8A7F451FB18ACB00088163 /* ApiResponseCompletionHandler.swift in Sources */,
 				EA8A7F791FB18ACB00088163 /* FileManager.swift in Sources */,

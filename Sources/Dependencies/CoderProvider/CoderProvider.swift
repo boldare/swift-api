@@ -17,7 +17,7 @@ public protocol CoderProvider {
     var encoder: JSONEncoder { get }
 }
 
-internal extension CoderProvider {
+extension CoderProvider {
 
     ///Decodes given `type` from given `data`.
     func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {

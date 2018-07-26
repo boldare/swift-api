@@ -13,7 +13,7 @@ final class SessionService: NSObject {
     private var session: URLSession!
     private var activeCalls = [URLSessionTask: HttpCall]()
 
-    init(configuration: RequestServiceConfiguration) {
+    init(configuration: RequestService.Configuration) {
         super.init()
         self.session = URLSession(configuration: configuration.urlSessionConfiguration, delegate: self, delegateQueue: nil)
     }
