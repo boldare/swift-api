@@ -2,7 +2,10 @@
 
 ## Upcoming
 
-## [v1.5.0](https://github.com/xsolve-pl/swift-api/tree/1.4.0) (2018-07-26)
+## [v1.6.0](https://github.com/xsolve-pl/swift-api/tree/1.6.0) (2018-10-02)
+- Improved `RestResponseCompletionHandler`'s to return more detailed information about response.
+
+## [v1.5.0](https://github.com/xsolve-pl/swift-api/tree/1.5.0) (2018-07-26)
 - Improved `ApiService.Configuration` to be able to change most common settings.
 
 ## [v1.4.0](https://github.com/xsolve-pl/swift-api/tree/1.4.0) (2018-06-05)

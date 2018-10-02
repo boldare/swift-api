@@ -12,12 +12,16 @@ public struct UnknownStatusCodeType: StatusCodeType {
 
     let value: Int
 
-    var description: String {
-        return "Application internal error"
-    }
+    let description: String
 
     init(_ value: Int) {
         self.value = value
+        self.description = "Application internal error"
+    }
+
+    init(_ error: Error) {
+        value = (error as NSError).code
+        description = error.localizedDescription
     }
 }
 

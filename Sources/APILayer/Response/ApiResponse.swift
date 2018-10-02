@@ -64,10 +64,7 @@ public struct ApiResponse {
             return
         }
         do {
-            guard let jsonObject = try JSONSerialization.jsonObject(with: body) as? [String: Any] else {
-                print("Body could not be read as dictionary.")
-                return
-            }
+            let jsonObject = try JSONSerialization.jsonObject(with: body)
             print(NSString(data: try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) ?? "Body could not be serialized!")
         } catch {
             print(error.localizedDescription)
