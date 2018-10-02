@@ -28,11 +28,11 @@ public class RestService {
      - Parameters:
        - baseUrl: Base URL string of API server.
        - apiPath: Path of API on server.
-       - headerFields: Array of HTTP header fields which will be added to all requests.
+       - headerFields: Array of HTTP header fields which will be added to all requests, By default ContentType.json is set.
        - coderProvider: Object providing *JSONCoder* and *JSONDecoder*.
        - fileManager: Object of class implementing *FileManager* Protocol.
      */
-    public init(baseUrl: String, apiPath: String? = nil, headerFields: [ApiHeader]? = nil, coderProvider: CoderProvider = DefaultCoderProvider(), fileManager: FileManager = DefaultFileManager()) {
+    public init(baseUrl: String, apiPath: String? = nil, headerFields: [ApiHeader]? = [ApiHeader.ContentType.json], coderProvider: CoderProvider = DefaultCoderProvider(), fileManager: FileManager = DefaultFileManager()) {
         self.baseUrl = baseUrl
         self.apiPath = apiPath
         self.headerFields = headerFields
@@ -337,18 +337,19 @@ private extension RestService {
         }
         return { (response, error) in
             guard let response = response, error == nil else {
-                completion(nil, error)
+                completion(nil, RestResponseDetails(error))
                 return
             }
+            let details = RestResponseDetails(response)
             guard let body = response.body else {
-                completion(nil, ApiError.error(for: response.statusCode))
+                completion(nil, details)
                 return
             }
             do {
                 let decodedData = try coder.decode(type, from: body)
-                completion(decodedData, nil)
+                completion(decodedData, details)
             } catch {
-                completion(nil, error)
+                completion(nil, RestResponseDetails(error))
             }
         }
     }
@@ -360,14 +361,10 @@ private extension RestService {
         }
         return { (response, error) in
             guard let response = response, error == nil else {
-                completion(false, error)
+                completion(false, RestResponseDetails(error))
                 return
             }
-            guard response.statusCode.isSuccess else {
-                completion(false, ApiError.error(for: response.statusCode))
-                return
-            }
-            completion(true, nil)
+            completion(response.statusCode.isSuccess, RestResponseDetails(response))
         }
     }
 }

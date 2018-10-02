@@ -14,7 +14,7 @@ import Foundation
    - data: Decoded data returned from server if there were any.
    - error: Error which occurred while processing request or decoding response if there was any.
  */
-public typealias RestResponseCompletionHandler<ResponseType: Decodable> = (_ data: ResponseType?, _ error: Error?) -> ()
+public typealias RestResponseCompletionHandler<ResponseType: Decodable> = (_ data: ResponseType?, _ details: RestResponseDetails) -> ()
 
 /**
  Closure called when api request is finished.
@@ -22,4 +22,4 @@ public typealias RestResponseCompletionHandler<ResponseType: Decodable> = (_ dat
    - success: Flag indicates if request finished with success.
    - error: Error which occurred while processing request if there was any.
  */
-public typealias RestSimpleResponseCompletionHandler = (_ success: Bool, _ error: Error?) -> ()
+public typealias RestSimpleResponseCompletionHandler = (_ success: Bool, _ details: RestResponseDetails) -> ()
