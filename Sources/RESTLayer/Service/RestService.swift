@@ -28,7 +28,7 @@ public class RestService {
      - Parameters:
        - baseUrl: Base URL string of API server.
        - apiPath: Path of API on server.
-       - headerFields: Array of HTTP header fields which will be added to all requests, By default ContentType.json is set.
+       - headerFields: Array of HTTP header fields which will be added to all requests. By default ContentType.json is set.
        - coderProvider: Object providing *JSONCoder* and *JSONDecoder*.
        - fileManager: Object of class implementing *FileManager* Protocol.
      */
