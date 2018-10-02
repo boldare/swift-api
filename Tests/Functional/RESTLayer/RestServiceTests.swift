@@ -58,12 +58,12 @@ class RestServiceTests: XCTestCase {
         return [ApiHeader.Authorization.basic(login: "admin", password: "admin1")!]
     }
 
-    private func log(_ error: Error?, for path: ResourcePath, and resource: Codable? = nil) {
+    private func log(_ details: RestResponseDetails, for path: ResourcePath, and resource: Codable? = nil) {
         var message = "Request for resource \(path.rawValue)"
-        if let error = error {
-            message.append(" failed with error: \(error.localizedDescription).")
-        } else {
+        if details.statusCode.isSuccess {
             message.append(" succeeded.")
+        } else {
+            message.append(" failed with error: \(details.statusCode.description).")
         }
         print("--------------------")
         print(message)
@@ -95,10 +95,10 @@ extension RestServiceTests {
         let type = ExampleData.self
         let path = ExamplePath.get
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -108,7 +108,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "GET request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "GET request failed with error")
         }
     }
 
@@ -116,10 +116,10 @@ extension RestServiceTests {
         let type = ExampleFailData.self
         let path = ExamplePath.get
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleFailData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = false
+        let completion = { [weak self] (data: ExampleFailData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -129,7 +129,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNotNil(responseError, "GET request should fail")
+            XCTAssertTrue(responseFailed, "GET request should fail")
         }
     }
 
@@ -137,10 +137,10 @@ extension RestServiceTests {
         let type = ExampleData.self
         let path = ExamplePath.notFound
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -150,7 +150,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNotNil(responseError, "GET request should fail")
+            XCTAssertTrue(responseFailed, "GET request should fail")
         }
     }
 
@@ -170,10 +170,10 @@ extension RestServiceTests {
         let value: ExampleData? = nil
         let path = ExamplePath.post
         let responseExpectation = expectation(description: "Expect POST response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -183,7 +183,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "POST request failed with error")
         }
     }
 
@@ -191,10 +191,10 @@ extension RestServiceTests {
         let value = exampleData
         let path = ExamplePath.post
         let responseExpectation = expectation(description: "Expect POST response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -204,7 +204,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "POST request failed with error")
         }
     }
 
@@ -212,10 +212,10 @@ extension RestServiceTests {
         let value: ExampleData? = nil
         let path = ExamplePath.put
         let responseExpectation = expectation(description: "Expect PUT response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -225,7 +225,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PUT request failed with error")
         }
     }
 
@@ -233,10 +233,10 @@ extension RestServiceTests {
         let value = exampleData
         let path = ExamplePath.put
         let responseExpectation = expectation(description: "Expect PUT response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -246,7 +246,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PUT request failed with error")
         }
     }
 
@@ -254,10 +254,10 @@ extension RestServiceTests {
         let value: ExampleData? = nil
         let path = ExamplePath.patch
         let responseExpectation = expectation(description: "Expect PATCH response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -267,7 +267,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PATCH request failed with error")
         }
     }
 
@@ -275,10 +275,10 @@ extension RestServiceTests {
         let value = exampleData
         let path = ExamplePath.patch
         let responseExpectation = expectation(description: "Expect PATCH response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -288,7 +288,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PATCH request failed with error")
         }
     }
 
@@ -296,10 +296,10 @@ extension RestServiceTests {
         let value: ExampleData? = nil
         let path = ExamplePath.delete
         let responseExpectation = expectation(description: "Expect DELETE response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -309,7 +309,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "DELETE request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "DELETE request failed with error")
         }
     }
 
@@ -317,10 +317,10 @@ extension RestServiceTests {
         let value = exampleData
         let path = ExamplePath.delete
         let responseExpectation = expectation(description: "Expect DELETE response")
-        var responseError: Error?
-        let completion = { [weak self] (data: ExampleData?, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (data: ExampleData?, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -330,7 +330,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "DELETE request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "DELETE request failed with error")
         }
     }
 
@@ -339,10 +339,10 @@ extension RestServiceTests {
         let path = ExamplePath.fileToDownload
         let location = downloadedFileURL
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -352,7 +352,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "GET request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "GET request failed with error")
         }
     }
 
@@ -360,10 +360,10 @@ extension RestServiceTests {
         let path = ExamplePath.fileToDownload
         let location = downloadedFileURL
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -373,7 +373,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 60) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNotNil(responseError, "GET request should fail")
+            XCTAssertTrue(responseFailed, "GET request should fail")
         }
     }
 
@@ -381,10 +381,10 @@ extension RestServiceTests {
         let path = ExamplePath.post
         let location = uploadingFileURL
         let responseExpectation = expectation(description: "Expect POST response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -394,7 +394,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "POST request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "POST request failed with error")
         }
     }
 
@@ -402,10 +402,10 @@ extension RestServiceTests {
         let path = ExamplePath.put
         let location = uploadingFileURL
         let responseExpectation = expectation(description: "Expect PUT response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -415,7 +415,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PUT request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PUT request failed with error")
         }
     }
 
@@ -423,10 +423,10 @@ extension RestServiceTests {
         let path = ExamplePath.patch
         let location = uploadingFileURL
         let responseExpectation = expectation(description: "Expect PATCH response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -436,7 +436,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 300) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertNil(responseError, "PATCH request failed with error: \(responseError!.localizedDescription)")
+            XCTAssertFalse(responseFailed, "PATCH request failed with error")
         }
     }
 
@@ -446,10 +446,10 @@ extension RestServiceTests {
         let path3 = ExamplePath.get
         let location = uploadingFileURL
         let responseExpectation = expectation(description: "Expect PATCH response")
-        var responseError: Error?
-        let completion = { [weak self] (success: Bool, error: Error?) in
-            self?.log(error, for: path2)
-            responseError = error
+        var responseFailed = true
+        let completion = { [weak self] (success: Bool, details: RestResponseDetails) in
+            self?.log(details, for: path2)
+            responseFailed = !details.statusCode.isSuccess
             responseExpectation.fulfill()
         }
         do {
@@ -463,7 +463,7 @@ extension RestServiceTests {
 
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertEqual(responseError?.localizedDescription, "cancelled", "Resposne should finnish with cancel error!")
+            XCTAssertTrue(responseFailed, "Request should fail")
         }
     }
 }
