@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA93FE2E1E5EC42A00A82381"
-               BuildableName = "UnitTests iOS.xctest"
-               BlueprintName = "UnitTests iOS"
+               BlueprintIdentifier = "EA3B4E2F2163A2D300BC730D"
+               BuildableName = "UnitTests OSX.xctest"
+               BlueprintName = "UnitTests OSX"
                ReferencedContainer = "container:SwiftAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA93FEA21E5EC87500A82381"
-               BuildableName = "FunctionalTests iOS.xctest"
-               BlueprintName = "FunctionalTests iOS"
+               BlueprintIdentifier = "EA3B4E1C2163A16E00BC730D"
+               BuildableName = "FunctionalTests OSX.xctest"
+               BlueprintName = "FunctionalTests OSX"
                ReferencedContainer = "container:SwiftAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
