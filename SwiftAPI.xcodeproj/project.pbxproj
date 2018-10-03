@@ -16,6 +16,39 @@
 		EA3B4E012163520500BC730D /* RestResponseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3B4DFF2163520500BC730D /* RestResponseHeader.swift */; };
 		EA3B4E022163520500BC730D /* RestResponseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3B4DFF2163520500BC730D /* RestResponseHeader.swift */; };
 		EA3B4E032163520500BC730D /* RestResponseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3B4DFF2163520500BC730D /* RestResponseHeader.swift */; };
+		EA3B4E202163A16E00BC730D /* DefaultFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9125761E5ED391006A2801 /* DefaultFileManagerTests.swift */; };
+		EA3B4E212163A16E00BC730D /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEAF1E5ECAB400A82381 /* ApiServiceTests.swift */; };
+		EA3B4E222163A16E00BC730D /* FailableDecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA695B9120211B04004662B1 /* FailableDecodableTests.swift */; };
+		EA3B4E232163A16E00BC730D /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEB21E5ECAB400A82381 /* RequestServiceTests.swift */; };
+		EA3B4E242163A16E00BC730D /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FEB51E5ECAB400A82381 /* RestServiceTests.swift */; };
+		EA3B4E262163A16E00BC730D /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
+		EA3B4E282163A16E00BC730D /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBC1E5ECAE200A82381 /* Resources.xcassets */; };
+		EA3B4E292163A16E00BC730D /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = EA93FEBD1E5ECAE200A82381 /* testImage.png */; };
+		EA3B4E332163A2D300BC730D /* ServerErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE471E5EC4C700A82381 /* ServerErrorStatusCodeTypeTests.swift */; };
+		EA3B4E342163A2D300BC730D /* HttpDownloadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE511E5EC4C700A82381 /* HttpDownloadRequestTests.swift */; };
+		EA3B4E352163A2D300BC730D /* SuccessStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE491E5EC4C700A82381 /* SuccessStatusCodeTypeTests.swift */; };
+		EA3B4E362163A2D300BC730D /* RedirectionStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE461E5EC4C700A82381 /* RedirectionStatusCodeTypeTests.swift */; };
+		EA3B4E372163A2D300BC730D /* RequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5B1E5EC4C700A82381 /* RequestServiceTests.swift */; };
+		EA3B4E382163A2D300BC730D /* ApiErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE3F1E5EC4C700A82381 /* ApiErrorTests.swift */; };
+		EA3B4E392163A2D300BC730D /* HttpResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE571E5EC4C700A82381 /* HttpResponseTests.swift */; };
+		EA3B4E3A2163A2D300BC730D /* ApiServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1479B20C7146C009E1358 /* ApiServiceConfigurationTests.swift */; };
+		EA3B4E3B2163A2D300BC730D /* InfoStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE451E5EC4C700A82381 /* InfoStatusCodeTypeTests.swift */; };
+		EA3B4E3C2163A2D300BC730D /* ApiHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE3D1E5EC4C700A82381 /* ApiHeaderTests.swift */; };
+		EA3B4E3D2163A2D300BC730D /* ClientErrorStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE441E5EC4C700A82381 /* ClientErrorStatusCodeTypeTests.swift */; };
+		EA3B4E3E2163A2D300BC730D /* ResponseActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE581E5EC4C700A82381 /* ResponseActionTests.swift */; };
+		EA3B4E3F2163A2D300BC730D /* StatusCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE481E5EC4C700A82381 /* StatusCodeTests.swift */; };
+		EA3B4E402163A2D300BC730D /* HttpCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDA7B920515B210019DE47 /* HttpCallTests.swift */; };
+		EA3B4E412163A2D300BC730D /* HttpUploadRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE541E5EC4C700A82381 /* HttpUploadRequestTests.swift */; };
+		EA3B4E422163A2D300BC730D /* RequestServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE5A1E5EC4C700A82381 /* RequestServiceConfigurationTests.swift */; };
+		EA3B4E432163A2D300BC730D /* HttpDataRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE501E5EC4C700A82381 /* HttpDataRequestTests.swift */; };
+		EA3B4E442163A2D300BC730D /* ApiMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9C72B11F31A720005DC978 /* ApiMethodTests.swift */; };
+		EA3B4E452163A2D300BC730D /* HttpRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE531E5EC4C700A82381 /* HttpRequestTests.swift */; };
+		EA3B4E462163A2D300BC730D /* ApiResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE401E5EC4C700A82381 /* ApiResponseTests.swift */; };
+		EA3B4E472163A2D300BC730D /* HttpHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE521E5EC4C700A82381 /* HttpHeaderTests.swift */; };
+		EA3B4E482163A2D300BC730D /* UnknownStatusCodeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE4A1E5EC4C700A82381 /* UnknownStatusCodeTypeTests.swift */; };
+		EA3B4E492163A2D300BC730D /* RestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE621E5EC4C700A82381 /* RestServiceTests.swift */; };
+		EA3B4E4A2163A2D300BC730D /* ApiServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FE421E5EC4C700A82381 /* ApiServiceTests.swift */; };
+		EA3B4E4C2163A2D300BC730D /* SwiftAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */; };
 		EA54E3C620C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
 		EA54E3C720C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
 		EA54E3C820C535CF0096D989 /* RestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54E3C520C535CF0096D989 /* RestServiceError.swift */; };
@@ -212,6 +245,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		EA3B4E1E2163A16E00BC730D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA0658081E03EBF000B46CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA0E1B41E5D9B8900A7AA3A;
+			remoteInfo = "SwiftAPI iOS";
+		};
+		EA3B4E312163A2D300BC730D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA0658081E03EBF000B46CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA0E1B41E5D9B8900A7AA3A;
+			remoteInfo = "SwiftAPI iOS";
+		};
 		EA93FE351E5EC42A00A82381 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EA0658081E03EBF000B46CEA /* Project object */;
@@ -238,6 +285,8 @@
 		EA2A8F8E201B9FD8003721F0 /* FailableDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodable.swift; sourceTree = "<group>"; };
 		EA3B4DFA21634FC700BC730D /* RestResponseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestResponseDetails.swift; sourceTree = "<group>"; };
 		EA3B4DFF2163520500BC730D /* RestResponseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestResponseHeader.swift; sourceTree = "<group>"; };
+		EA3B4E2D2163A16E00BC730D /* FunctionalTests OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FunctionalTests OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA3B4E512163A2D300BC730D /* UnitTests OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA54E3C520C535CF0096D989 /* RestServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceError.swift; sourceTree = "<group>"; };
 		EA695B8720209D1D004662B1 /* ResourcePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePath.swift; sourceTree = "<group>"; };
 		EA695B8A2020B48A004662B1 /* DefaultCoderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCoderProvider.swift; sourceTree = "<group>"; };
@@ -330,6 +379,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EA3B4E252163A16E00BC730D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA3B4E262163A16E00BC730D /* SwiftAPI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA3B4E4B2163A2D300BC730D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA3B4E4C2163A2D300BC730D /* SwiftAPI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA93FE2C1E5EC42A00A82381 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -418,6 +483,8 @@
 				EAA0E1B51E5D9B8900A7AA3A /* SwiftAPI.framework */,
 				EA93FE2F1E5EC42A00A82381 /* UnitTests iOS.xctest */,
 				EA93FEA31E5EC87500A82381 /* FunctionalTests iOS.xctest */,
+				EA3B4E2D2163A16E00BC730D /* FunctionalTests OSX.xctest */,
+				EA3B4E512163A2D300BC730D /* UnitTests OSX.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -873,6 +940,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		EA3B4E1C2163A16E00BC730D /* FunctionalTests OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA3B4E2A2163A16E00BC730D /* Build configuration list for PBXNativeTarget "FunctionalTests OSX" */;
+			buildPhases = (
+				EA3B4E1F2163A16E00BC730D /* Sources */,
+				EA3B4E252163A16E00BC730D /* Frameworks */,
+				EA3B4E272163A16E00BC730D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA3B4E1D2163A16E00BC730D /* PBXTargetDependency */,
+			);
+			name = "FunctionalTests OSX";
+			productName = "FunctionalTests iOS";
+			productReference = EA3B4E2D2163A16E00BC730D /* FunctionalTests OSX.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA3B4E2F2163A2D300BC730D /* UnitTests OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA3B4E4E2163A2D300BC730D /* Build configuration list for PBXNativeTarget "UnitTests OSX" */;
+			buildPhases = (
+				EA3B4E322163A2D300BC730D /* Sources */,
+				EA3B4E4B2163A2D300BC730D /* Frameworks */,
+				EA3B4E4D2163A2D300BC730D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA3B4E302163A2D300BC730D /* PBXTargetDependency */,
+			);
+			name = "UnitTests OSX";
+			productName = "UnitTests iOS";
+			productReference = EA3B4E512163A2D300BC730D /* UnitTests OSX.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EA93FE2E1E5EC42A00A82381 /* UnitTests iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA93FE371E5EC42A00A82381 /* Build configuration list for PBXNativeTarget "UnitTests iOS" */;
@@ -991,6 +1094,12 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = XSolve;
 				TargetAttributes = {
+					EA3B4E1C2163A16E00BC730D = {
+						DevelopmentTeam = MHNNR8L946;
+					};
+					EA3B4E2F2163A2D300BC730D = {
+						DevelopmentTeam = MHNNR8L946;
+					};
 					EA93FE2E1E5EC42A00A82381 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = MHNNR8L946;
@@ -1043,12 +1152,30 @@
 				EAA0E18D1E5D9A7400A7AA3A /* SwiftAPI macOS */,
 				EAA0E1A71E5D9B6B00A7AA3A /* SwiftAPI watchOS */,
 				EA93FE2E1E5EC42A00A82381 /* UnitTests iOS */,
+				EA3B4E2F2163A2D300BC730D /* UnitTests OSX */,
 				EA93FEA21E5EC87500A82381 /* FunctionalTests iOS */,
+				EA3B4E1C2163A16E00BC730D /* FunctionalTests OSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EA3B4E272163A16E00BC730D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA3B4E282163A16E00BC730D /* Resources.xcassets in Resources */,
+				EA3B4E292163A16E00BC730D /* testImage.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA3B4E4D2163A2D300BC730D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA93FE2D1E5EC42A00A82381 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1096,6 +1223,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EA3B4E1F2163A16E00BC730D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA3B4E202163A16E00BC730D /* DefaultFileManagerTests.swift in Sources */,
+				EA3B4E212163A16E00BC730D /* ApiServiceTests.swift in Sources */,
+				EA3B4E222163A16E00BC730D /* FailableDecodableTests.swift in Sources */,
+				EA3B4E232163A16E00BC730D /* RequestServiceTests.swift in Sources */,
+				EA3B4E242163A16E00BC730D /* RestServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA3B4E322163A2D300BC730D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA3B4E332163A2D300BC730D /* ServerErrorStatusCodeTypeTests.swift in Sources */,
+				EA3B4E342163A2D300BC730D /* HttpDownloadRequestTests.swift in Sources */,
+				EA3B4E352163A2D300BC730D /* SuccessStatusCodeTypeTests.swift in Sources */,
+				EA3B4E362163A2D300BC730D /* RedirectionStatusCodeTypeTests.swift in Sources */,
+				EA3B4E372163A2D300BC730D /* RequestServiceTests.swift in Sources */,
+				EA3B4E382163A2D300BC730D /* ApiErrorTests.swift in Sources */,
+				EA3B4E392163A2D300BC730D /* HttpResponseTests.swift in Sources */,
+				EA3B4E3A2163A2D300BC730D /* ApiServiceConfigurationTests.swift in Sources */,
+				EA3B4E3B2163A2D300BC730D /* InfoStatusCodeTypeTests.swift in Sources */,
+				EA3B4E3C2163A2D300BC730D /* ApiHeaderTests.swift in Sources */,
+				EA3B4E3D2163A2D300BC730D /* ClientErrorStatusCodeTypeTests.swift in Sources */,
+				EA3B4E3E2163A2D300BC730D /* ResponseActionTests.swift in Sources */,
+				EA3B4E3F2163A2D300BC730D /* StatusCodeTests.swift in Sources */,
+				EA3B4E402163A2D300BC730D /* HttpCallTests.swift in Sources */,
+				EA3B4E412163A2D300BC730D /* HttpUploadRequestTests.swift in Sources */,
+				EA3B4E422163A2D300BC730D /* RequestServiceConfigurationTests.swift in Sources */,
+				EA3B4E432163A2D300BC730D /* HttpDataRequestTests.swift in Sources */,
+				EA3B4E442163A2D300BC730D /* ApiMethodTests.swift in Sources */,
+				EA3B4E452163A2D300BC730D /* HttpRequestTests.swift in Sources */,
+				EA3B4E462163A2D300BC730D /* ApiResponseTests.swift in Sources */,
+				EA3B4E472163A2D300BC730D /* HttpHeaderTests.swift in Sources */,
+				EA3B4E482163A2D300BC730D /* UnknownStatusCodeTypeTests.swift in Sources */,
+				EA3B4E492163A2D300BC730D /* RestServiceTests.swift in Sources */,
+				EA3B4E4A2163A2D300BC730D /* ApiServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA93FE2B1E5EC42A00A82381 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1335,6 +1505,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EA3B4E1D2163A16E00BC730D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA0E1B41E5D9B8900A7AA3A /* SwiftAPI iOS */;
+			targetProxy = EA3B4E1E2163A16E00BC730D /* PBXContainerItemProxy */;
+		};
+		EA3B4E302163A2D300BC730D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA0E1B41E5D9B8900A7AA3A /* SwiftAPI iOS */;
+			targetProxy = EA3B4E312163A2D300BC730D /* PBXContainerItemProxy */;
+		};
 		EA93FE361E5EC42A00A82381 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EAA0E1B41E5D9B8900A7AA3A /* SwiftAPI iOS */;
@@ -1462,6 +1642,64 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EA3B4E2B2163A16E00BC730D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MHNNR8L946;
+				INFOPLIST_FILE = Tests/Functional/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.xsolve.FunctionalTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		EA3B4E2C2163A16E00BC730D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MHNNR8L946;
+				INFOPLIST_FILE = Tests/Functional/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.xsolve.FunctionalTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		EA3B4E4F2163A2D300BC730D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MHNNR8L946;
+				INFOPLIST_FILE = Tests/Unit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.xsolve.UnitTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		EA3B4E502163A2D300BC730D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MHNNR8L946;
+				INFOPLIST_FILE = Tests/Unit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.xsolve.UnitTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1707,6 +1945,24 @@
 			buildConfigurations = (
 				EA0658231E03EBF000B46CEA /* Debug */,
 				EA0658241E03EBF000B46CEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA3B4E2A2163A16E00BC730D /* Build configuration list for PBXNativeTarget "FunctionalTests OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA3B4E2B2163A16E00BC730D /* Debug */,
+				EA3B4E2C2163A16E00BC730D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA3B4E4E2163A2D300BC730D /* Build configuration list for PBXNativeTarget "UnitTests OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA3B4E4F2163A2D300BC730D /* Debug */,
+				EA3B4E502163A2D300BC730D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
