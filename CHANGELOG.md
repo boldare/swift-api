@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+## [v1.6.1](https://github.com/xsolve-pl/swift-api/tree/1.6.1) (2018-10-03)
+- Fixed issues with merging rest service headers.
+- Introduced `Error` in `RestResponseDetails` for better internal error handling.
+
 ## [v1.6.0](https://github.com/xsolve-pl/swift-api/tree/1.6.0) (2018-10-02)
 - Improved `RestResponseCompletionHandler`'s to return more detailed information about response.
 

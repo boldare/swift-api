@@ -318,7 +318,12 @@ private extension RestService {
             return headerFields
         }
         var mergedHeders = headerFields
-        mergedHeders.append(contentsOf: headers)
+        for header in headers {
+            if let index = mergedHeders.firstIndex(where: { $0.name == header.name }) {
+                mergedHeders.remove(at: index)
+            }
+            mergedHeders.append(header)
+        }
         return mergedHeders
     }
 
@@ -340,7 +345,7 @@ private extension RestService {
                 completion(nil, RestResponseDetails(error))
                 return
             }
-            let details = RestResponseDetails(response)
+            var details = RestResponseDetails(response)
             guard let body = response.body else {
                 completion(nil, details)
                 return
@@ -349,7 +354,8 @@ private extension RestService {
                 let decodedData = try coder.decode(type, from: body)
                 completion(decodedData, details)
             } catch {
-                completion(nil, RestResponseDetails(error))
+                details.error = error
+                completion(nil, details)
             }
         }
     }
