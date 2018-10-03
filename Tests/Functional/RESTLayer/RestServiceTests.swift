@@ -116,10 +116,10 @@ extension RestServiceTests {
         let type = ExampleFailData.self
         let path = ExamplePath.get
         let responseExpectation = expectation(description: "Expect GET response")
-        var responseFailed = false
+        var responseError: Error? = nil
         let completion = { [weak self] (data: ExampleFailData?, details: RestResponseDetails) in
             self?.log(details, for: path)
-            responseFailed = !details.statusCode.isSuccess
+            responseError = details.error
             responseExpectation.fulfill()
         }
         do {
@@ -129,7 +129,7 @@ extension RestServiceTests {
         }
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, "Test failed with error: \(error!.localizedDescription)")
-            XCTAssertTrue(responseFailed, "GET request should fail")
+            XCTAssertNotNil(responseError, "GET request should fail")
         }
     }
 

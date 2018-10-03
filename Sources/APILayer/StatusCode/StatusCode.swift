@@ -85,15 +85,6 @@ extension StatusCode {
             self = .unknown(UnknownStatusCodeType(value))
         }
     }
-
-    /**
-     Creates suitable status code based on given error.
-
-     - Parameter error: Error object.
-     */
-    init(_ error: Error) {
-        self = .unknown(UnknownStatusCodeType(error))
-    }
 }
 
 extension StatusCode {

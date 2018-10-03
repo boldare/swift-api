@@ -10,6 +10,9 @@ import Foundation
 
 public struct RestResponseDetails {
 
+    ///Error object containing internal errors
+    public internal(set) var error: Error?
+
     ///The status code of the receiver.
     public let statusCode: StatusCode
 
@@ -20,16 +23,14 @@ public struct RestResponseDetails {
     public let responseHeaderFields: [RestResponseHeader]
 
     init(_ error: Error?) {
-        if let error = error {
-            statusCode = StatusCode(error)
-        } else {
-            statusCode = StatusCode.internalError
-        }
+        self.error = error
+        statusCode = StatusCode.internalError
         rawBody = nil
         responseHeaderFields = []
     }
 
     init(_ response: ApiResponse) {
+        error = nil
         statusCode = response.statusCode
         rawBody = response.body
         responseHeaderFields = response.allHeaderFields?.map({ RestResponseHeader(name: $0.0, value: $0.1) }) ?? []
