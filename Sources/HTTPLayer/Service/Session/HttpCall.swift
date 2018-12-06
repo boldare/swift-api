@@ -59,14 +59,14 @@ final class HttpCall {
 
     func performFailure(with error: Error?) {
         //Action should run on other thread to not block delegate.
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             self.failureBlock(error ?? self.unknownError)
         }
     }
 
     func performSuccess(with response: HttpResponse) {
         //Action should run on other thread to not block delegate.
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             self.successBlock(response)
         }
     }
