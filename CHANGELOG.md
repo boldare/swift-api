@@ -2,6 +2,9 @@
 
 ## Upcoming
 
+## [v1.6.2](https://github.com/xsolve-pl/swift-api/tree/1.6.2) (2018-12-06)
+- Increased priority of response actions queues.
+
 ## [v1.6.1](https://github.com/xsolve-pl/swift-api/tree/1.6.1) (2018-10-03)
 - Fixed issues with merging rest service headers.
 - Introduced `Error` in `RestResponseDetails` for better internal error handling.
