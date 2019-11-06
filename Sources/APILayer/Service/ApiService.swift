@@ -244,7 +244,6 @@ public extension ApiService {
      - Important: While using default file manager, if any file exists at *localUrl* it will be overridden by downloaded file.
      */
     func downloadFile(from remoteFileUrl: URL, to localUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, configuration: ApiService.Configuration = ApiService.Configuration.background, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
-        //        let configuration: Configuration = inBackground ? .background : .foreground
         return downloadFile(from: remoteFileUrl, to: localUrl, apiHeaders: aditionalHeaders, configuration: configuration, useProgress: useProgress, completion: completion)
     }
 }
