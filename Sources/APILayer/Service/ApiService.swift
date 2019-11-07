@@ -10,7 +10,7 @@ import Foundation
 
 final public class ApiService {
 
-    ///Service managing requests
+    /// Service managing requests
     let requestService: RequestService
 
     /**
@@ -20,7 +20,7 @@ final public class ApiService {
         self.requestService = RequestService(fileManager: fileManager)
     }
 
-    ///Cancels all currently running requests.
+    /// Cancels all currently running requests.
     public func cancelAllRequests() {
         requestService.cancelAllRequests()
     }
@@ -28,7 +28,7 @@ final public class ApiService {
 
 private extension ApiService {
 
-    ///Converts array of *ApiHeader* to array of *HttpHeader*
+    /// Converts array of *ApiHeader* to array of *HttpHeader*
     func httpHeaders(for apiHeaders: [ApiHeader]?) -> [HttpHeader]? {
         guard let apiHeaders = apiHeaders else {
             return nil
@@ -40,7 +40,7 @@ private extension ApiService {
         return headers
     }
 
-    ///Sends data request with given parameters
+    /// Sends data request with given parameters
     func sendRequest(url: URL, method: ApiMethod, body: Data?, apiHeaders: [ApiHeader]?, configuration: Configuration, useProgress: Bool, completion: ApiResponseCompletionHandler?) -> ApiRequest {
         let headers = httpHeaders(for: apiHeaders)
         let action = ResponseAction.completionActions(for: completion)
@@ -51,8 +51,8 @@ private extension ApiService {
         return ApiRequest(httpRequest: httpRequest, httpRequestService: requestService)
     }
 
-    ///Uploads file with given parameters
-    func uploadFile(at localFileUrl: URL, to destinationUrl: URL, method: ApiMethod, apiHeaders: [ApiHeader]?, configuration: Configuration, useProgress: Bool, completion: ApiResponseCompletionHandler?) -> ApiRequest  {
+    /// Uploads file with given parameters
+    func uploadFile(at localFileUrl: URL, to destinationUrl: URL, method: ApiMethod, apiHeaders: [ApiHeader]?, configuration: Configuration, useProgress: Bool, completion: ApiResponseCompletionHandler?) -> ApiRequest {
         let headers = httpHeaders(for: apiHeaders)
         let action = ResponseAction.completionActions(for: completion)
         let uploadRequest = HttpUploadRequest(url: destinationUrl, method: method.httpMethod, resourceUrl: localFileUrl, headers: headers, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
@@ -62,8 +62,8 @@ private extension ApiService {
         return ApiRequest(httpRequest: uploadRequest, httpRequestService: requestService)
     }
 
-    ///Downloads file with given parameters
-    func downloadFile(from remoteFileUrl: URL, to localUrl: URL, apiHeaders: [ApiHeader]?, configuration: Configuration, useProgress: Bool, completion: ApiResponseCompletionHandler?) -> ApiRequest  {
+    /// Downloads file with given parameters
+    func downloadFile(from remoteFileUrl: URL, to localUrl: URL, apiHeaders: [ApiHeader]?, configuration: Configuration, useProgress: Bool, completion: ApiResponseCompletionHandler?) -> ApiRequest {
         let headers = httpHeaders(for: apiHeaders)
         let action = ResponseAction.completionActions(for: completion)
         let downloadRequest = HttpDownloadRequest(url: remoteFileUrl, destinationUrl: localUrl, headers: headers, onSuccess: action.success, onFailure: action.failure, useProgress: useProgress)
@@ -74,18 +74,18 @@ private extension ApiService {
     }
 }
 
-///Manage simple HTTP requests
+/// Manage simple HTTP requests
 public extension ApiService {
 
     /**
      Sends HTTP GET request with given parameters.
 
      - Parameters:
-     - url: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - url: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - useProgress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -98,12 +98,12 @@ public extension ApiService {
      Sends HTTP POST request with given parameters.
 
      - Parameters:
-     - data: Data object which supposed to be send.
-     - url: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - data: Data object which supposed to be send.
+         - url: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - useProgress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -116,12 +116,12 @@ public extension ApiService {
      Sends HTTP PUT request with given parameters.
 
      - Parameters:
-     - data: Data object which supposed to be send.
-     - url: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - data: Data object which supposed to be send.
+         - url: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - useProgress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -134,12 +134,12 @@ public extension ApiService {
      Sends HTTP PATCH request with given parameters.
 
      - Parameters:
-     - data: Data object which supposed to be send.
-     - url: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - data: Data object which supposed to be send.
+         - url: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - useProgress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -152,12 +152,12 @@ public extension ApiService {
      Sends HTTP DELETE request with given parameters.
 
      - Parameters:
-     - data: Data object which supposed to be send.
-     - url: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - data: Data object which supposed to be send.
+         - url: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - useProgress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -167,19 +167,20 @@ public extension ApiService {
     }
 }
 
-///Manage uploading files
+/// Manage uploading files
 public extension ApiService {
 
     /**
      Uploads file using HTTP POST request.
 
      - Parameters:
-     - localFileUrl: URL on disc of the resource to upload.
-     - destinationUrl: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - inBackground: Flag indicates if uploading should be performed in background or foreground.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - localFileUrl: URL on disc of the resource to upload.
+         - destinationUrl: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - inBackground: Flag indicates if uploading should be performed in background or foreground.
+         - useProgress: Flag indicates if Progress object should be created.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -192,12 +193,13 @@ public extension ApiService {
      Uploads file using HTTP PUT request.
 
      - Parameters:
-     - localFileUrl: URL on disc of the resource to upload.
-     - destinationUrl: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - inBackground: Flag indicates if uploading should be performed in background or foreground.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - localFileUrl: URL on disc of the resource to upload.
+         - destinationUrl: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - inBackground: Flag indicates if uploading should be performed in background or foreground.
+         - useProgress: Flag indicates if Progress object should be created.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -210,12 +212,13 @@ public extension ApiService {
      Uploads file using HTTP PATCH request.
 
      - Parameters:
-     - localFileUrl: URL on disc of the resource to upload.
-     - destinationUrl: URL of the receiver.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - inBackground: Flag indicates if uploading should be performed in background or foreground.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - localFileUrl: URL on disc of the resource to upload.
+         - destinationUrl: URL of the receiver.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - inBackground: Flag indicates if uploading should be performed in background or foreground.
+         - useProgress: Flag indicates if Progress object should be created.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
@@ -225,19 +228,20 @@ public extension ApiService {
     }
 }
 
-///Manage downloading files
+/// Manage downloading files
 public extension ApiService {
 
     /**
      Downloads file using HTTP GET request.
 
      - Parameters:
-     - remoteFileUrl: URL of remote file to download.
-     - localUrl: URL on disc indicates where file should be saved.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - inBackground: Flag indicates if downloading should be performed in background or foreground.
-     - useProgress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - remoteFileUrl: URL of remote file to download.
+         - localUrl: URL on disc indicates where file should be saved.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - inBackground: Flag indicates if downloading should be performed in background or foreground.
+         - useProgress: Flag indicates if Progress object should be created.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
 
@@ -248,20 +252,21 @@ public extension ApiService {
     }
 }
 
-///Methods allowing extend service capabilities
+/// Methods allowing extend service capabilities
 public extension ApiService {
 
     /**
      Uploads file using HTTP request.
 
      - Parameters:
-     - localFileUrl: URL on disc of the resource to upload.
-     - destinationUrl: URL of the receiver.
-     - method: HTTP method which should be used.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: Custom or one of predefined *ApiService.Configuration* object.
-     - progress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - localFileUrl: URL on disc of the resource to upload.
+         - destinationUrl: URL of the receiver.
+         - method: HTTP method which should be used.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: Custom or one of predefined *ApiService.Configuration* object.
+         - progress: Flag indicates if Progress object should be created.
+         - configuration: One of predefined *ApiService.Configuration* object containing request configuration.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
 
@@ -275,12 +280,12 @@ public extension ApiService {
      Downloads file using HTTP GET request.
 
      - Parameters:
-     - remoteFileUrl: URL of remote file to download.
-     - localUrl: URL on disc indicates where file should be saved.
-     - aditionalHeaders: Array of all aditional HTTP header fields.
-     - configuration: Custom or one of predefined *ApiService.Configuration* object.
-     - progress: Flag indicates if Progress object should be created.
-     - completion: Closure called when request is finished.
+         - remoteFileUrl: URL of remote file to download.
+         - localUrl: URL on disc indicates where file should be saved.
+         - aditionalHeaders: Array of all aditional HTTP header fields.
+         - configuration: Custom or one of predefined *ApiService.Configuration* object.
+         - progress: Flag indicates if Progress object should be created.
+         - completion: Closure called when request is finished.
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
 
