@@ -8,7 +8,7 @@
 
 import Foundation
 
-final public class ApiService {
+public final class ApiService {
 
     /// Service managing requests
     let requestService: RequestService
@@ -184,8 +184,8 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func postFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, configuration: ApiService.Configuration = ApiService.Configuration.foreground, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
-        let configuration: Configuration = inBackground ? .background : .foreground
+    func postFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool? = nil, useProgress: Bool = true, configuration: ApiService.Configuration? = nil, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+        let configuration: Configuration = configurationSetting(when: inBackground, configuration: configuration)
         return uploadFile(at: localFileUrl, to: destinationUrl, method: .post, apiHeaders: aditionalHeaders, configuration: configuration, useProgress: useProgress, completion: completion)
     }
 
@@ -203,8 +203,8 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func putFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, configuration: ApiService.Configuration = ApiService.Configuration.foreground, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
-        let configuration: Configuration = inBackground ? .background : .foreground
+    func putFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool? = nil, useProgress: Bool = true, configuration: ApiService.Configuration? = nil, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+        let configuration: Configuration = configurationSetting(when: inBackground, configuration: configuration)
         return uploadFile(at: localFileUrl, to: destinationUrl, method: .put, apiHeaders: aditionalHeaders, configuration: configuration, useProgress: useProgress, completion: completion)
     }
 
@@ -222,8 +222,8 @@ public extension ApiService {
 
      - Returns: ApiRequest object which allows to follow progress and manage request.
      */
-    func patchFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool = true, useProgress: Bool = true, configuration: ApiService.Configuration = ApiService.Configuration.foreground, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
-        let configuration: Configuration = inBackground ? .background : .foreground
+    func patchFile(from localFileUrl: URL, to destinationUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, inBackground: Bool? = nil, useProgress: Bool = true, configuration: ApiService.Configuration? = nil, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
+        let configuration: Configuration = configurationSetting(when: inBackground, configuration: configuration)
         return uploadFile(at: localFileUrl, to: destinationUrl, method: .patch, apiHeaders: aditionalHeaders, configuration: configuration, useProgress: useProgress, completion: completion)
     }
 }
@@ -295,5 +295,16 @@ public extension ApiService {
      */
     func downloadFile(from remoteFileUrl: URL, to localUrl: URL, with aditionalHeaders: [ApiHeader]? = nil, configuration: Configuration = .background, progress: Bool = true, completion: ApiResponseCompletionHandler? = nil) -> ApiRequest {
         return downloadFile(from: remoteFileUrl, to: localUrl, apiHeaders: aditionalHeaders, configuration: configuration, useProgress: progress, completion: completion)
+    }
+}
+
+public extension ApiService {
+    /// Helper method to determine which parameter precedes
+    func configurationSetting(when inBackground: Bool? = nil, configuration: Configuration? = nil) -> Configuration {
+        guard configuration == nil else { return configuration! }
+        guard inBackground == nil else {
+            return inBackground! ? .background : .foreground
+        }
+        return .foreground
     }
 }
